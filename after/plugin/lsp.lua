@@ -32,7 +32,7 @@ local configs = require("lspconfig.configs")
 local vanalyzer_config = {
   default_config = {
     cmd = { 'v-analyzer' },
-    filetypes = {"v", "vlang", "v.mod"},
+    filetypes = { "v", "vlang", "v.mod" },
     root_dir = lspconfig.util.root_pattern('v.mod', '.git'),
   },
 }
@@ -81,24 +81,25 @@ lsp.setup_nvim_cmp({
   mapping = cmp_mappings,
   sources = {
     -- Copilot Source
-    { name = "copilot", group_index = 2 },
+    { name = "copilot",  group_index = 2 },
     -- Other Sources
     { name = "nvim_lsp", group_index = 2 },
     { name = "nvim_lua", group_index = 2 },
-    { name = "buffer", group_index = 2 },
-    { name = "path", group_index = 2 },
-    { name = "luasnip", group_index = 2 },
+    { name = "buffer",   group_index = 2 },
+    { name = "path",     group_index = 2 },
+    { name = "luasnip",  group_index = 2 },
   }
 })
 
 lsp.set_preferences({
   suggest_lsp_servers = false,
-  sign_icons = {
-    error = 'E',
-    warn = 'W',
-    hint = 'H',
-    info = 'I'
-  }
+})
+
+lsp.set_sign_icons({
+  error = '✘',
+  warn = '▲',
+  hint = '⚑',
+  info = '»'
 })
 
 lsp.on_attach(function(client, bufnr)
@@ -206,6 +207,3 @@ mason_lspconfig.setup_handlers {
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-
-
