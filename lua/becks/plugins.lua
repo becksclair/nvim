@@ -36,7 +36,7 @@ require('lazy').setup({
     'rose-pine/neovim',
     name = 'rose-pine',
     config = function()
-      vim.cmd('colorscheme rose-pine')
+      -- vim.cmd('colorscheme rose-pine')
     end
   },
 
@@ -51,9 +51,46 @@ require('lazy').setup({
     'cocopon/iceberg.vim',
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'iceberg'
+      -- vim.opt.background = 'light'
+      -- vim.cmd.colorscheme 'iceberg'
     end,
   },
+
+  {
+    'Mofiqul/vscode.nvim',
+    priority = 1000,
+    config = function()
+      -- vim.opt.background = 'light'
+      -- vim.cmd.colorscheme 'vscode'
+    end,
+  },
+
+  {
+      "askfiy/visual_studio_code",
+      priority = 100,
+      config = function()
+          -- vim.cmd([[colorscheme visual_studio_code]])
+      end,
+  },
+
+  -- V-Colors
+  {
+    dir = '~/projects/nvim-vcolors',
+    dev = true,
+    priority = 1000,
+    config = function()
+      vim.opt.background = 'light'
+    end,
+  },
+
+  {
+    'dim13/smyck.vim',
+    config = function()
+      -- vim.opt.background = 'light'
+      -- vim.cmd.colorscheme 'smyck'
+    end
+  },
+  { 'rebelot/kanagawa.nvim' },
 
   {
     'nvim-tree/nvim-tree.lua',
@@ -125,7 +162,12 @@ require('lazy').setup({
     branch = 'v2.x',
     dependencies = {
       -- LSP Support
-      { 'neovim/nvim-lspconfig' },             -- Required
+      {
+        'neovim/nvim-lspconfig',
+        config = function()
+          require('lspconfig').v_analyzer.setup { }
+        end
+      },             -- Required
       { 'williamboman/mason.nvim' },           -- Optional
       { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
@@ -163,7 +205,18 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+      {
+        'j-hui/fidget.nvim',
+        tag = 'legacy',
+        opts = {
+          text = {
+            spinner = 'dots_snake'
+          },
+          window = {
+            blend = 40
+          }
+        }
+      },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -197,8 +250,21 @@ require('lazy').setup({
       --   topdelete = { text = '‾' },
       --   changedelete = { text = '~' },
       -- },
+      -- current_line_blame = true,
       on_attach = function(bufnr)
         vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
+
+        vim.cmd [[
+          :highlight GitGutterAdd guibg=#1e2132 ctermbg=235
+          :highlight GitGutterChange guibg=#1e2132 ctermbg=235
+          :highlight GitGutterChangeDelete guibg=#1e2132 ctermbg=235
+          :highlight GitGutterDelete guibg=#1e2132 ctermbg=235
+          " :highlight SignColumn guibg=#1e2132 ctermbg=235
+          :highlight SignColumn guibg=none ctermbg=235
+          :highlight GitSignsAdd guibg=NONE ctermbg=235
+          :highlight GitSignsChange guibg=NONE ctermbg=235
+          :highlight GitSignsDelete guibg=NONE ctermbg=235
+        ]]
 
         -- don't override the built-in and fugitive keymaps
         local gs = package.loaded.gitsigns
@@ -253,20 +319,21 @@ require('lazy').setup({
             },
           },
           filetypes = {
-            lua = true,
-            javascript = true,
-            javascriptreact = true,
-            typescript = true,
-            typescriptreact = true,
-            yaml = true,
-            markdown = true,
-            help = false,
-            gitcommit = true,
-            gitrebase = true,
-            hgcommit = true,
-            svn = false,
-            cvs = false,
-            ["."] = false,
+            ['*'] = true
+            -- lua = true,
+            -- javascript = true,
+            -- javascriptreact = true,
+            -- typescript = true,
+            -- typescriptreact = true,
+            -- yaml = true,
+            -- markdown = true,
+            -- help = false,
+            -- gitcommit = true,
+            -- gitrebase = true,
+            -- hgcommit = true,
+            -- svn = false,
+            -- cvs = false,
+            -- ["."] = false,
           },
           copilot_node_command = 'node', -- Node.js version must be > 16.x
           server_opts_overrides = {},
@@ -344,11 +411,45 @@ require('lazy').setup({
   -- 'tpope/vim-rhubarb',
 
   -- vscode pictograms
-  -- { 'onsails/lspkind.nvim' },
+  { 'onsails/lspkind.nvim' },
 
+  -- Database
+  {
+    'kristijanhusak/vim-dadbod-ui',
+    dependencies = {
+      { 'tpope/vim-dadbod', lazy = true },
+      { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
+    },
+    cmd = {
+      'DBUI',
+      'DBUIToggle',
+      'DBUIAddConnection',
+      'DBUIFindBuffer',
+    },
+    init = function()
+      -- Your DBUI configuration
+      vim.g.db_ui_use_nerd_fonts = 1
+      vim.g.db_ui_win_position = 'right'
+      vim.g.db_ui_minwidth = 60
+    end,
+  },
+  {'mfussenegger/nvim-lint'},
 
+  {
+    "kdheepak/lazygit.nvim",
+    -- optional for floating window border decoration
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+      "nvim-lua/plenary.nvim",
+    },
+    config = function()
+        require("telescope").load_extension("lazygit")
+    end,
+  },
 
+  {'ThePrimeagen/git-worktree.nvim'},
 
+  {"b0o/schemastore.nvim"},
 
 
   -- NOTE: This is where your plugins related to LSP can be installed.
@@ -427,43 +528,13 @@ require('lazy').setup({
   --   end,
   -- },
 
-  -- {
-  --   -- Set lualine as statusline
-  --   'nvim-lualine/lualine.nvim',
-  --   -- See `:help lualine.txt`
-  --   opts = {
-  --     options = {
-  --       icons_enabled = true,
-  --       theme = 'auto',
-  --       section_separators = { left = '', right = '' },
-  --       component_separators = { left = '→', right = '←' },
-  --     },
-  --     sections = {
-  --       lualine_a = { 'mode' },
-  --       lualine_b = { 'branch', 'diff', 'diagnostics' },
-  --       lualine_c = { 'filename' },
-  --       lualine_x = { 'fileformat', 'filetype' },
-  --       lualine_y = { 'progress' },
-  --       lualine_z = { 'location' }
-  --     },
-  --     inactive_sections = {
-  --       lualine_a = {},
-  --       lualine_b = {},
-  --       lualine_c = { 'filename' },
-  --       lualine_x = { 'encoding', 'location' },
-  --       lualine_y = {},
-  --       lualine_z = {}
-  --     },
-  --     extensions = {
-  --       'quickfix',
-  --       'fugitive',
-  --       'symbols-outline',
-  --       'nvim-tree',
-  --       'toggleterm'
-  --     },
-  --   },
-  --   event = "VimEnter",
-  -- },
+  {
+    -- Set lualine as statusline
+    'nvim-lualine/lualine.nvim',
+    -- See `:help lualine.txt`
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true },
+    event = "VimEnter",
+  },
   -- {
   --   -- Add indentation guides even on blank lines
   --   'lukas-reineke/indent-blankline.nvim',
