@@ -6,9 +6,10 @@ vim.opt.fileencoding = 'utf-8'
 
 vim.o.title = true
 
+vim.opt_local.spell = true
+vim.opt_local.spelllang = "en_us"
 
-
-vim.opt.guicursor = ""
+-- vim.opt.guicursor = ""
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -27,14 +28,14 @@ vim.o.breakindent = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
--- Keep signcolumn on by default
+-- Keep sign column on by default
 vim.wo.signcolumn = 'yes'
 
 -- Decrease update time
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 
--- Set completeopt to have a better completion experience
+-- Set complete opt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
 -- NOTE: You should make sure your terminal supports this
@@ -64,10 +65,15 @@ vim.opt.colorcolumn = "80"
 --  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
 
-vim.o.gui_font_size = 20
-vim.o.gui_font_name = 'RecMonoDuotone Nerd Font'
-vim.o.guifont = 'RecMonoDuotone Nerd Font:h20'
+vim.o.guifont = 'RecMonoDuotone Nerd Font:h16'
 
-
+vim.filetype.add {
+  extension = {
+    v = 'vlang'
+  },
+  pattern = {
+    ["[jt]sconfig.*.json"] = "jsonc",
+  },
+}
 
 
