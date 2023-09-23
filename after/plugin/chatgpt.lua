@@ -131,6 +131,7 @@ require("chatgpt").setup({
     n = 1,
   },
   openai_edit_params = {
+    -- model = "gpt-4",
     model = "gpt-3.5-turbo-16k",
     temperature = 0,
     top_p = 1,
@@ -164,7 +165,22 @@ require("chatgpt").setup({
 local chatgpt = require("chatgpt")
 
 vim.keymap.set('n', '<F8>', chatgpt.openChat, { noremap = true, silent = true, desc = 'Open ChatGPT' })
-vim.keymap.set('n', '<F5>', chatgpt.edit_with_instructions, { noremap = true, silent = true, desc = 'Edit ChatGPT' })
-vim.keymap.set('v', '<F5>', chatgpt.edit_with_instructions, { noremap = true, silent = true, desc = 'Edit ChatGPT' })
-vim.keymap.set('n', '<M-c>', chatgpt.complete_code, { noremap = true, silent = true, desc = 'Complete with ChatGPT' })
-vim.keymap.set('v', '<M-c>', chatgpt.complete_code, { noremap = true, silent = true, desc = 'Complete with ChatGPT' })
+vim.keymap.set('n', '<F5>', chatgpt.edit_with_instructions, { noremap = true, silent = false, desc = 'Edit ChatGPT' })
+vim.keymap.set('v', '<F5>', chatgpt.edit_with_instructions, { noremap = true, silent = false, desc = 'Edit ChatGPT' })
+
+vim.keymap.set({'n', 'v'}, '<Leader>cc', chatgpt.complete_code, { noremap = true, silent = false, desc = 'Complete with ChatGPT' })
+-- vim.keymap.set('v', '<Leader>c', chatgpt.complete_code, { noremap = true, silent = true, desc = 'Complete with ChatGPT' })
+
+vim.keymap.set({'n'}, '<Leader>ce', '<cmd>ChatGPTRun explain_code<CR>', { noremap = true, silent = false, desc = 'Explain with ChatGPT' })
+vim.keymap.set('v', '<Leader>ce', '<cmd>ChatGPTRun explain_code<CR>', { noremap = true, silent = false, desc = 'Explain with ChatGPT' })
+
+vim.keymap.set({'n', 'v'}, '<Leader>co', '<cmd>ChatGPTRun optimize_code<CR>', { noremap = true, silent = false, desc = 'Optimize with ChatGPT' })
+vim.keymap.set({'v'}, '<Leader>co', '<cmd>ChatGPTRun optimize_code<CR>', { noremap = true, silent = false, desc = 'Optimize with ChatGPT' })
+
+vim.keymap.set({'n', 'v'}, '<Leader>cb', '<cmd>ChatGPTRun fix_bugs<CR>', { noremap = true, silent = false, desc = 'Fix bugs with ChatGPT' })
+vim.keymap.set('v', '<Leader>cb', '<cmd>ChatGPTRun fix_bugs<CR>', { noremap = true, silent = false, desc = 'Fix bugs with ChatGPT' })
+
+vim.keymap.set({'n', 'v'}, '<Leader>cr', '<cmd>ChatGPTRun code_readability_analysis<CR>', { noremap = true, silent = false, desc = 'Readability Analysis with ChatGPT' })
+vim.keymap.set('v', '<Leader>cr', '<cmd>ChatGPTRun code_readability_analysis<CR>', { noremap = true, silent = false, desc = 'Readability Analysis with ChatGPT' })
+
+
