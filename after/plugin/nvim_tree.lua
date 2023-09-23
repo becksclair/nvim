@@ -20,14 +20,31 @@ end
 -- pass to setup along with your other options
 require("nvim-tree").setup {
   sort_by = "case_sensitive",
+  hijack_cursor = true,
+  disable_netrw = true,
+  hijack_unnamed_buffer_when_opening = true,
+  reload_on_bufenter = false,
+  respect_buf_cwd = false,
   view = {
     width = 30,
   },
   renderer = {
     group_empty = true,
+    highlight_diagnostics = true,
   },
   filters = {
-    dotfiles = true,
+    dotfiles = false,
+  },
+  hijack_directories = {
+    auto_open = true,
+  },
+  update_focused_file = {
+    enable = true,
+  },
+  actions = {
+    open_file = {
+      quit_on_open = true,
+    }
   },
 
   ---
