@@ -5,7 +5,7 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Leader key
-vim.g.mapleader = ","
+vim.g.mapleader = " "
 vim.api.nvim_set_keymap('i', 'jj', '<esc>', { noremap = true, desc = 'Exit insert mode' })
 vim.keymap.set("n", "<leader>w", vim.cmd.w, { desc = 'Save buffer' })
 
@@ -27,10 +27,19 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
-vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], {desc = 'Delete line'})
+vim.keymap.set({ "n" }, "vv", "^vg_", { desc = 'Select line' })
+
 
 -- This is going to get me cancelled
 vim.keymap.set("i", "<C-c>", "<Esc>")
+
+-- Movement
+vim.keymap.set("n", "H", "^", { noremap = true, silent = true, desc = "Begining of line" })
+vim.keymap.set("n", "L", "$", { noremap = true, silent = true, desc = "End of line" })
+vim.keymap.set("v", "H", "^", { noremap = true, silent = true, desc = "Begining of file" })
+vim.keymap.set("v", "L", "g_", { noremap = true, silent = true, desc = "End of file" })
+
 
 -- Fix quit
 vim.keymap.set("n", "Q", "<nop>")
@@ -43,8 +52,10 @@ vim.keymap.set("n", "<leader>Q", vim.cmd.quitall, { noremap = true, desc = 'Kill
 -- w!! to save with sudo
 vim.keymap.set("c", "w!!", "<esc>:lua require'becks.misc'.SudoWrite()<CR>", { silent = true, desc = 'Sudo to write' })
 
--- Map <C-x> to delete buffer
-vim.keymap.set("n", "<leader>xb", "<cmd>bd<CR>", { desc = 'Discard buffer'})
+vim.keymap.set("n", "<leader>xb", "<cmd>bd<CR>", { desc = 'Discard buffer' })
+
+vim.keymap.set("n", "<C-t>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { desc = 'Open tmux sessionizer' })
+
 
 -- -- Remap <C-p> to fzf
 -- vim.keymap.set("i", "<C-p>", "<cmd>FZF<CR>")
@@ -58,6 +69,7 @@ vim.keymap.set("n", "<leader>xb", "<cmd>bd<CR>", { desc = 'Discard buffer'})
 -- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "<M-f>", vim.lsp.buf.format)
 vim.keymap.set("n", "<C-f>", ":%!prettier --stdin-filepath %<CR>", { desc = "Format with prettier" })
+vim.keymap.set("n", "<C-S-f>", ":%!sqlfluff fix --force %<CR>", { desc = "Format with sqlfluff" })
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
@@ -70,7 +82,7 @@ vim.keymap.set("n", "<C-x>", "<cmd>!chmod +x %<CR>", { silent = true })
 vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.config/nvim/lua/becks/plugins.lua<CR>");
 vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>");
 
-vim.keymap.set("n", "<leader><leader>", function()
+vim.keymap.set("n", "<leader>,", function()
   vim.cmd("so")
 end)
 
@@ -84,11 +96,13 @@ vim.keymap.set('', '<leader>v', '<C-w>v', { noremap = true, silent = true, desc 
 vim.keymap.set('', '<leader>q', '<C-w>q', { noremap = true, silent = true, desc = 'Close window' })
 
 -- Resize with arrows
-vim.keymap.set('n', '<C-Up>', ':resize -2<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<C-Down>', ':resize +2<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-S-Up>', ':resize -2<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-S-Down>', ':resize +2<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-S-Left>', ':vertical resize -2<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-S-Right>', ':vertical resize +2<CR>', { noremap = true, silent = true })
 
+
+vim.keymap.set('n', '<F10>', '<cmd>DBUI<CR>', { noremap = true, silent = true, desc = 'Open Db UI' })
 
 -- function IncreaseGuiFont()
 --   local delta = 1
@@ -104,4 +118,3 @@ vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', { noremap = true, si
 --
 -- vim.keymap.set('n', '<M-=>', IncreaseGuiFont, { noremap = true, silent = true, desc = 'Increase Neovide font' })
 -- vim.keymap.set('n', '<M-=-', DecreaseGuiFont, { noremap = true, silent = true, desc = 'Decrease Neovide font' })
-
