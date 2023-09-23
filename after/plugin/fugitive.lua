@@ -27,3 +27,9 @@ autocmd("BufWinEnter", {
     vim.keymap.set("n", "<leader>t", ":Git push -u origin ", opts);
   end,
 })
+
+function Glog(opts)
+  vim.cmd(":Git log --oneline -S " .. opts.fargs[1])
+end
+
+vim.api.nvim_create_user_command('Glog', Glog, { nargs = 1 })
