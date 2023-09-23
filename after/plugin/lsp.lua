@@ -2,9 +2,13 @@ local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
 
+-- Uncomment to enable debug logging
+-- vim.lsp.set_log_level('debug')
+
 lsp.ensure_installed({
   'tsserver',
   'rust_analyzer',
+  'lua_ls'
 })
 
 -- Fix Undefined global 'vim'
@@ -18,78 +22,66 @@ lsp.configure('lua_ls', {
   }
 })
 
+require("mason").setup({
+  ui = {
+    border = "rounded",
+  }
+})
 
-require("mason-lspconfig").setup()
+require("mason-lspconfig").setup({
+  ensure_installed = {
+    "tsserver",
+    "rust_analyzer",
+    -- "sqlls",
+    "ocamllsp",
+    "rescriptls",
+    "reason_ls",
+    "lua_ls",
+  }
+})
 
--- Setup language servers.
-local lspconfig = require('lspconfig')
-
-vim.g.v_analyzer_server_path = "~/.config/v-analyzer/bin/v-analyzer"
-
-
-local configs = require("lspconfig.configs")
-
-local vanalyzer_config = {
-  default_config = {
-    cmd = { 'v-analyzer' },
-    filetypes = { "v", "vlang", "v.mod" },
-    root_dir = lspconfig.util.root_pattern('v.mod', '.git'),
-  },
-}
-
-
--- Add the custom language server to lspconfig
--- if not lspconfig.configs.vanalyzer then
---   lspconfig.configs.vanalyzer = vanalyzer_config
--- end
-
-if not configs.vanalyzer then
-  configs.vanalyzer = vanalyzer_config
-end
-
-
--- lspconfig.eslint.setup {
---   cmd = { 'eslint_d', '--stdio' },
---   settings = {
---     ['eslint'] = {
---     }
---   }
--- }
-
--- lsp.preset('eslint_d', {
---   -- configure attaching on
---   settings = {
---     format = { enable = false },
---     codeAction = { enable = true }
---   }
--- })
-
-
+-- NOTE: Configure Completions
+local lspkind = require('lspkind')
 local cmp = require('cmp')
+
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = lsp.defaults.cmp_mappings({
+  ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+  ['<C-f>'] = cmp.mapping.scroll_docs(4),
   ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
   ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
   ['<C-y>'] = cmp.mapping.confirm({ select = true }),
   ["<C-Space>"] = cmp.mapping.complete(),
 })
-
 cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
 
 lsp.setup_nvim_cmp({
   mapping = cmp_mappings,
   sources = {
-    -- Copilot Source
-    { name = "copilot",  group_index = 2 },
     -- Other Sources
     { name = "nvim_lsp", group_index = 2 },
     { name = "nvim_lua", group_index = 2 },
-    { name = "buffer",   group_index = 2 },
+    -- Copilot Source
+    { name = "copilot",  group_index = 2 },
+    { name = "vim-dadbod-completion" },
+    { name = "buffer",   keyword_length = 5, group_index = 2 },
     { name = "path",     group_index = 2 },
     { name = "luasnip",  group_index = 2 },
+  },
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = "symbol_text",
+      max_width = 50,
+      ellipsis_char = '…',
+      symbol_map = { Copilot = "" },
+      before = function(entry, vim_item)
+        return vim_item
+      end
+    })
   }
 })
+vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {fg ="#6CC644"})
 
 lsp.set_preferences({
   suggest_lsp_servers = false,
@@ -170,12 +162,9 @@ local on_attach = function(_, bufnr)
 end
 
 local servers = {
-  -- clangd = {},
-  -- gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
-  -- tsserver = {},
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
+  v_analyzer = {
+    filetypes = { 'v', 'vv', 'vsh', 'vlang' },
+  },
 
   lua_ls = {
     Lua = {
@@ -183,6 +172,13 @@ local servers = {
       telemetry = { enable = false },
     },
   },
+
+  jsonls = {
+    json = {
+      schemas = require('schemastore').json.schemas(),
+      validate = { enable = true },
+    },
+  }
 }
 
 -- Setup neovim lua configuration
@@ -195,6 +191,7 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 local mason_lspconfig = require 'mason-lspconfig'
 mason_lspconfig.setup_handlers {
   function(server_name)
+    -- print('Setting up ' .. server_name)
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,
       on_attach = on_attach,
@@ -204,6 +201,14 @@ mason_lspconfig.setup_handlers {
   end
 }
 
+require('lspconfig').v_analyzer.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  settings = servers['v_analyzer'],
+  filetypes = (servers['v_analyzer'] or {}).filetypes,
+}
+
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
