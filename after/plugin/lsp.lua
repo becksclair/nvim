@@ -56,7 +56,38 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
 
-lsp.setup_nvim_cmp({
+
+-- lsp.setup_nvim_cmp({
+--   mapping = cmp_mappings,
+--   sources = {
+--     -- Other Sources
+--     { name = "nvim_lsp", group_index = 2 },
+--     { name = "nvim_lua", group_index = 2 },
+--     -- Copilot Source
+--     { name = "copilot",  group_index = 2 },
+--     { name = "vim-dadbod-completion" },
+--     { name = "buffer",   keyword_length = 5, group_index = 2 },
+--     { name = "path",     group_index = 2 },
+--     { name = "luasnip",  group_index = 2 },
+--   },
+--   formatting = {
+--     format = lspkind.cmp_format({
+--       mode = "symbol_text",
+--       max_width = 50,
+--       ellipsis_char = '…',
+--       symbol_map = { Copilot = "" },
+--       before = function(entry, vim_item)
+--         return vim_item
+--       end
+--     })
+--   },
+--   window = {
+--     completion = cmp.config.window.bordered('rounded'),
+--     documentation = cmp.config.window.bordered('rounded'),
+--   },
+-- })
+
+cmp.setup({
   mapping = cmp_mappings,
   sources = {
     -- Other Sources
@@ -79,7 +110,11 @@ lsp.setup_nvim_cmp({
         return vim_item
       end
     })
-  }
+  },
+  window = {
+    completion = cmp.config.window.bordered('rounded'),
+    documentation = cmp.config.window.bordered('rounded'),
+  },
 })
 vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {fg ="#6CC644"})
 
@@ -115,6 +150,10 @@ lsp.setup()
 vim.diagnostic.config({
   virtual_text = true
 })
+
+-- vim.lsp.buf.code_action({
+--     only = {"quickfix"},
+-- })
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
