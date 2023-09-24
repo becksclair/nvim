@@ -36,60 +36,37 @@ require('lazy').setup({
     'rose-pine/neovim',
     name = 'rose-pine',
     config = function()
-      -- vim.cmd('colorscheme rose-pine')
+      vim.cmd('colorscheme rose-pine')
     end
   },
-
   {
     "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {},
+    -- lazy = false,
+    -- priority = 1000,
+    -- opts = {},
   },
 
-  {
-    'cocopon/iceberg.vim',
-    priority = 1000,
-    config = function()
-      -- vim.opt.background = 'light'
-      -- vim.cmd.colorscheme 'iceberg'
-    end,
-  },
-
-  {
-    'Mofiqul/vscode.nvim',
-    priority = 1000,
-    config = function()
-      -- vim.opt.background = 'light'
-      -- vim.cmd.colorscheme 'vscode'
-    end,
-  },
-
-  {
-      "askfiy/visual_studio_code",
-      priority = 100,
-      config = function()
-          -- vim.cmd([[colorscheme visual_studio_code]])
-      end,
-  },
+  { 'cocopon/iceberg.vim' },
+  -- {
+  --   'Mofiqul/vscode.nvim',
+  --   priority = 1000,
+  --   config = function()
+  --     -- vim.opt.background = 'light'
+  --     -- vim.cmd.colorscheme 'vscode'
+  --   end,
+  -- },
 
   -- V-Colors
-  {
-    dir = '~/projects/nvim-vcolors',
-    dev = true,
-    priority = 1000,
-    config = function()
-      vim.opt.background = 'light'
-    end,
-  },
+  -- {
+  --   dir = '~/projects/nvim-vcolors',
+  --   dev = true,
+  --   priority = 1000,
+  --   config = function()
+  --     vim.opt.background = 'light'
+  --   end,
+  -- },
 
-  {
-    'dim13/smyck.vim',
-    config = function()
-      -- vim.opt.background = 'light'
-      -- vim.cmd.colorscheme 'smyck'
-    end
-  },
+  { 'dim13/smyck.vim' },
   { 'rebelot/kanagawa.nvim' },
 
   {
@@ -101,11 +78,7 @@ require('lazy').setup({
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    },
+    opts = { },
   },
 
   -- Highlight, edit, and navigate code
@@ -127,22 +100,10 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
   { 'nvim-treesitter/playground' },
+  { 'nvim-treesitter/nvim-treesitter-context' },
 
   -- Project File navigation
   { 'ThePrimeagen/harpoon' },
-
-
-  -- Code Refactoring
-  -- {
-  --   "ThePrimeagen/refactoring.nvim",
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --     "nvim-treesitter/nvim-treesitter",
-  --   },
-  --   config = function()
-  --     require("refactoring").setup()
-  --   end,
-  -- },
 
   -- Detect tabstop and shiftwidth automatically
   {'tpope/vim-sleuth'},
@@ -153,8 +114,19 @@ require('lazy').setup({
   -- Git related plugins
   { 'tpope/vim-fugitive' },
 
-  -- Ediditiing context
-  { 'nvim-treesitter/nvim-treesitter-context' },
+  {
+    "kdheepak/lazygit.nvim",
+    -- optional for floating window border decoration
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+      "nvim-lua/plenary.nvim",
+    },
+    config = function()
+        require("telescope").load_extension("lazygit")
+    end,
+  },
+
+  {'ThePrimeagen/git-worktree.nvim'},
 
   -- LSP Magic
   {
@@ -204,7 +176,6 @@ require('lazy').setup({
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       {
         'j-hui/fidget.nvim',
         tag = 'legacy',
@@ -220,7 +191,6 @@ require('lazy').setup({
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
-
       'nlsp-settings.nvim',
     },
   },
@@ -228,15 +198,13 @@ require('lazy').setup({
 
   {
     "folke/zen-mode.nvim",
-    opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    }
+    opts = { }
   },
 
+  {'mfussenegger/nvim-lint'},
+
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',         opts = {} },
+  { 'folke/which-key.nvim', opts = {} },
 
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
@@ -349,11 +317,7 @@ require('lazy').setup({
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    }
+    opts = { }
   },
 
   -- Autopairs
@@ -377,7 +341,7 @@ require('lazy').setup({
     lazy = true,
   },
 
-  { 'ChAoSUnItY/v-vim' },
+  -- { 'ChAoSUnItY/v-vim' },
 
   -- Show CSS Color previews
   {
@@ -393,9 +357,6 @@ require('lazy').setup({
   {
     "jackMort/ChatGPT.nvim",
     event = "VeryLazy",
-    -- config = function()
-      -- require("chatgpt").setup()
-    -- end,
     dependencies = {
       "MunifTanjim/nui.nvim",
       "nvim-lua/plenary.nvim",
@@ -406,9 +367,6 @@ require('lazy').setup({
 
   -- { 'mfussenegger/nvim-dap' },
   {'ggandor/leap.nvim'},
-
-  -- open github urls
-  -- 'tpope/vim-rhubarb',
 
   -- vscode pictograms
   { 'onsails/lspkind.nvim' },
@@ -433,100 +391,8 @@ require('lazy').setup({
       vim.g.db_ui_minwidth = 60
     end,
   },
-  {'mfussenegger/nvim-lint'},
-
-  {
-    "kdheepak/lazygit.nvim",
-    -- optional for floating window border decoration
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-      "nvim-lua/plenary.nvim",
-    },
-    config = function()
-        require("telescope").load_extension("lazygit")
-    end,
-  },
-
-  {'ThePrimeagen/git-worktree.nvim'},
 
   {"b0o/schemastore.nvim"},
-
-
-  -- NOTE: This is where your plugins related to LSP can be installed.
-  --  The configuration is done below. Search for lspconfig to find it below.
-
-  -- {
-  --   "williamboman/mason-lspconfig.nvim",
-  --   cmd = { "LspInstall", "LspUninstall" },
-  --   event = "User FileOpened",
-  --   dependencies = "mason.nvim",
-  -- },
-
-  -- {
-  --   -- LSP Configuration & Plugins
-  --   'neovim/nvim-lspconfig',
-  --   dependencies = {
-  --     -- Automatically install LSPs to stdpath for neovim
-  --     {
-  --       'williamboman/mason.nvim',
-  --       config = true,
-  --       cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
-  --       build = function()
-  --         pcall(function()
-  --           require("mason-registry").refresh()
-  --         end)
-  --       end,
-  --       event = "User FileOpened",
-  --     },
-  --     'williamboman/mason-lspconfig.nvim',
-
-  --     -- Useful status updates for LSP
-  --     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-  --     { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
-
-  --     -- Additional lua configuration, makes nvim stuff amazing!
-  --     'folke/neodev.nvim',
-
-  --     'nlsp-settings.nvim',
-  --   },
-  -- },
-
-  --
-  -- { "Tastyep/structlog.nvim",       lazy = true },
-
-  --   "hrsh7th/cmp-cmdline",
-  --   lazy = true,
-  --   enabled = true,
-  -- },
-
-  -- {
-  --   -- Adds git related signs to the gutter, as well as utilities for managing changes
-  --   'lewis6991/gitsigns.nvim',
-  --   opts = {
-  --     -- See `:help gitsigns.txt`
-  --     signs = {
-  --       add = { text = '+' },
-  --       change = { text = '|' },
-  --       delete = { text = '_' },
-  --       topdelete = { text = '‾' },
-  --       changedelete = { text = '~' },
-  --     },
-  --     on_attach = function(bufnr)
-  --       vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk,
-  --         { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
-  --       vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
-  --       vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
-  --     end,
-  --   },
-  -- },
-
-  -- {
-  --   'oahlen/iceberg.nvim',
-  --   priority = 1000,
-  --   config = function()
-  --     vim.cmd.colorscheme 'iceberg'
-  --   end,
-  -- },
 
   {
     -- Set lualine as statusline
@@ -535,6 +401,7 @@ require('lazy').setup({
     requires = { 'nvim-tree/nvim-web-devicons', opt = true },
     event = "VimEnter",
   },
+
   -- {
   --   -- Add indentation guides even on blank lines
   --   'lukas-reineke/indent-blankline.nvim',
@@ -546,48 +413,7 @@ require('lazy').setup({
   --   },
   -- },
 
-  -- {
-  --   "tamago324/lir.nvim",
-  --   config = function()
-  --     -- require("lvim.core.lir").setup()
-  --   end,
-  --   enabled = true,
-  --   event = "User DirOpened",
-  -- },
-
-  -- { "gcmt/wildfire.vim" },
-
   -- { "rafcamlet/nvim-whid" },
-  -- { 'michaelb/sniprun',            build = 'bash ./install.sh' },
+  -- { 'michaelb/sniprun', build = 'bash ./install.sh' },
 
-  -- {
-  --   'phaazon/hop.nvim',
-  --   branch = 'v2', -- optional but strongly recommended
-  --   config = function()
-  --     -- you can configure Hop the way you like here; see :h hop-config
-  --     require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
-  --   end
-  -- },
-
-  -- {
-  --   "rmagatti/goto-preview",
-  --   config = function()
-  --     require('goto-preview').setup {
-  --       width = 120,              -- Width of the floating window
-  --       height = 25,              -- Height of the floating window
-  --       default_mappings = false, -- Bind default mappings
-  --       debug = false,            -- Print debug information
-  --       opacity = nil,            -- 0-100 opacity level of the floating window where 100 is fully transparent.
-  --       post_open_hook = nil      -- A function taking two arguments, a buffer and a window to be ran as a hook.
-  --       -- You can use "default_mappings = true" setup option
-  --       -- Or explicitly set keybindings
-  --       -- vim.cmd("nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>")
-  --       -- vim.cmd("nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>")
-  --       -- vim.cmd("nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>")
-  --     }
-  --   end
-  -- },
-
-  --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  -- { import = 'custom.plugins' },
 }, {})
