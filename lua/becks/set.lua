@@ -1,5 +1,7 @@
 vim.cmd("autocmd!")
 
+vim.opt.rtp:append("~/.opam/default/share")
+
 vim.scriptencoding = 'utf-8'
 vim.opt.encoding = 'utf-8'
 vim.opt.fileencoding = 'utf-8'
@@ -75,5 +77,4 @@ vim.filetype.add {
     ["[jt]sconfig.*.json"] = "jsonc",
   },
 }
-
 
