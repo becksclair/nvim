@@ -402,6 +402,25 @@ require('lazy').setup({
     event = "VimEnter",
   },
 
+  {
+    "epwalsh/obsidian.nvim",
+    lazy = true,
+    event = {
+      -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
+      -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
+      "BufReadPre " .. vim.fn.expand("~") .. "/HeliasMind/**.md",
+      "BufNewFile " .. vim.fn.expand("~") .. "/HeliasMind/**.md",
+    },
+    dependencies = {
+      -- Required.
+      "nvim-lua/plenary.nvim",
+
+      -- optional dependencies
+      'hrsh7th/nvim-cmp',
+      'nvim-telescope/telescope.nvim',
+    },
+  },
+
   -- {
   --   -- Add indentation guides even on blank lines
   --   'lukas-reineke/indent-blankline.nvim',
@@ -413,7 +432,6 @@ require('lazy').setup({
   --   },
   -- },
 
-  -- { "rafcamlet/nvim-whid" },
   -- { 'michaelb/sniprun', build = 'bash ./install.sh' },
 
 }, {})
