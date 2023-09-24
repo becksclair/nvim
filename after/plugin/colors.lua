@@ -67,6 +67,10 @@ function ColorMyPencils(color)
   --   color = color or "vscode"
   --   vim.cmd.colorscheme(color)
   -- end
+
+  -- Custom highlight colors
+  vim.api.nvim_set_hl(0, 'Visual', { fg = "#ffffff", bg = "#E66159" })
+  vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#ffffff", bg = "#E66159" })
 end
 
 function ToggleBg()
