@@ -436,6 +436,4 @@ require('lazy').setup({
   --   },
   -- },
 
-  -- { 'michaelb/sniprun', build = 'bash ./install.sh' },
-
 }, {})
