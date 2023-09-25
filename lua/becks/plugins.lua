@@ -423,6 +423,8 @@ require('lazy').setup({
 
   { 'michaelb/sniprun', build = 'bash ./install.sh' },
 
+  {'ThePrimeagen/vim-be-good'},
+
   -- {
   --   -- Add indentation guides even on blank lines
   --   'lukas-reineke/indent-blankline.nvim',
