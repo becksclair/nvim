@@ -425,6 +425,8 @@ require('lazy').setup({
 
   {'ThePrimeagen/vim-be-good'},
 
+  -- {'HiPhish/rainbow-delimiters.nvim'}
+
   -- {
   --   -- Add indentation guides even on blank lines
   --   'lukas-reineke/indent-blankline.nvim',
