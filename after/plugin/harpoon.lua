@@ -13,8 +13,8 @@ vim.keymap.set("n", "<M-4>", function() ui.nav_file(4) end)
 
 -- Prime's Bindings
 
--- vim.keymap.set("n", "<C-h>", function() ui.nav_file(1) end)
--- vim.keymap.set("n", "<C-t>", function() ui.nav_file(2) end)
--- vim.keymap.set("n", "<C-n>", function() ui.nav_file(3) end)
--- vim.keymap.set("n", "<C-s>", function() ui.nav_file(4) end)
+vim.keymap.set("n", "<C-t>", function() ui.nav_file(1) end, {desc = 'Harpoon jump 1'})
+vim.keymap.set("n", "<C-g>", function() ui.nav_file(2) end, {desc = 'Harpoon jump 2'})
+vim.keymap.set("n", "<C-n>", function() ui.nav_file(3) end, {desc = 'Harpoon jump 3'})
+vim.keymap.set("n", "<C-s>", function() ui.nav_file(4) end, {desc = 'Harpoon jump 4'})
 

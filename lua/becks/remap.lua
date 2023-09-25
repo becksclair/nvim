@@ -54,7 +54,7 @@ vim.keymap.set("c", "w!!", "<esc>:lua require'becks.misc'.SudoWrite()<CR>", { si
 
 vim.keymap.set("n", "<leader>xb", "<cmd>bd<CR>", { desc = 'Discard buffer' })
 
-vim.keymap.set("n", "<C-t>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { desc = 'Open tmux sessionizer' })
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { desc = 'Open tmux sessionizer' })
 
 
 -- -- Remap <C-p> to fzf
@@ -68,7 +68,7 @@ vim.keymap.set("n", "<C-t>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { de
 
 -- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "<M-f>", vim.lsp.buf.format)
-vim.keymap.set("n", "<C-f>", ":%!prettier --stdin-filepath %<CR>", { desc = "Format with prettier" })
+vim.keymap.set("n", "<M-S-f>", ":%!prettier --stdin-filepath %<CR>", { desc = "Format with prettier" })
 vim.keymap.set("n", "<C-S-f>", ":%!sqlfluff fix --force %<CR>", { desc = "Format with sqlfluff" })
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
