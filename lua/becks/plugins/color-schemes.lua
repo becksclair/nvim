@@ -2,6 +2,8 @@ return {
   {
     'rose-pine/neovim',
     name = 'rose-pine',
+    lazy = true,
+    priority = 1000,
     opts = {
       disable_background = true
     },
@@ -12,14 +14,15 @@ return {
   {
     "folke/tokyonight.nvim",
     lazy = true,
-    -- priority = 1000,
+    priority = 1000,
     opts = {
       transparent = true,
     },
   },
 
   {
-    'cocopon/iceberg.vim'
+    'cocopon/iceberg.vim',
+    lazy = true,
   },
 
   {
@@ -75,7 +78,8 @@ return {
   -- },
 
   {
-    'dim13/smyck.vim'
+    'dim13/smyck.vim',
+    lazy = true,
   },
 
   {
