@@ -62,7 +62,24 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
   -- { 'nvim-treesitter/playground' },
-  { 'nvim-treesitter/nvim-treesitter-context' },
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    lazy = true,
+    opts = {
+      enable = true,
+      max_lines = 1,
+      min_window_height = 0,
+      line_numbers = true,
+      multiline_threshold = 20, -- Maximum number of lines to show for a single context
+      trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+      mode = 'cursor',  -- Line used to calculate context. Choices: 'cursor', 'topline'
+      -- Separator between context and content. Should be a single character string, like '-'.
+      -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
+      separator = nil,
+      zindex = 20, -- The Z-index of the context window
+      on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
+    }
+  },
 
   -- Project File navigation
   require('becks.plugins.harpoon'),
@@ -91,13 +108,27 @@ require('lazy').setup({
   {
     "kdheepak/lazygit.nvim",
     lazy = true,
-    event = "VeryLazy",
+    keys = {
+      { "<leader>gg", "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
+    },
+    cmd = { "LazyGit", "LazyGitConfig" },
     -- optional for floating window border decoration
     dependencies = {
       "nvim-telescope/telescope.nvim",
       "nvim-lua/plenary.nvim",
     },
+    -- init = function ()
+    -- end,
     config = function()
+      vim.g.lazygit_floating_window_winblend = 0 -- transparency of floating window
+      vim.g.lazygit_floating_window_scaling_factor = 0.9 -- scaling factor for floating window
+      vim.g.lazygit_floating_window_border_chars = {'╭','─', '╮', '│', '╯','─', '╰', '│'} -- customize lazygit popup window border characters
+      vim.g.lazygit_floating_window_use_plenary = 1 -- use plenary.nvim to manage floating window if available
+      vim.g.lazygit_use_neovim_remote = 1 -- fallback to 0 if neovim-remote is not installed
+
+      vim.g.lazygit_use_custom_config_file_path = 0 -- config file path is evaluated if this value is 1
+      vim.g.lazygit_config_file_path = '' -- custom config file path
+
       require("telescope").load_extension("lazygit")
     end,
   },
@@ -227,8 +258,28 @@ require('lazy').setup({
   {
     'numToStr/Comment.nvim',
     lazy = true,
-    opts = {},
-    event = "User FileOpened",
+    opts = {
+      ignore = nil,
+
+      ---LHS of toggle mappings in NORMAL mode
+      toggler = {
+        line = '\\',
+        block = '|',
+      },
+
+      ---LHS of operator-pending mappings in NORMAL and VISUAL mode
+      opleader = {
+        line = '\\',
+        block = '|',
+      },
+
+      extra = {
+        above = '<leader>Oc',
+        below = '<leader>oc',
+        eol = '<leader>Ac',
+      },
+    },
+    event = "BufEnter",
   },
 
   {
