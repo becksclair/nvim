@@ -84,6 +84,7 @@ vim.filetype.add {
     v = 'vlang'
   },
   pattern = {
+    ["yabairc"] = "bash",
     ["[jt]sconfig.*.json"] = "jsonc",
   },
 }
