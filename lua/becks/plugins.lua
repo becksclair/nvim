@@ -307,12 +307,7 @@ require('lazy').setup({
   },
 
   -- Show CSS Color previews
-  {
-    'norcalli/nvim-colorizer.lua',
-    config = function()
-      require('colorizer').setup()
-    end,
-  },
+  require('becks.plugins.nvim-colorizer'),
 
   -- Hide Secrets
   { 'laytan/cloak.nvim' },
