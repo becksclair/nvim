@@ -27,7 +27,10 @@ Worktree.on_tree_change(function(op, metadata)
     print("Switched from " .. metadata.prev_path .. " to " .. metadata.path)
     -- vim.cmd("cd " .. metadata.path)
     -- setlocal bufhidde=hide
+    -- vim.cmd('SessionRestore')             -- Restore the directory session when switching
     vim.cmd("TermExec open=0 cmd='pnpm i --verbose'")
+
+    -- TODO: Check what type of project this is and install deps when switching
     -- vim.cmd.terminal("pnpm i --verbose")
   end
 end)
@@ -46,23 +49,26 @@ end)
 
 function Gwadd(opts)
   local branch = opts.fargs[1] or vim.fn.input("Branch name: ")
-  local git_branch = "lat-" .. branch
+  local git_branch = "" .. branch
   require("git-worktree").create_worktree(git_branch, "main", "origin")
 end
+
 vim.api.nvim_create_user_command('Gwadd', Gwadd, { nargs = 1 })
 
 function Gwsw(opts)
   local branch = opts.fargs[1] or vim.fn.input("Branch name: ")
-  local git_branch = "lat-" .. branch
+  local git_branch = "" .. branch
   require("git-worktree").switch_worktree(git_branch)
 end
+
 vim.api.nvim_create_user_command('Gwsw', Gwsw, { nargs = 1 })
 
 function Gwrm()
   local branch = vim.fn.input("Branch name: ")
-  local git_branch = "lat-" .. branch
-  require("git-worktree").delete_worktree(git_branch)
+  local git_branch = "" .. branch
+  require("git-worktree").delete_worktree(git_branch, true)
 end
+
 vim.api.nvim_create_user_command('Gwrm', Gwsw, {})
 
 vim.keymap.set("n", "<leader>ts", require('telescope').extensions.git_worktree.git_worktrees,
