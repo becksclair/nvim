@@ -1,5 +1,5 @@
 require("obsidian").setup({
-  dir = "~/HeliasMind", -- no need to call 'vim.fn.expand' here
+  dir = "~/personal/HeliasMind", -- no need to call 'vim.fn.expand' here
 
   -- Optional, if you keep notes in a specific subdirectory of your vault.
   notes_subdir = "Inbox",
