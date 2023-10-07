@@ -6,6 +6,10 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope.nvim"
   },
+  cmd = {
+    "ChatGPT",
+    "ChatGPTRun"
+  },
   keys = {
     { "<F8>", "<cmd>ChatGPT<cr>", desc = "Open ChatGPT" },
   },
@@ -154,6 +158,9 @@ return {
     show_quickfixes_cmd = "Trouble quickfix",
     predefined_chat_gpt_prompts = "https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv",
   },
+  init = function()
+
+  end,
   config = function()
     require("chatgpt").setup()
 
