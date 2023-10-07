@@ -304,7 +304,11 @@ require('lazy').setup({
 
   require('becks.plugins.sniprun'),
 
-  {'ThePrimeagen/vim-be-good'},
+  {
+    'ThePrimeagen/vim-be-good',
+    lazy = true,
+    enabled = false,
+  },
 
   -- {'HiPhish/rainbow-delimiters.nvim'}
 
