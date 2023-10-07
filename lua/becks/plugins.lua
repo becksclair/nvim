@@ -32,42 +32,7 @@ require('lazy').setup({
     'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
   },
 
-  {
-    'rose-pine/neovim',
-    name = 'rose-pine',
-    config = function()
-      vim.cmd('colorscheme rose-pine')
-    end
-  },
-  {
-    "folke/tokyonight.nvim",
-    -- lazy = false,
-    -- priority = 1000,
-    -- opts = {},
-  },
-
-  { 'cocopon/iceberg.vim' },
-  {
-    'Mofiqul/vscode.nvim',
-    priority = 1000,
-    config = function()
-      -- vim.opt.background = 'light'
-      -- vim.cmd.colorscheme 'vscode'
-    end,
-  },
-
-  -- V-Colors
-  -- {
-  --   dir = '~/projects/nvim-vcolors',
-  --   dev = true,
-  --   priority = 1000,
-  --   config = function()
-  --     vim.opt.background = 'light'
-  --   end,
-  -- },
-
-  { 'dim13/smyck.vim' },
-  { 'rebelot/kanagawa.nvim' },
+  require('becks.plugins.color-schemes'),
 
   {
     'nvim-tree/nvim-tree.lua',
@@ -259,7 +224,7 @@ require('lazy').setup({
       vim.defer_fn(function()
         require("copilot").setup({
           panel = {
-            enabled = true,
+            enabled = false,
             auto_refresh = true,
             keymap = {
               jump_prev = "[[",
@@ -274,7 +239,7 @@ require('lazy').setup({
             },
           },
           suggestion = {
-            enabled = true,
+            enabled = false,
             auto_trigger = false,
             debounce = 75,
             keymap = {
@@ -341,8 +306,6 @@ require('lazy').setup({
     lazy = true,
   },
 
-  -- { 'ChAoSUnItY/v-vim' },
-
   -- Show CSS Color previews
   {
     'norcalli/nvim-colorizer.lua',
@@ -394,13 +357,13 @@ require('lazy').setup({
 
   {"b0o/schemastore.nvim"},
 
-  {
-    -- Set lualine as statusline
-    'nvim-lualine/lualine.nvim',
-    -- See `:help lualine.txt`
-    requires = { 'nvim-tree/nvim-web-devicons', opt = true },
-    event = "VimEnter",
-  },
+  -- {
+  --   -- Set lualine as statusline
+  --   'nvim-lualine/lualine.nvim',
+  --   -- See `:help lualine.txt`
+  --   requires = { 'nvim-tree/nvim-web-devicons', opt = true },
+  --   event = "VimEnter",
+  -- },
 
   {
     "epwalsh/obsidian.nvim",
@@ -419,6 +382,33 @@ require('lazy').setup({
       'hrsh7th/nvim-cmp',
       'nvim-telescope/telescope.nvim',
     },
+  },
+
+  {
+    'nvim-orgmode/orgmode',
+    dependencies = {
+      { 'nvim-treesitter/nvim-treesitter', lazy = true },
+    },
+    event = 'VeryLazy',
+    config = function()
+      -- Load treesitter grammar for org
+      require('orgmode').setup_ts_grammar()
+
+      -- Setup treesitter
+      require('nvim-treesitter.configs').setup({
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = { 'org' },
+        },
+        ensure_installed = { 'org' },
+      })
+
+      -- Setup orgmode
+      require('orgmode').setup({
+        org_agenda_files = '~/personal/notes/**/*',
+        org_default_notes_file = '~/personal/notes/pages/inbox.org',
+      })
+    end,
   },
 
   { 'michaelb/sniprun', build = 'bash ./install.sh' },

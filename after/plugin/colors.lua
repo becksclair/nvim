@@ -1,49 +1,3 @@
-if not vim.g.neovide then
-  require('rose-pine').setup({
-    disable_background = true
-  })
-  require('tokyonight').setup({
-    transparent = true
-  })
-end
-
--- local c = require('vscode.colors').get_colors()
--- require('vscode').setup({
---     -- Alternatively set style in setup
---     style = 'light',
---
---     -- Enable transparent background
---     -- transparent = true,
---
---     -- Enable italic comment
---     italic_comments = false,
---
---     -- Disable nvim-tree background color
---     disable_nvimtree_bg = true,
---
---     -- Override colors (see ./lua/vscode/colors.lua)
---     color_overrides = {
---       vscLightBlue = '#000000',
---       vscPopupBack = '#DDDDDD',
---       vscLineNumber = '#000000',
---       vscSelection = '#000000',
---       vscCursorLight = '#0000AA',
---     },
---
---     -- Override highlight groups (see ./lua/vscode/theme.lua)
---     group_overrides = {
---         Visual = { fg='#ffffff', bg='#000000' },
---         -- this supports the same val table as vim.api.nvim_set_hl
---         -- use colors from this colorscheme by requiring vscode.colors!
---         -- Cursor = { fg=c.vscCursorLight, bg='#FFFFFF', bold=true },
---         -- Cursor = { fg='#0000AA', bg='#FFFFFF', bold=true },
---     }
--- })
--- require('vscode').load()
--- require("visual_studio_code").setup({
---   mode = 'light'
--- })
-
 function ColorMyPencils(color)
   vim.o.background = "dark"
   -- vim.o.background = "light"
@@ -53,7 +7,8 @@ function ColorMyPencils(color)
   -- color = color or "vscode"
   -- color = color or "visual_studio_code"
   -- color = color or "tokyonight-night"
-
+  -- color = color or "smyck"
+  -- color = color or "kanagawa-wave"
 
   vim.cmd.colorscheme(color)
 
@@ -67,11 +22,41 @@ function ColorMyPencils(color)
   --   color = color or "vscode"
   --   vim.cmd.colorscheme(color)
   -- end
+  SetMyColorHls()
+end
 
+function SetMyColorHls()
   -- Custom highlight colors
+  -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#ffffff", bg = "#E66159" })
+  vim.api.nvim_set_hl(0, 'Cursor', { fg = "#ffffff", bg = "#f6c177" })
   vim.api.nvim_set_hl(0, 'Visual', { fg = "#ffffff", bg = "#E66159" })
   vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#ffffff", bg = "#E66159" })
+
 end
+
+function SetTempleTheme()
+  vim.o.background = "light"
+  local color = "vscode"
+  vim.cmd.colorscheme(color)
+  SetMyColorHls()
+
+  vim.api.nvim_set_hl(0, 'Cursor', { fg = "#FFFF00", bg = "#000000" })
+  vim.api.nvim_set_hl(0, 'Visual', { fg = "#FFFF00", bg = "#000000" })
+  vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#FFFF00", bg = "#000000" })
+
+end
+vim.api.nvim_create_user_command('SetTempleTheme', SetTempleTheme, {nargs = 0})
+
+function SetTempleThemeDark()
+  vim.o.background = "dark"
+  local color = "kanagawa-wave"
+  require("kanagawa").load("wave")
+  -- vim.cmd.colorscheme(color)
+  SetMyColorHls()
+end
+vim.api.nvim_create_user_command('SetTempleThemeDark', SetTempleThemeDark, {nargs = 0})
+
+
 
 function ToggleBg()
   if vim.o.background == "light" then
@@ -98,4 +83,5 @@ function Transparent()
   end
 end
 
-ColorMyPencils()
+-- ColorMyPencils()
+SetTempleTheme()
