@@ -20,7 +20,6 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
-
 vim.opt.smartindent = true
 
 vim.opt.hidden = true
@@ -76,8 +75,7 @@ vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,te
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
-
-vim.o.guifont = 'RecMonoDuotone Nerd Font:h16'
+vim.o.guifont = 'Liga ComicShannsMono Nerd Font:h16'
 
 vim.filetype.add {
   extension = {
