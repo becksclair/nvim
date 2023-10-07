@@ -7,7 +7,7 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 -- Leader key
 vim.g.mapleader = " "
 vim.api.nvim_set_keymap('i', 'jj', '<esc>', { noremap = true, desc = 'Exit insert mode' })
-vim.keymap.set("n", "<leader>w", vim.cmd.w, { desc = 'Save buffer' })
+vim.keymap.set("n", "<leader>w", vim.cmd.w, { noremap = true, desc = 'Save buffer' })
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
@@ -27,7 +27,7 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
-vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], {desc = 'Delete line'})
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = 'Delete line' })
 vim.keymap.set({ "n" }, "vv", "^vg_", { desc = 'Select line' })
 
 
@@ -67,8 +67,8 @@ vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { de
 --
 
 -- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-vim.keymap.set("n", "<M-f>", vim.lsp.buf.format)
-vim.keymap.set("n", "<M-S-f>", ":%!prettier --stdin-filepath %<CR>", { desc = "Format with prettier" })
+vim.keymap.set("n", "<leader>bf", vim.lsp.buf.format)
+vim.keymap.set("n", "<leader>bF", ":%!prettier --stdin-filepath %<CR>", { desc = "Format with prettier" })
 vim.keymap.set("n", "<C-S-f>", ":%!sqlfluff fix --force %<CR>", { desc = "Format with sqlfluff" })
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
@@ -96,10 +96,10 @@ vim.keymap.set('', '<leader>v', '<C-w>v', { noremap = true, silent = true, desc 
 vim.keymap.set('', '<leader>q', '<C-w>q', { noremap = true, silent = true, desc = 'Close window' })
 
 -- Resize with arrows
-vim.keymap.set('n', '<C-S-Up>', ':resize -2<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<C-S-Down>', ':resize +2<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<C-S-Left>', ':vertical resize -2<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<C-S-Right>', ':vertical resize +2<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<S-Up>', ':resize -2<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<S-Down>', ':resize +2<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<S-Left>', ':vertical resize -2<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<S-Right>', ':vertical resize +2<CR>', { noremap = true, silent = true })
 
 
 vim.keymap.set('n', '<F10>', '<cmd>DBUI<CR>', { noremap = true, silent = true, desc = 'Open Db UI' })
