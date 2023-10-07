@@ -44,42 +44,9 @@ require('lazy').setup({
   require('becks.plugins.trouble'),
 
   -- Highlight, edit, and navigate code
-  {
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
-    cmd = {
-      "TSInstall",
-      "TSUninstall",
-      "TSUpdate",
-      "TSUpdateSync",
-      "TSInstallInfo",
-      "TSInstallSync",
-      "TSInstallFromGrammar",
-    },
-    event = "User FileOpened",
-    build = ':TSUpdate',
-  },
+  require('becks.plugins.treesitter'),
+
   -- { 'nvim-treesitter/playground' },
-  {
-    'nvim-treesitter/nvim-treesitter-context',
-    lazy = true,
-    opts = {
-      enable = true,
-      max_lines = 1,
-      min_window_height = 0,
-      line_numbers = true,
-      multiline_threshold = 20, -- Maximum number of lines to show for a single context
-      trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-      mode = 'cursor',  -- Line used to calculate context. Choices: 'cursor', 'topline'
-      -- Separator between context and content. Should be a single character string, like '-'.
-      -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
-      separator = nil,
-      zindex = 20, -- The Z-index of the context window
-      on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
-    }
-  },
 
   -- Project File navigation
   require('becks.plugins.harpoon'),
@@ -96,6 +63,12 @@ require('lazy').setup({
     'mbbill/undotree',
     lazy = true,
     event = "VeryLazy",
+    cmd = {
+      "UndotreeToggle"
+    },
+    keys = {
+      { "<leader>u", "<cmd>UndotreeToggle", desc = "Open undo tree" }
+    }
   },
 
   -- Git related plugins
@@ -136,93 +109,59 @@ require('lazy').setup({
   require('becks.plugins.git-worktree'),
 
   -- LSP Magic
+  require('becks.plugins.lsp-zero'),
+
+
   {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v2.x',
-    dependencies = {
-      -- LSP Support
-      {
-        'neovim/nvim-lspconfig',
-        config = function()
-          require('lspconfig').v_analyzer.setup {}
-        end
-      },                                       -- Required
-      { 'williamboman/mason.nvim' },           -- Optional
-      { 'williamboman/mason-lspconfig.nvim' }, -- Optional
-
-      -- Autocompletion
-      { 'hrsh7th/nvim-cmp' }, -- Required
-      { 'hrsh7th/cmp-buffer' },
-      { 'hrsh7th/cmp-path' },
-      {
-        'saadparwaiz1/cmp_luasnip',
-        lazy = true,
-      },
-      { 'hrsh7th/cmp-nvim-lsp' }, -- Required
-      { 'hrsh7th/cmp-nvim-lua' },
-
-      -- Snippets
-      {
-        'L3MON4D3/LuaSnip',
-        lazy = true,
-      }, -- Required
-      {
-        'rafamadriz/friendly-snippets',
-        lazy = true,
+    "folke/zen-mode.nvim",
+    lazy = true,
+    opts = {
+      window = {
+        width = 90,
+        options = {}
       },
     }
   },
 
   {
-    -- LSP Configuration & Plugins
-    'neovim/nvim-lspconfig',
-    dependencies = {
-      -- Automatically install LSPs to stdpath for neovim
-      {
-        'williamboman/mason.nvim',
-        config = true,
-        cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
-        build = function()
-          pcall(function()
-            require("mason-registry").refresh()
-          end)
-        end,
-        event = "User FileOpened",
-      },
-      'williamboman/mason-lspconfig.nvim',
-
-      -- Useful status updates for LSP
-      {
-        'j-hui/fidget.nvim',
-        tag = 'legacy',
-        opts = {
-          text = {
-            spinner = 'dots_snake'
-          },
-          window = {
-            blend = 40
-          }
-        }
-      },
-
-      -- Additional lua configuration, makes nvim stuff amazing!
-      'folke/neodev.nvim',
-      'nlsp-settings.nvim',
-    },
-  },
-  { "tamago324/nlsp-settings.nvim",           cmd = "LspSettings", lazy = true },
-
-  {
-    "folke/zen-mode.nvim",
+    'mfussenegger/nvim-lint',
     lazy = true,
-    opts = {}
-  },
+    event = "BufReadPost",
+    config = function()
+      require('lint').linters_by_ft = {
+        -- markdown = {'vale',},
+        python = { 'flake8', 'pylint', },
+        sql = { 'sqlfluff', },
 
-  { 'mfussenegger/nvim-lint' },
+        bash = { 'shellcheck', },
+        shell = { 'shellcheck', },
+        zsh = { 'shellcheck', },
+        -- rust = { 'clippy' }
+      }
+
+      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+        callback = function()
+          require("lint").try_lint()
+        end,
+      })
+
+      require('lint').linters.shellcheck.args = {
+        '-s',
+        'bash',
+        '--format',
+        'json',
+        '-'
+      }
+
+      vim.keymap.set("n", "<leader>bl", require("lint").try_lint, { desc = "Lint file" })
+    end
+  },
 
   -- Useful plugin to show you pending keybinds.
   {
     'folke/which-key.nvim',
+    lazy = true,
+    event = "VeryLazy",
     opts = {}
   },
 
@@ -240,6 +179,8 @@ require('lazy').setup({
 
   {
     "folke/todo-comments.nvim",
+    lazy = true,
+    event = "BufEnter",
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {}
   },
@@ -324,6 +265,7 @@ require('lazy').setup({
   {
     'akinsho/toggleterm.nvim',
     lazy = true,
+    event = "VeryLazy",
     version = "*",
     opts = {
       open_mapping = [[<c-\>]],
@@ -346,18 +288,18 @@ require('lazy').setup({
 
   -- { 'mfussenegger/nvim-dap' },
   {
-    'ggandor/leap.nvim'
-  },
-
-  -- vscode pictograms
-  {
+    'ggandor/leap.nvim',
     lazy = true,
-    'onsails/lspkind.nvim'
+    event = "BufEnter",
+    config = function()
+      require('leap').add_default_mappings()
+    end
   },
 
   -- Database
   {
     'kristijanhusak/vim-dadbod-ui',
+    lazy = true,
     dependencies = {
       { 'tpope/vim-dadbod',                     lazy = true },
       { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
@@ -374,11 +316,6 @@ require('lazy').setup({
       vim.g.db_ui_win_position = 'right'
       vim.g.db_ui_minwidth = 60
     end,
-  },
-
-  {
-    "b0o/schemastore.nvim",
-    lazy = true
   },
 
   {
@@ -406,6 +343,79 @@ require('lazy').setup({
       'hrsh7th/nvim-cmp',
       'nvim-telescope/telescope.nvim',
     },
+    opts = {
+      dir = "~/personal/HeliasMind", -- no need to call 'vim.fn.expand' here
+
+      -- Optional, if you keep notes in a specific subdirectory of your vault.
+      notes_subdir = "Inbox",
+
+      daily_notes = {
+        -- Optional, if you keep daily notes in a separate directory.
+        folder = "Day Planners",
+        -- Optional, if you want to change the date format for the ID of daily notes.
+        -- date_format = "%Y-%m-%d",
+        -- Optional, if you want to change the date format of the default alias of daily notes.
+        -- alias_format = "%B %-d, %Y",
+        -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
+        template = 'Daily.md',
+      },
+
+      -- Optional, completion.
+      completion = {
+        -- If using nvim-cmp, otherwise set to false
+        nvim_cmp = true,
+        -- Trigger completion at 2 chars
+        min_chars = 2,
+        -- Where to put new notes created from completion. Valid options are
+        --  * "current_dir" - put new notes in same directory as the current buffer.
+        --  * "notes_subdir" - put new notes in the default notes subdirectory.
+        new_notes_location = "notes_subdir",
+
+        -- Whether to add the output of the node_id_func to new notes in autocompletion.
+        -- E.g. "[[Foo" completes to "[[foo|Foo]]" assuming "foo" is the ID of the note.
+        prepend_note_id = true
+      },
+
+      -- Optional, key mappings.
+      mappings = {
+        -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
+        -- ["ga"] = require("obsidian.mapping").gf_passthrough(),
+      },
+
+      -- Optional, for templates (see below).
+      templates = {
+        subdir = "Templates",
+        date_format = "%Y-%m-%d",
+        time_format = "%H:%M",
+        -- A map for custom variables, the key should be the variable and the value a function
+        substitutions = {}
+      },
+
+      -- Optional, customize the backlinks interface.
+      backlinks = {
+        -- The default height of the backlinks pane.
+        height = 10,
+        -- Whether or not to wrap lines.
+        wrap = true,
+      },
+
+      -- Optional, by default when you use `:ObsidianFollowLink` on a link to an external
+      -- URL it will be ignored but you can customize this behavior here.
+      follow_url_func = function(url)
+        -- Open the URL in the default web browser.
+        vim.fn.jobstart({ "open", url }) -- Mac OS
+        -- vim.fn.jobstart({"xdg-open", url})  -- linux
+      end,
+
+      -- Optional, set to true if you use the Obsidian Advanced URI plugin.
+      -- https://github.com/Vinzent03/obsidian-advanced-uri
+      use_advanced_uri = false,
+
+      -- Optional, determines whether to open notes in a horizontal split, a vertical split,
+      -- or replacing the current buffer (default)
+      -- Accepted values are "current", "hsplit" and "vsplit"
+      open_notes_in = "current"
+    }
   },
 
   {
@@ -419,15 +429,6 @@ require('lazy').setup({
     config = function()
       -- Load treesitter grammar for org
       require('orgmode').setup_ts_grammar()
-
-      -- Setup treesitter
-      require('nvim-treesitter.configs').setup({
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = { 'org' },
-        },
-        ensure_installed = { 'org' },
-      })
 
       -- Setup orgmode
       require('orgmode').setup({
@@ -445,12 +446,7 @@ require('lazy').setup({
     enabled = false,
   },
 
-  {
-    'HiPhish/rainbow-delimiters.nvim',
-    lazy = true,
-    event = "BufRead",
-    enabled = false,
-  },
+  require('becks.plugins.rainbow-delimiters'),
 
   {
     -- Add indentation guides even on blank lines

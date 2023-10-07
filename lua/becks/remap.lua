@@ -104,6 +104,15 @@ vim.keymap.set('n', '<S-Right>', ':vertical resize +2<CR>', { noremap = true, si
 
 vim.keymap.set('n', '<F10>', '<cmd>DBUI<CR>', { noremap = true, silent = true, desc = 'Open Db UI' })
 
+vim.keymap.set("n", "gf", function()
+  if require("obsidian").util.cursor_on_markdown_link() then
+    return "<cmd>ObsidianFollowLink<CR>"
+  else
+    return "gf"
+  end
+end, { noremap = false, expr = true })
+
+
 -- function IncreaseGuiFont()
 --   local delta = 1
 --   vim.g.gui_font_size = vim.o.gui_font_size + delta
@@ -118,3 +127,4 @@ vim.keymap.set('n', '<F10>', '<cmd>DBUI<CR>', { noremap = true, silent = true, d
 --
 -- vim.keymap.set('n', '<M-=>', IncreaseGuiFont, { noremap = true, silent = true, desc = 'Increase Neovide font' })
 -- vim.keymap.set('n', '<M-=-', DecreaseGuiFont, { noremap = true, silent = true, desc = 'Decrease Neovide font' })
+--
