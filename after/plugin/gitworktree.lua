@@ -1,9 +1,9 @@
 require("git-worktree").setup({
-    -- change_directory_command = <str> -- default: "cd",
-    -- update_on_change = <boolean> -- default: true,
-    -- update_on_change_command = <str> -- default: "e .",
-    -- clearjumps_on_change = <boolean> -- default: true,
-    -- autopush = <boolean> -- default: false,
+  -- change_directory_command = <str> -- default: "cd",
+  -- update_on_change = <boolean> -- default: true,
+  -- update_on_change_command = <str> -- default: "e .",
+  -- clearjumps_on_change = <boolean> -- default: true,
+  -- autopush = <boolean> -- default: false,
 })
 
 require("telescope").load_extension("git_worktree")
@@ -65,9 +65,9 @@ function Gwrm()
 end
 vim.api.nvim_create_user_command('Gwrm', Gwsw, {})
 
-vim.keymap.set("n", "<leader>ts", require('telescope').extensions.git_worktree.git_worktrees, { desc = 'Switch worktree' })
-vim.keymap.set("n", "<leader>ta", require('telescope').extensions.git_worktree.create_git_worktree, { desc = 'Add worktree' })
+vim.keymap.set("n", "<leader>ts", require('telescope').extensions.git_worktree.git_worktrees,
+  { desc = 'Switch worktree' })
+vim.keymap.set("n", "<leader>ta", require('telescope').extensions.git_worktree.create_git_worktree,
+  { desc = 'Add worktree' })
 -- vim.keymap.set("n", "<leader>wr", "<cmd>lua Gwrm()")
 vim.keymap.set("n", "<leader>tr", Gwrm, { desc = 'Remove worktree' })
-
-
