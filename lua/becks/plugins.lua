@@ -87,7 +87,7 @@ require('lazy').setup({
     end,
   },
 
-  {'ThePrimeagen/git-worktree.nvim'},
+  require('becks.plugins.git-worktree'),
 
   -- LSP Magic
   {
