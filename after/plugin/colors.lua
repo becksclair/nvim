@@ -32,6 +32,7 @@ function SetMyColorHls()
   vim.api.nvim_set_hl(0, 'Visual', { fg = "#ffffff", bg = "#E66159" })
   vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#ffffff", bg = "#E66159" })
 
+  vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 end
 
 function SetTempleTheme()
@@ -45,43 +46,43 @@ function SetTempleTheme()
   vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#FFFF00", bg = "#000000" })
 
 end
-vim.api.nvim_create_user_command('SetTempleTheme', SetTempleTheme, {nargs = 0})
 
 function SetTempleThemeDark()
   vim.o.background = "dark"
-  local color = "kanagawa-wave"
   require("kanagawa").load("wave")
   -- vim.cmd.colorscheme(color)
   SetMyColorHls()
 end
+
+vim.api.nvim_create_user_command('SetTempleTheme', SetTempleTheme, {nargs = 0})
 vim.api.nvim_create_user_command('SetTempleThemeDark', SetTempleThemeDark, {nargs = 0})
 
 
 
-function ToggleBg()
-  if vim.o.background == "light" then
-    vim.o.background = "dark"
-    print("ToggleBg: Background set to dark")
-  else
-    vim.o.background = "light"
-    print("ToggleBg: Background set to light")
-  end
-end
-
-function Transparent()
-  if not vim.g.neovide then
-    print("Transparent: Neovide not running")
-    return
-  end
-
-  if vim.g.neovide_transparency < 1.0 then
-    vim.g.neovide_transparency = 1.0
-    print("Transparent: Transparency set to 1.0")
-  else
-    vim.g.neovide_transparency = 0.9
-    print("Transparent: Transparency set to 0.9")
-  end
-end
+-- function ToggleBg()
+--   if vim.o.background == "light" then
+--     vim.o.background = "dark"
+--     print("ToggleBg: Background set to dark")
+--   else
+--     vim.o.background = "light"
+--     print("ToggleBg: Background set to light")
+--   end
+-- end
+--
+-- function Transparent()
+--   if not vim.g.neovide then
+--     print("Transparent: Neovide not running")
+--     return
+--   end
+--
+--   if vim.g.neovide_transparency < 1.0 then
+--     vim.g.neovide_transparency = 1.0
+--     print("Transparent: Transparency set to 1.0")
+--   else
+--     vim.g.neovide_transparency = 0.9
+--     print("Transparent: Transparency set to 0.9")
+--   end
+-- end
 
 -- ColorMyPencils()
-SetTempleTheme()
+SetTempleThemeDark()
