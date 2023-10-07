@@ -161,15 +161,22 @@ return {
   init = function()
 
   end,
-  config = function()
-    require("chatgpt").setup()
+  config = function(_, opts)
+    require("chatgpt").setup(opts)
+    local chatgpt = require("chatgpt")
 
     -- vim.keymap.set('n', '<F8>', require("chatgpt").openChat, { noremap = true, silent = true, desc = 'Open ChatGPT' })
-    vim.keymap.set('n', '<F5>', require("chatgpt").edit_with_instructions, { noremap = true, silent = false, desc = 'Edit ChatGPT' })
-    vim.keymap.set('v', '<F5>', require("chatgpt").edit_with_instructions, { noremap = true, silent = false, desc = 'Edit ChatGPT' })
+    -- vim.keymap.set('n', '<F5>', require("chatgpt").edit_with_instructions, { noremap = true, silent = false, desc = 'Edit ChatGPT' })
+    -- vim.keymap.set('v', '<F5>', require("chatgpt").edit_with_instructions, { noremap = true, silent = false, desc = 'Edit ChatGPT' })
 
-    vim.keymap.set({ 'n', 'v' }, '<Leader>cc', require("chatgpt").complete_code,
-      { noremap = true, silent = false, desc = 'Complete with ChatGPT' })
+
+    vim.keymap.set('n', '<F5>', chatgpt.edit_with_instructions, { noremap = true, silent = false, desc = 'Edit ChatGPT' })
+    vim.keymap.set('v', '<F5>', chatgpt.edit_with_instructions, { noremap = true, silent = false, desc = 'Edit ChatGPT' })
+
+
+
+    -- vim.keymap.set({ 'n', 'v' }, '<Leader>cc', require("chatgpt").complete_code,
+      -- { noremap = true, silent = false, desc = 'Complete with ChatGPT' })
     -- vim.keymap.set('v', '<Leader>c', chatgpt.complete_code, { noremap = true, silent = true, desc = 'Complete with ChatGPT' })
 
     vim.keymap.set({ 'n' }, '<Leader>ce', '<cmd>ChatGPTRun explain_code<CR>',
