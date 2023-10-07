@@ -202,6 +202,16 @@ local on_attach = function(_, bufnr)
 end
 
 local servers = {
+  ['rust-analyzer'] = {
+    checkOnSave = {
+      allFeatures = true,
+      overrideCommand = {
+        'cargo', 'clippy', '--workspace', '--message-format=json',
+        '--all-targets', '--all-features'
+      }
+    }
+  },
+
   v_analyzer = {
     filetypes = { 'v', 'vv', 'vsh', 'vlang' },
   },
