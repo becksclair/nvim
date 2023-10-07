@@ -209,15 +209,8 @@ require('lazy').setup({
   -- Hide Secrets
   { 'laytan/cloak.nvim' },
 
-  {
-    "jackMort/ChatGPT.nvim",
-    event = "VeryLazy",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim"
-    }
-  },
+  require('becks.plugins.chatgpt'),
+
   {'akinsho/toggleterm.nvim', version = "*", config = true},
 
   -- { 'mfussenegger/nvim-dap' },
