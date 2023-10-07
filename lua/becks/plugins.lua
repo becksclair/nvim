@@ -33,13 +33,9 @@ require('lazy').setup({
   },
 
   require('becks.plugins.color-schemes'),
+  -- require('becks.plugins.nvim-tree'),
+  require('becks.plugins.neo-tree'),
 
-  {
-    'nvim-tree/nvim-tree.lua',
-    config = function()
-      vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })
-    end,
-  },
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
