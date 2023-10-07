@@ -159,6 +159,7 @@ require('lazy').setup({
 
   {
     "folke/zen-mode.nvim",
+    lazy = true,
     opts = { }
   },
 
@@ -246,7 +247,10 @@ require('lazy').setup({
     end,
   },
 
-  {"b0o/schemastore.nvim"},
+  {
+    "b0o/schemastore.nvim",
+    lazy = true
+  },
 
   -- {
   --   -- Set lualine as statusline
