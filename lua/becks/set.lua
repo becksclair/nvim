@@ -23,6 +23,9 @@ vim.opt.expandtab = true
 
 vim.opt.smartindent = true
 
+vim.opt.hidden = true
+vim.opt.ruler = true
+
 -- Enable break indent
 vim.o.breakindent = true
 
@@ -33,6 +36,15 @@ vim.o.smartcase = true
 -- Keep sign column on by default
 vim.wo.signcolumn = 'yes'
 
+vim.o.backspace = 'indent,eol,start'
+vim.o.listchars = 'tab:→ ,trail:·,extends:❯,precedes:❮,nbsp:␣,eol:¬'
+vim.o.fillchars = 'vert:│,fold:·,diff:⣿,msgsep:‾'
+vim.o.showbreak = '↪ '
+vim.o.breakindentopt = 'shift:0,min:20'
+vim.o.linebreak = true
+vim.opt.wrap = true
+vim.opt.colorcolumn = "80"
+
 -- Decrease update time
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
@@ -42,8 +54,6 @@ vim.o.completeopt = 'menu,menuone,noselect'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
-
-vim.opt.wrap = false
 
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -60,7 +70,7 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
-vim.opt.colorcolumn = "80"
+vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
