@@ -64,7 +64,7 @@ require('lazy').setup({
   { 'nvim-treesitter/nvim-treesitter-context' },
 
   -- Project File navigation
-  { 'ThePrimeagen/harpoon' },
+  require('becks.plugins.harpoon'),
 
   -- Detect tabstop and shiftwidth automatically
   {'tpope/vim-sleuth'},
