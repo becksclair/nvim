@@ -47,14 +47,14 @@ require('lazy').setup({
   },
 
   { 'cocopon/iceberg.vim' },
-  -- {
-  --   'Mofiqul/vscode.nvim',
-  --   priority = 1000,
-  --   config = function()
-  --     -- vim.opt.background = 'light'
-  --     -- vim.cmd.colorscheme 'vscode'
-  --   end,
-  -- },
+  {
+    'Mofiqul/vscode.nvim',
+    priority = 1000,
+    config = function()
+      -- vim.opt.background = 'light'
+      -- vim.cmd.colorscheme 'vscode'
+    end,
+  },
 
   -- V-Colors
   -- {
