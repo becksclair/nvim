@@ -301,8 +301,16 @@ require('lazy').setup({
     'kristijanhusak/vim-dadbod-ui',
     lazy = true,
     dependencies = {
-      { 'tpope/vim-dadbod',                     lazy = true },
-      { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
+      { 'tpope/vim-dadbod', lazy = true },
+      {
+        'kristijanhusak/vim-dadbod-completion',
+        ft = {
+          -- 'sql',
+          -- 'mysql',
+          'plsql'
+        },
+        lazy = true
+      },
     },
     cmd = {
       'DBUI',
@@ -318,13 +326,7 @@ require('lazy').setup({
     end,
   },
 
-  {
-    'nvim-lualine/lualine.nvim',
-    lazy = true,
-    enabled = false,
-    requires = { 'nvim-tree/nvim-web-devicons', opt = true },
-    event = "VimEnter",
-  },
+  require("becks.plugins.lualine"),
 
   {
     "epwalsh/obsidian.nvim",

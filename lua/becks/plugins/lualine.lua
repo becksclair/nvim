@@ -1,18 +1,32 @@
-local colors = require('becks.colors')
 local conditions = require('becks.conditions')
 local icons = require('becks.icons')
 
+local colors = {
+  bg = "#202328",
+  fg = "#bbc2cf",
+  yellow = "#ECBE7B",
+  cyan = "#008080",
+  darkblue = "#081633",
+  green = "#98be65",
+  orange = "#FF8800",
+  violet = "#a9a1e1",
+  magenta = "#c678dd",
+  purple = "#c678dd",
+  blue = "#51afef",
+  red = "#ec5f67",
+}
+
 local components = {
   treesitter = {
-      function()
-        return icons.ui.Tree
-      end,
-      color = function()
-        local buf = vim.api.nvim_get_current_buf()
-        local ts = vim.treesitter.highlighter.active[buf]
-        return { fg = ts and not vim.tbl_isempty(ts) and colors.green or colors.red }
-      end,
-      cond = conditions.hide_in_width,
+    function()
+      return icons.ui.Tree
+    end,
+    color = function()
+      local buf = vim.api.nvim_get_current_buf()
+      local ts = vim.treesitter.highlighter.active[buf]
+      return { fg = ts and not vim.tbl_isempty(ts) and colors.green or colors.red }
+    end,
+    cond = conditions.hide_in_width,
   },
   copilot = {
     function()
@@ -87,49 +101,51 @@ local components = {
   },
 }
 
--- local function treesitter()
---   return icons.ui.Tree
--- end
---
-require('lualine').setup {
-  options = {
-    icons_enabled = true,
-    -- theme = 'auto',
-    theme = 'nightfly',
-    -- theme = 'onelight',
-    section_separators = { left = '', right = '' },
-    -- section_separators = { left = '', right = '' },
-    component_separators = { left = '', right = '' },
-    -- component_separators = { left = '→', right = '←' },
-  },
-  sections = {
-    lualine_a = { 'mode' },
-    lualine_b = { 'branch', 'diff', 'diagnostics' },
-    lualine_c = { 'filename' },
-    lualine_x = { 'fileformat', components.treesitter, components.lsp, components.copilot, 'filetype' },
-    lualine_y = { 'progress' },
-    lualine_z = { 'location' }
-  },
-  inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = { 'filename' },
-    lualine_x = {
-      -- {treesitter},
-      -- {components.treesitter.text(), color = components.treesitter.color, cond = components.treesitter.cond},
-      -- {components.lsp.text(), color = components.lsp.color, cond = components.lsp.cond},
-      'encoding',
-      'location'
+return {
+  'nvim-lualine/lualine.nvim',
+  lazy = true,
+  enabled = false,
+  requires = { 'nvim-tree/nvim-web-devicons', opt = true },
+  event = "VimEnter",
+  opts = {
+    options = {
+      icons_enabled = true,
+      -- theme = 'auto',
+      theme = 'nightfly',
+      -- theme = 'onelight',
+      section_separators = { left = '', right = '' },
+      -- section_separators = { left = '', right = '' },
+      component_separators = { left = '', right = '' },
+      -- component_separators = { left = '→', right = '←' },
     },
-    lualine_y = {},
-    lualine_z = {}
-  },
-  extensions = {
-    'quickfix',
-    'fugitive',
-    'symbols-outline',
-    'nvim-tree',
-    'toggleterm',
-  },
+    sections = {
+      lualine_a = { 'mode' },
+      lualine_b = { 'branch', 'diff', 'diagnostics' },
+      lualine_c = { 'filename' },
+      lualine_x = { 'fileformat', components.treesitter, components.lsp, components.copilot, 'filetype' },
+      lualine_y = { 'progress' },
+      lualine_z = { 'location' }
+    },
+    inactive_sections = {
+      lualine_a = {},
+      lualine_b = {},
+      lualine_c = { 'filename' },
+      lualine_x = {
+        -- {treesitter},
+        -- {components.treesitter.text(), color = components.treesitter.color, cond = components.treesitter.cond},
+        -- {components.lsp.text(), color = components.lsp.color, cond = components.lsp.cond},
+        'encoding',
+        'location'
+      },
+      lualine_y = {},
+      lualine_z = {}
+    },
+    extensions = {
+      'quickfix',
+      'fugitive',
+      'symbols-outline',
+      'nvim-tree',
+      'toggleterm',
+    },
+  }
 }
-
