@@ -90,15 +90,16 @@ cmp_mappings['<S-Tab>'] = nil
 cmp.setup({
   mapping = cmp_mappings,
   sources = {
-    -- Other Sources
-    { name = "nvim_lsp", group_index = 2 },
-    { name = "nvim_lua", group_index = 2 },
     -- Copilot Source
-    { name = "copilot",  group_index = 2 },
+    { name = "copilot",              group_index = 1 },
+    -- Other Sources
+    { name = "nvim_lsp",             group_index = 2 },
+    { name = "nvim_lua",             group_index = 2 },
+    { name = 'orgmode' },
     { name = "vim-dadbod-completion" },
-    { name = "buffer",   keyword_length = 5, group_index = 2 },
-    { name = "path",     group_index = 2 },
-    { name = "luasnip",  group_index = 2 },
+    { name = "buffer",               keyword_length = 5, group_index = 2 },
+    { name = "path",                 group_index = 2 },
+    { name = "luasnip",              group_index = 2 },
   },
   formatting = {
     format = lspkind.cmp_format({
@@ -116,7 +117,7 @@ cmp.setup({
     documentation = cmp.config.window.bordered('rounded'),
   },
 })
-vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {fg ="#6CC644"})
+vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 
 lsp.set_preferences({
   suggest_lsp_servers = false,
