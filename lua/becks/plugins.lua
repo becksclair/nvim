@@ -113,9 +113,9 @@ require('lazy').setup({
       {
         'neovim/nvim-lspconfig',
         config = function()
-          require('lspconfig').v_analyzer.setup { }
+          require('lspconfig').v_analyzer.setup {}
         end
-      },             -- Required
+      },                                       -- Required
       { 'williamboman/mason.nvim' },           -- Optional
       { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
@@ -123,13 +123,22 @@ require('lazy').setup({
       { 'hrsh7th/nvim-cmp' }, -- Required
       { 'hrsh7th/cmp-buffer' },
       { 'hrsh7th/cmp-path' },
-      { 'saadparwaiz1/cmp_luasnip' },
+      {
+        'saadparwaiz1/cmp_luasnip',
+        lazy = true,
+      },
       { 'hrsh7th/cmp-nvim-lsp' }, -- Required
       { 'hrsh7th/cmp-nvim-lua' },
 
       -- Snippets
-      { 'L3MON4D3/LuaSnip' }, -- Required
-      { 'rafamadriz/friendly-snippets' },
+      {
+        'L3MON4D3/LuaSnip',
+        lazy = true,
+      }, -- Required
+      {
+        'rafamadriz/friendly-snippets',
+        lazy = true,
+      },
     }
   },
 
@@ -170,15 +179,15 @@ require('lazy').setup({
       'nlsp-settings.nvim',
     },
   },
-  { "tamago324/nlsp-settings.nvim", cmd = "LspSettings", lazy = true },
+  { "tamago324/nlsp-settings.nvim",           cmd = "LspSettings", lazy = true },
 
   {
     "folke/zen-mode.nvim",
     lazy = true,
-    opts = { }
+    opts = {}
   },
 
-  {'mfussenegger/nvim-lint'},
+  { 'mfussenegger/nvim-lint' },
 
   -- Useful plugin to show you pending keybinds.
   {
@@ -193,13 +202,15 @@ require('lazy').setup({
 
   -- Animations for bored people
   {
-    'eandrju/cellular-automaton.nvim'
+    'eandrju/cellular-automaton.nvim',
+    lazy = true,
+    enabled = false,
   },
 
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    opts = { }
+    opts = {}
   },
 
   -- Autopairs
@@ -208,6 +219,7 @@ require('lazy').setup({
     lazy = true,
     event = "InsertEnter",
     enabled = true,
+    config = true,
     dependencies = { "nvim-treesitter/nvim-treesitter", "hrsh7th/nvim-cmp" },
   },
 
@@ -262,6 +274,22 @@ require('lazy').setup({
     'akinsho/toggleterm.nvim',
     lazy = true,
     version = "*",
+    opts = {
+      open_mapping = [[<c-\>]],
+      -- shade_terminals = true,
+      start_in_insert = true,
+      direction = 'float',
+      float_opts = {
+        -- The border key is *almost* the same as 'nvim_open_win'
+        -- see :h nvim_open_win for details on borders however
+        -- the 'curved' border is a custom border type
+        -- not natively supported but implemented in this plugin.
+        border = 'rounded',
+        -- like `size`, width and height can be a number or function which is passed the current terminal
+        -- winblend = 3,
+        -- zindex = <value>,
+      },
+    },
     config = true
   },
 
@@ -280,7 +308,7 @@ require('lazy').setup({
   {
     'kristijanhusak/vim-dadbod-ui',
     dependencies = {
-      { 'tpope/vim-dadbod', lazy = true },
+      { 'tpope/vim-dadbod',                     lazy = true },
       { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
     },
     cmd = {
