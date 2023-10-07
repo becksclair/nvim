@@ -302,7 +302,7 @@ require('lazy').setup({
     end,
   },
 
-  { 'michaelb/sniprun', build = 'bash ./install.sh' },
+  require('becks.plugins.sniprun'),
 
   {'ThePrimeagen/vim-be-good'},
 
