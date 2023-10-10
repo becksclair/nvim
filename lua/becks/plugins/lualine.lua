@@ -104,7 +104,7 @@ local components = {
 return {
   'nvim-lualine/lualine.nvim',
   lazy = true,
-  enabled = false,
+  enabled = true,
   requires = { 'nvim-tree/nvim-web-devicons', opt = true },
   event = "VimEnter",
   opts = {
