@@ -9,7 +9,8 @@ local lsp_config = function()
   lsp.ensure_installed({
     'tsserver',
     'rust_analyzer',
-    'lua_ls'
+    'lua_ls',
+    'pyright',
   })
 
   -- Fix Undefined global 'vim'
@@ -149,6 +150,7 @@ return {
   {
     'VonHeikemen/lsp-zero.nvim',
     lazy = true,
+    event = 'BufEnter',
     branch = 'v2.x',
     dependencies = {
       -- LSP Support
@@ -196,7 +198,7 @@ return {
         lazy = true,
       },
     },
-    config = lsp_config,
+    config = lsp_config
   },
 
   {
@@ -238,6 +240,8 @@ return {
                 }
               }
             },
+
+            pyright ={},
 
             v_analyzer = {
               filetypes = { 'v', 'vv', 'vsh', 'vlang' },
