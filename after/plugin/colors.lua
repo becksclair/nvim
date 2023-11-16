@@ -57,7 +57,15 @@ end
 vim.api.nvim_create_user_command('SetTempleTheme', SetTempleTheme, {nargs = 0})
 vim.api.nvim_create_user_command('SetTempleThemeDark', SetTempleThemeDark, {nargs = 0})
 
-
+function SetSolarized()
+  vim.o.background = "dark"
+  -- vim.g.neosolarized_contrast = "low"
+  -- vim.g.neosolarized_visibility = "normal"
+  -- vim.g.neosolarized_termBoldAsBright = false
+  vim.cmd.colorscheme("solarized")
+  -- SetMyColorHls()
+end
+vim.api.nvim_create_user_command('SetSolarized', SetSolarized, {nargs = 0})
 
 -- function ToggleBg()
 --   if vim.o.background == "light" then
@@ -85,4 +93,5 @@ vim.api.nvim_create_user_command('SetTempleThemeDark', SetTempleThemeDark, {narg
 -- end
 
 -- ColorMyPencils()
-SetTempleThemeDark()
+-- SetTempleThemeDark()
+SetSolarized()

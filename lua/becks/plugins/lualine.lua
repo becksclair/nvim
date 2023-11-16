@@ -111,7 +111,11 @@ return {
     options = {
       icons_enabled = true,
       -- theme = 'auto',
-      theme = 'nightfly',
+      theme = 'solarized',
+      disabled_filetypes = {
+        'NvimTree',
+      },
+      -- theme = 'nightfly',
       -- theme = 'onelight',
       section_separators = { left = '', right = '' },
       -- section_separators = { left = '', right = '' },

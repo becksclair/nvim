@@ -1,5 +1,13 @@
 return {
   {
+    'maxmx03/solarized.nvim',
+    -- lazy = true,
+    priority = 1000,
+    opts = {
+      -- theme = 'neo'
+    }
+  },
+  {
     'rose-pine/neovim',
     name = 'rose-pine',
     lazy = true,
