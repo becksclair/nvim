@@ -39,6 +39,7 @@
   "nvim-web-devicons": { "branch": "master", "commit": "11eb26fc166742db8d1e8a6f5a7de9df37b09aae" },
   "obsidian.nvim": { "branch": "main", "commit": "75ffabb40d846592f8e18e3a3d46200b56134d2e" },
   "plenary.nvim": { "branch": "master", "commit": "50012918b2fc8357b87cff2a7f7f0446e47da174" },
+  "quick-lint-js": { "branch": "master", "commit": "684ddb8eb7beea137c95dca580640c35f669db3f" },
   "rose-pine": { "branch": "main", "commit": "92762f4fa2144c05db760ea254f4c399a56a7ef5" },
   "schemastore.nvim": { "branch": "main", "commit": "357fe900baae09e1a3fcef913e49733d05d1f888" },
   "smyck.vim": { "branch": "master", "commit": "538c55741a4e08229a72bf4d72f00389be6fc7e7" },

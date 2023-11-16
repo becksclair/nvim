@@ -111,6 +111,8 @@ require('lazy').setup({
   -- LSP Magic
   require('becks.plugins.lsp-zero'),
 
+  require('becks.plugins.quick-lint-js'),
+
 
   {
     "folke/zen-mode.nvim",
