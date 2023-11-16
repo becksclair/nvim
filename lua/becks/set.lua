@@ -1,6 +1,8 @@
 vim.cmd("autocmd!")
 
-vim.opt.rtp:append("~/.opam/default/share")
+if not vim.fn.has('win32') then
+    vim.opt.rtp:append("~/.opam/default/share")
+end
 
 vim.scriptencoding = 'utf-8'
 vim.opt.encoding = 'utf-8'
@@ -56,7 +58,12 @@ vim.o.termguicolors = true
 
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+
+if not vim.fn.has('win32') then
+    vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+else
+    vim.opt.undodir = os.getenv("USERPROFILE") .. "/.vim/undodir"
+end
 vim.opt.undofile = true
 
 vim.opt.hlsearch = false
@@ -69,7 +76,7 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
-vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
@@ -78,17 +85,16 @@ vim.o.clipboard = 'unnamedplus'
 vim.o.guifont = 'Liga ComicShannsMono Nerd Font:h16'
 
 vim.filetype.add {
-  extension = {
-    v = 'vlang'
-  },
-  pattern = {
-    ["yabairc"] = "bash",
-    ["[jt]sconfig.*.json"] = "jsonc",
-  },
+    extension = {
+        v = 'vlang'
+    },
+    pattern = {
+        ["yabairc"] = "bash",
+        ["[jt]sconfig.*.json"] = "jsonc"
+    }
 }
 
 vim.diagnostic.config({
-  virtual_text = true
+    virtual_text = true
 })
-
 
