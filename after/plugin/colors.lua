@@ -92,6 +92,6 @@ vim.api.nvim_create_user_command('SetSolarized', SetSolarized, {nargs = 0})
 --   end
 -- end
 
--- ColorMyPencils()
+ColorMyPencils()
 -- SetTempleThemeDark()
-SetSolarized()
+-- SetSolarized()
