@@ -10,7 +10,7 @@ vim.opt.fileencoding = 'utf-8'
 
 vim.o.title = true
 
-vim.opt_local.spell = true
+vim.opt_local.spell = false
 vim.opt_local.spelllang = "en_us"
 
 -- vim.opt.guicursor = ""
