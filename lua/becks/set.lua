@@ -60,9 +60,9 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 
 if not vim.fn.has('win32') then
-    vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-else
     vim.opt.undodir = os.getenv("USERPROFILE") .. "/.vim/undodir"
+else
+    vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 end
 vim.opt.undofile = true
 
