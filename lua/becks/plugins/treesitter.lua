@@ -54,7 +54,7 @@ return {
     config = function()
       require 'nvim-treesitter.configs'.setup {
         -- A list of parser names, or "all"
-        ensure_installed = { "javascript", "typescript", "c", "lua", "rust", "sql", "markdown", "markdown_inline", "org" },
+        ensure_installed = { "javascript", "typescript", "c","v", "lua", "rust", "sql", "markdown", "markdown_inline", "org" },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
         sync_install = false,
@@ -63,7 +63,7 @@ return {
         -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
         auto_install = true,
 
-        ignore_install = {  },
+        ignore_install = { },
         modules = {
           -- enable/disable treesitter modules here
         },
@@ -71,6 +71,10 @@ return {
         highlight = {
           -- `false` will disable the whole extension
           enable = true,
+
+          disable = {
+            'verilog'
+          },
 
           -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
           -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
@@ -202,6 +206,8 @@ return {
           }
         },
       }
+
+      vim.treesitter.language.register("v", "verilog")
 
       -- Diagnostic keymaps
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })

@@ -270,13 +270,16 @@ return {
                     },
 
                     quick_lint_js = {
+
+                    biome = {
                         filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
                     },
 
                     pyright = {},
 
                     v_analyzer = {
-                        filetypes = { 'v', 'vv', 'vsh', 'vlang' }
+                        filetypes = { 'v', 'vv', 'vsh', 'vlang' },
+                        root_pattern = { 'v.mod', '.git' }
                     },
 
                     lua_ls = {

@@ -90,7 +90,8 @@ vim.filetype.add {
     },
     pattern = {
         ["yabairc"] = "bash",
-        ["[jt]sconfig.*.json"] = "jsonc"
+        ["[jt]sconfig.*.json"] = "jsonc",
+        ['v.mod'] = 'vlang'
     }
 }
 
@@ -98,3 +99,16 @@ vim.diagnostic.config({
     virtual_text = true
 })
 
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+  pattern = "v.mod",
+  callback = function()
+    -- Get the full path of the current file
+    local filepath = vim.fn.expand('%:p')
+    -- Get the full path of the current working directory
+    local cwd = vim.fn.getcwd() .. "/"
+    -- Check if the file is in the current working directory
+    if filepath == cwd .. "v.mod" then
+      vim.bo.filetype = "vlang"
+    end
+  end,
+})
