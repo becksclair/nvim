@@ -138,6 +138,9 @@ require('lazy').setup({
         bash = { 'shellcheck', },
         shell = { 'shellcheck', },
         zsh = { 'shellcheck', },
+
+        -- vlang = { 'vlang' },
+
         -- rust = { 'clippy' }
       }
 
@@ -154,6 +157,20 @@ require('lazy').setup({
         'json',
         '-'
       }
+
+      -- local function parse_vlang_check(output, bufnr)
+      --
+      -- end
+
+      -- require('lint').linters.vlang = {
+      --   name = 'vlang',
+      --   cmd = 'v',
+      --   stdin = false,
+      --   args = {'-check', '.'},
+      --   stream = 'both',
+      --   ignore_exitcode = true,
+      --   parser = require('lint.parser').from_errorformat(errorformat),
+      -- }
 
       vim.keymap.set("n", "<leader>bl", require("lint").try_lint, { desc = "Lint file" })
     end
@@ -443,6 +460,8 @@ require('lazy').setup({
   },
 
   require('becks.plugins.sniprun'),
+
+  require('becks.plugins.package-info'),
 
   {
     'ThePrimeagen/vim-be-good',

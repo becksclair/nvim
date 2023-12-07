@@ -67,6 +67,29 @@ function SetSolarized()
 end
 vim.api.nvim_create_user_command('SetSolarized', SetSolarized, {nargs = 0})
 
+function SetNightFox()
+  vim.o.background = "dark"
+  vim.cmd.colorscheme("nightfox")
+  SetMyColorHls()
+end
+vim.api.nvim_create_user_command('SetNightFox', SetNightFox, {nargs = 0})
+
+function SetDayFox()
+  vim.o.background = "light"
+  vim.cmd.colorscheme("dayfox")
+  SetMyColorHls()
+end
+vim.api.nvim_create_user_command('SetDayFox', SetNightFox, {nargs = 0})
+
+function SetGruberDarker()
+  vim.o.background = "dark"
+  vim.cmd.colorscheme("gruber-darker")
+  SetMyColorHls()
+end
+vim.api.nvim_create_user_command('SetGruberDarker', SetNightFox, {nargs = 0})
+
+
+
 -- function ToggleBg()
 --   if vim.o.background == "light" then
 --     vim.o.background = "dark"
@@ -92,6 +115,11 @@ vim.api.nvim_create_user_command('SetSolarized', SetSolarized, {nargs = 0})
 --   end
 -- end
 
-ColorMyPencils()
+-- ColorMyPencils()
+-- SetNightFox()
+SetDayFox()
+-- SetTempleTheme()
 -- SetTempleThemeDark()
 -- SetSolarized()
+-- SetGruberDarker()
+
