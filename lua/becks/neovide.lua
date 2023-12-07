@@ -5,7 +5,30 @@ if vim.g.neovide then
   vim.g.neovide_transparency = 0.9
   vim.g.neovide_cursor_antialiasing = false
 
+  vim.g.neovide_padding_top    = 5
+  vim.g.neovide_padding_bottom = 5
+  vim.g.neovide_padding_right  = 5
+  vim.g.neovide_padding_left   = 5
+
   vim.g.neovide_input_macos_alt_is_meta = true
+
+  -- ->
+  vim.g.neovide_font_features = {
+    ["MonaspaceArgonSemiWide Nerd Font"] = {
+      "+calt",
+      "+dlig",
+      "+ss01",
+      "+ss01",
+      "+ss02",
+      "+ss03",
+      "+ss04",
+      "+ss05",
+      "+ss06",
+      "+ss07",
+      "+ss08",
+    },
+  }
+  vim.o.guifont = 'MonaspaceArgonSemiWide Nerd Font,Symbols_Nerd_Font:h8'
 
   vim.opt.linespace = 0
 
