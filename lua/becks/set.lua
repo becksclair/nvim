@@ -82,7 +82,7 @@ vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
-vim.o.guifont = 'Liga ComicShannsMono Nerd Font:h16'
+vim.o.guifont = 'Maple Mono NF:h8'
 
 vim.filetype.add {
     extension = {
