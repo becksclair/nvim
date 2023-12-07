@@ -270,6 +270,8 @@ return {
                     },
 
                     quick_lint_js = {
+                      filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
+                    },
 
                     biome = {
                         filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
