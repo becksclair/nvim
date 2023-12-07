@@ -1,5 +1,24 @@
 return {
   {
+    "EdenEast/nightfox.nvim",
+    priority = 1000,
+    lazy = true,
+    opts = {
+      options = {
+        -- transparent = true
+      }
+    }
+  },
+  {
+    "blazkowolf/gruber-darker.nvim",
+    priority = 1000,
+    lazy = true,
+    opts = {
+      bold = true,
+    }
+  },
+
+  {
     'maxmx03/solarized.nvim',
     -- lazy = true,
     priority = 1000,

@@ -115,7 +115,9 @@ return {
       -- disabled_filetypes = {
       --   'NvimTree',
       -- },
-      theme = 'nightfly',
+      -- theme = 'nightfox',
+      theme = 'dayfox',
+      -- theme = 'nightfly',
       -- theme = 'onelight',
       section_separators = { left = '', right = '' },
       -- section_separators = { left = '', right = '' },
