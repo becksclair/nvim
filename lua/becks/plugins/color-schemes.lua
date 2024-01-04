@@ -1,5 +1,11 @@
 return {
   {
+    "anshai-git/clarity.nvim",
+    priority = 1000,
+    dir = "x:/projects/clarity.nvim",
+  },
+  -- { dir = "x:/projects/nvim-naysayer/naysayer" },
+  {
     "EdenEast/nightfox.nvim",
     priority = 1000,
     lazy = true,
@@ -21,18 +27,30 @@ return {
   {
     'maxmx03/solarized.nvim',
     -- lazy = true,
+    enabled = false,
     priority = 1000,
     opts = {
       -- theme = 'neo'
+      palette = 'solarized'
     }
+  },
+  {
+    'ishan9299/nvim-solarized-lua',
+    priority = 1000,
+  },
+  {
+    'HiPhish/resolarized.nvim',
+    url = 'git@gitlab.com:HiPhish/resolarized.nvim.git',
+    priority = 1000,
   },
   {
     'rose-pine/neovim',
     name = 'rose-pine',
-    lazy = true,
+    -- lazy = true,
     priority = 1000,
     opts = {
-      disable_background = true
+      -- disable_background = true,
+      -- transparent = true
     },
     config = function()
       vim.cmd('colorscheme rose-pine')

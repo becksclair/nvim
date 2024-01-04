@@ -28,11 +28,21 @@ end
 function SetMyColorHls()
   -- Custom highlight colors
   -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#ffffff", bg = "#E66159" })
+  -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#ffffff", bg = "#f6c177" })
   vim.api.nvim_set_hl(0, 'Cursor', { fg = "#ffffff", bg = "#f6c177" })
+  vim.api.nvim_set_hl(0, 'lCursor', { fg = "#ffffff", bg = "#f6c177" })
   vim.api.nvim_set_hl(0, 'Visual', { fg = "#ffffff", bg = "#E66159" })
   vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#ffffff", bg = "#E66159" })
 
   vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+
+  -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#FFFF00", bg = "#000000" })
+  -- vim.api.nvim_set_hl(0, 'Visual', { fg = "#FFFF00", bg = "#000000" })
+  -- vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#FFFF00", bg = "#000000" })
+
+
+  -- vim.api.nvim_set_hl(0, 'Normal', { bg = "none" })
+  -- vim.api.nvim_set_hl(0, 'NonText', { bg = "none" })
 end
 
 function SetTempleTheme()
@@ -67,6 +77,18 @@ function SetSolarized()
 end
 vim.api.nvim_create_user_command('SetSolarized', SetSolarized, {nargs = 0})
 
+function SetSolarized2()
+  vim.o.background = "dark"
+  -- vim.g.neosolarized_contrast = "low"
+  -- vim.g.neosolarized_visibility = "normal"
+  -- vim.g.neosolarized_termBoldAsBright = false
+  vim.cmd.colorscheme("solarized-dark")
+  -- SetMyColorHls()
+end
+vim.api.nvim_create_user_command('SetSolarized2', SetSolarized2, {nargs = 0})
+
+
+
 function SetNightFox()
   vim.o.background = "dark"
   vim.cmd.colorscheme("nightfox")
@@ -87,6 +109,20 @@ function SetGruberDarker()
   SetMyColorHls()
 end
 vim.api.nvim_create_user_command('SetGruberDarker', SetNightFox, {nargs = 0})
+
+function SetNaysayer()
+  vim.o.background = "dark"
+  vim.cmd.colorscheme("clarity")
+  -- SetMyColorHls()
+  -- vim.api.nvim_set_hl(0, 'TermCursor', { fg = "#062329", bg = "#8cde94" })
+  vim.api.nvim_set_hl(0, 'Cursor', { fg = "#062329", bg = "#8cde94" })
+  vim.api.nvim_set_hl(0, 'lCursor', { fg = "#062329", bg = "#8cde94" })
+  vim.api.nvim_set_hl(0, 'Visual', { fg = "#ffffff", bg = "#0000ff" })
+  vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#613315", bg = "#E66159" })
+
+  vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+end
+vim.api.nvim_create_user_command('SetNaysayer', SetNightFox, {nargs = 0})
 
 
 
@@ -117,9 +153,10 @@ vim.api.nvim_create_user_command('SetGruberDarker', SetNightFox, {nargs = 0})
 
 -- ColorMyPencils()
 -- SetNightFox()
-SetDayFox()
+-- SetDayFox()
 -- SetTempleTheme()
 -- SetTempleThemeDark()
--- SetSolarized()
+-- SetSolarized2()
 -- SetGruberDarker()
+SetNaysayer()
 

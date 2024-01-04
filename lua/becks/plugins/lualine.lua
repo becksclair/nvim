@@ -111,12 +111,13 @@ return {
     options = {
       icons_enabled = true,
       -- theme = 'auto',
+      theme = 'gruvbox',
       -- theme = 'solarized',
       -- disabled_filetypes = {
       --   'NvimTree',
       -- },
       -- theme = 'nightfox',
-      theme = 'dayfox',
+      -- theme = 'dayfox',
       -- theme = 'nightfly',
       -- theme = 'onelight',
       section_separators = { left = '', right = '' },
