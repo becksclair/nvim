@@ -128,52 +128,11 @@ require('lazy').setup({
   {
     'mfussenegger/nvim-lint',
     lazy = true,
-    event = "BufReadPost",
-    config = function()
-      require('lint').linters_by_ft = {
-        -- markdown = {'vale',},
-        python = { 'flake8', 'pylint', },
-        sql = { 'sqlfluff', },
+    -- event = "BufReadPost",
+  },
 
-        bash = { 'shellcheck', },
-        shell = { 'shellcheck', },
-        zsh = { 'shellcheck', },
-
-        -- vlang = { 'vlang' },
-
-        -- rust = { 'clippy' }
-      }
-
-      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-        callback = function()
-          require("lint").try_lint()
-        end,
-      })
-
-      require('lint').linters.shellcheck.args = {
-        '-s',
-        'bash',
-        '--format',
-        'json',
-        '-'
-      }
-
-      -- local function parse_vlang_check(output, bufnr)
-      --
-      -- end
-
-      -- require('lint').linters.vlang = {
-      --   name = 'vlang',
-      --   cmd = 'v',
-      --   stdin = false,
-      --   args = {'-check', '.'},
-      --   stream = 'both',
-      --   ignore_exitcode = true,
-      --   parser = require('lint.parser').from_errorformat(errorformat),
-      -- }
-
-      vim.keymap.set("n", "<leader>bl", require("lint").try_lint, { desc = "Lint file" })
-    end
+  {
+    'Tetralux/odin.vim'
   },
 
   -- Useful plugin to show you pending keybinds.
