@@ -1,14 +1,14 @@
 return {
   "zbirenbaum/copilot-cmp",
   lazy = true,
-  event = "InsertEnter",
+  event = "BufEnter",
   dependencies = { "zbirenbaum/copilot.lua" },
   config = function()
     vim.defer_fn(function()
       require("copilot").setup({
         panel = {
           enabled = false,
-          auto_refresh = true,
+          auto_refresh = false,
           keymap = {
             jump_prev = "[[",
             jump_next = "]]",

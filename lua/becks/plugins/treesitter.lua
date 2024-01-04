@@ -52,6 +52,16 @@ return {
     event = { "VeryLazy" },
     build = ':TSUpdate',
     config = function()
+      -- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+      -- parser_config.odin = {
+      --   install_info = {
+      --     url = "x:/projects/tree-sitter-odin",
+      --     branch = 'main',
+      --     files = {"src/parser.c"}
+      --   },
+      --   filetype = "odin",
+      -- }
+
       require 'nvim-treesitter.configs'.setup {
         -- A list of parser names, or "all"
         ensure_installed = { "javascript", "typescript", "c","v", "lua", "rust", "sql", "markdown", "markdown_inline", "org" },

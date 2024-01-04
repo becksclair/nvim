@@ -59,7 +59,7 @@ vim.o.termguicolors = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 
-if not vim.fn.has('win32') then
+if vim.fn.has('win32') then
     vim.opt.undodir = os.getenv("USERPROFILE") .. "/.vim/undodir"
 else
     vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
@@ -82,7 +82,7 @@ vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
-vim.o.guifont = 'Maple Mono NF:h8'
+vim.o.guifont = 'FiraMono Nerd Font:h12'
 
 vim.filetype.add {
     extension = {

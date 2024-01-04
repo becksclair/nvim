@@ -79,6 +79,13 @@ local lsp_config = function()
     local cmp_select = {
         behavior = cmp.SelectBehavior.Select
     }
+
+    local has_words_before = function()
+      if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+      return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
+    end
+
     local cmp_mappings = lsp.defaults.cmp_mappings({
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -87,39 +94,49 @@ local lsp_config = function()
         ['<C-y>'] = cmp.mapping.confirm({
             select = true
         }),
-        ["<C-Space>"] = cmp.mapping.complete()
+        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<Tab>"] = vim.schedule_wrap(function(fallback)
+          if cmp.visible() and has_words_before() then
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+          else
+            fallback()
+          end
+        end),
+        ['<S-Tab>'] = nil,
     })
-    cmp_mappings['<Tab>'] = nil
-    cmp_mappings['<S-Tab>'] = nil
+    -- cmp_mappings['<Tab>'] = nil
+    -- cmp_mappings['<S-Tab>'] = nil
 
     cmp.setup({
         mapping = cmp_mappings,
-        sources = { -- Copilot Source
-            {
-                name = "copilot",
-                group_index = 1
-            }, -- Other Sources
+        sources = {
             {
                 name = "nvim_lsp",
                 group_index = 2
+            },
+            { -- Copilot Source
+                name = "copilot",
+                group_index = 2
+            }, -- Other Sources
+            {
+                name = "nvim_lua",
+                group_index = 2
             }, {
-            name = "nvim_lua",
-            group_index = 2
-        }, {
-            name = 'orgmode'
-        }, {
-            name = "vim-dadbod-completion"
-        }, {
-            name = "buffer",
-            keyword_length = 5,
-            group_index = 2
-        }, {
-            name = "path",
-            group_index = 2
-        }, {
-            name = "luasnip",
-            group_index = 2
-        } },
+                name = 'orgmode'
+            }, {
+                name = "vim-dadbod-completion"
+            }, {
+                name = "buffer",
+                keyword_length = 5,
+                group_index = 2
+            }, {
+                name = "path",
+                group_index = 2
+            }, {
+                name = "luasnip",
+                group_index = 2
+            }
+        },
         formatting = {
             format = require('lspkind').cmp_format({
                 mode = "symbol_text",
@@ -269,15 +286,19 @@ return {
                         }
                     },
 
-                    quick_lint_js = {
-                      filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
-                    },
+                    -- quick_lint_js = {
+                    --   filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
+                    -- },
 
                     biome = {
                         filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
                     },
 
                     pyright = {},
+
+                    svelte = {
+                        filetypes = { 'svelte' }
+                    },
 
                     v_analyzer = {
                         filetypes = { 'v', 'vv', 'vsh', 'vlang' },
@@ -302,7 +323,11 @@ return {
                                 enable = true
                             }
                         }
-                    }
+                    },
+
+                    qmlls = {
+                        filetypes = { 'qml', 'qmljs' }
+                    },
                 }
 
                 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -332,6 +357,13 @@ return {
                     on_attach = on_attach,
                     settings = servers['quick_lint_js'],
                     filetypes = (servers['quick_lint_js'] or {}).filetypes
+                }
+
+                require('lspconfig').qmlls.setup {
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    settings = servers['qmlls'],
+                    filetypes = (servers['qmlls'] or {}).filetypes
                 }
             end
         }, -- Useful status updates for LSP
