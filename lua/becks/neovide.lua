@@ -2,7 +2,7 @@ if vim.g.neovide then
   vim.g.neovide_refresh_rate = 60
   vim.g.neovide_cursor_trail_size = 0.5
   vim.g.neovide_cursor_animation_length = 0.13
-  vim.g.neovide_transparency = 0.9
+  -- vim.g.neovide_transparency = 0.9
   vim.g.neovide_cursor_antialiasing = false
 
   vim.g.neovide_padding_top    = 5
@@ -14,7 +14,7 @@ if vim.g.neovide then
 
   -- ->
   vim.g.neovide_font_features = {
-    ["MonaspaceArgonSemiWide Nerd Font"] = {
+    ["Maple Mono NF"] = {
       "+calt",
       "+dlig",
       "+ss01",
@@ -28,7 +28,7 @@ if vim.g.neovide then
       "+ss08",
     },
   }
-  vim.o.guifont = 'MonaspaceArgonSemiWide Nerd Font,Symbols_Nerd_Font:h8'
+  vim.o.guifont = 'Maple Mono NF,Symbols_Nerd_Font:h12'
 
   vim.opt.linespace = 0
 
