@@ -13,24 +13,26 @@ if vim.g.neovide then
   vim.g.neovide_input_macos_alt_is_meta = true
 
   -- ->
-  vim.g.neovide_font_features = {
-    ["Maple Mono NF"] = {
-      "+calt",
-      "+dlig",
-      "+ss01",
-      "+ss01",
-      "+ss02",
-      "+ss03",
-      "+ss04",
-      "+ss05",
-      "+ss06",
-      "+ss07",
-      "+ss08",
-    },
-  }
-  vim.o.guifont = 'Maple Mono NF,Symbols_Nerd_Font:h12'
+  -- vim.g.neovide_font_features = {
+  --   ["Maple Mono NF"] = {
+  --     "+cv02",
+  --     "+calt",
+  --     "+dlig",
+  --     "+ss01",
+  --     "+ss02",
+  --     "+ss03",
+  --     "+ss04",
+  --     "+ss05",
+  --     "+ss06",
+  --     "+ss07",
+  --     "+ss08",
+  --   },
+  -- }
+  -- vim.o.guifont = 'Maple Mono NF:h11:#e-subpixelantialias'
+  -- vim.o.guifont = 'Maple Mono NF,Symbols_Nerd_Font:h11'
+  -- vim.o.guifont = 'Maple Mono NF:h11:#e-subpixelantialias'
 
-  vim.opt.linespace = 0
+  vim.opt.linespace = -2
 
   vim.keymap.set('n', '<D-s>', ':w<CR>')      -- Save
   vim.keymap.set('v', '<D-c>', '"+y')         -- Copy
@@ -44,8 +46,12 @@ if vim.g.neovide then
   local change_scale_factor = function(delta)
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
   end
-  vim.keymap.set("n", "<C-=>", function() change_scale_factor(1.25) end)
-  vim.keymap.set("n", "<C-->", function() change_scale_factor(1/1.25) end)
+  vim.keymap.set("n", "<C-=>", function()
+    change_scale_factor(1.25)
+  end)
+  vim.keymap.set("n", "<C-->", function()
+    change_scale_factor(1/1.25)
+  end)
 end
 
 function NeoLaptop()

@@ -1,7 +1,7 @@
 require("becks.set")
 require("becks.remap")
 require("becks.plugins")
--- require("becks.neovide")
+require("becks.neovide")
 
 local augroup = vim.api.nvim_create_augroup
 local BecksGroup = augroup('Becks', {})
@@ -43,8 +43,8 @@ vim.g.netrw_winsize = 25
 
 -- Configure blinking cursors
 vim.cmd [[
-    set guicursor=i-ci-a-sm:block-Cursor/Cursor-blinkwait175-blinkoff150-blinkon150
-    set guicursor+=i-ci-a-sm:block-Cursor/Cursor-blinkwait175-blinkoff150-blinkon150
+    set guicursor=i-ci-a-sm:block-Cursor/Cursor-blinkwait175-blinkoff350-blinkon350
+    set guicursor+=i-ci-a-sm:block-Cursor/Cursor-blinkwait175-blinkoff350-blinkon350
     set guicursor+=r-cr:hor95-Cursor/Cursor
     set guicursor+=n-v-c:block-Cursor/Cursor-blinkon0
 ]]
