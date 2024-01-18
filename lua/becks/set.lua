@@ -15,13 +15,15 @@ vim.opt_local.spelllang = "en_us"
 
 -- vim.opt.guicursor = ""
 
-vim.opt.nu = true
-vim.opt.relativenumber = true
+-- vim.opt.nu = true
+-- vim.opt.relativenumber = true
 
-vim.opt.tabstop = 4
+vim.opt.tabstop = 3
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
+vim.opt.expandtab = false
+-- vim.opt.expandtab = true
+-- vim.opt.noexpandtab = true
 vim.opt.smartindent = true
 
 vim.opt.hidden = true
@@ -39,12 +41,12 @@ vim.wo.signcolumn = 'yes'
 
 vim.o.backspace = 'indent,eol,start'
 vim.o.listchars = 'tab:→ ,trail:·,extends:❯,precedes:❮,nbsp:␣,eol:¬'
-vim.o.fillchars = 'vert:│,fold:·,diff:⣿,msgsep:‾'
+vim.o.fillchars = 'eob: ,vert:│,fold:·,diff:⣿,msgsep:‾'
 vim.o.showbreak = '↪ '
 vim.o.breakindentopt = 'shift:0,min:20'
 vim.o.linebreak = true
 vim.opt.wrap = true
-vim.opt.colorcolumn = "80"
+-- vim.opt.colorcolumn = "80"
 
 -- Decrease update time
 vim.o.updatetime = 250
@@ -59,11 +61,11 @@ vim.o.termguicolors = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 
-if vim.fn.has('win32') then
-    vim.opt.undodir = os.getenv("USERPROFILE") .. "/.vim/undodir"
-else
+--if vim.fn.has('win32') then
+--    vim.opt.undodir = os.getenv("USERPROFILE") .. "/.vim/undodir"
+--else
     vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-end
+--end
 vim.opt.undofile = true
 
 vim.opt.hlsearch = false
@@ -82,11 +84,12 @@ vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
-vim.o.guifont = 'FiraMono Nerd Font:h12'
+-- vim.o.guifont = 'Maple Mono NF:h11:#e-subpixelantialias'
 
 vim.filetype.add {
     extension = {
-        v = 'vlang'
+        v = 'vlang',
+        slint = 'slint'
     },
     pattern = {
         ["yabairc"] = "bash",
