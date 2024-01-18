@@ -67,7 +67,8 @@ vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { de
 --
 
 -- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-vim.keymap.set("n", "<leader>bf", vim.lsp.buf.format, { desc = "Format buffer"})
+vim.keymap.set("n", "<F3>", vim.lsp.buf.format, { desc = "Format buffer"})
+-- vim.keymap.set("n", "<leader>bf", vim.lsp.buf.format, { desc = "Format buffer"})
 vim.keymap.set("n", "<leader>bb", ":!bunx @biomejs/biome format --write %<CR>", { desc = "Format with biome"})
 vim.keymap.set("n", "<leader>bF", ":%!prettier --stdin-filepath %<CR>", { desc = "Format with prettier" })
 vim.keymap.set("n", "<C-S-f>", ":%!sqlfluff fix --force %<CR>", { desc = "Format with sqlfluff" })
@@ -112,6 +113,65 @@ vim.keymap.set("n", "gf", function()
     return "gf"
   end
 end, { noremap = false, expr = true })
+
+
+
+vim.keymap.set('n', '<leader>nn', function()
+    local nu_active = vim.o.nu
+    vim.opt.nu = not nu_active
+  end,
+  { noremap = true, silent = true }
+)
+
+-- Configure build keymaps for vlang
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = {"*.v", "v.mod"},
+  callback = function()
+    vim.keymap.set('n', '<F6>', ':silent! hor term v run .<CR>:hor resize -15<CR>', { noremap = true, silent = false, desc = 'V Run Project' })
+    vim.keymap.set('n', '<S-F6>', ':vert term v -prod .<CR>:vert resize 120<CR>', { noremap = true, silent = false, desc = 'V Check' })
+    vim.keymap.set("n", "<F3>", vim.lsp.buf.format, { desc = "V Format"})
+    vim.keymap.set('n', '<C-F3>', ':silent! v fmt -w<CR>:w<CR>', { noremap = true, silent = true, desc = 'V Format' })
+    vim.keymap.set('n', '<S-F3>', ':vert term v -check .<CR>:vert resize 120<CR>', { noremap = true, silent = false, desc = 'V Check' })
+  end,
+})
+
+
+-- Configure build keymaps for Golang
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = {"*.go", "go.mod"},
+  callback = function()
+    vim.keymap.set('n', '<F6>', ':silent! hor term go run .<CR>:hor resize -15<CR>', { noremap = true, silent = false, desc = 'Go Run Project' })
+    vim.keymap.set('n', '<S-F6>', ':vert term go build .<CR>:vert resize 120<CR>', { noremap = true, silent = false, desc = 'Go Build' })
+    vim.keymap.set("n", "<F3>", vim.lsp.buf.format, { desc = "Go Format"})
+    vim.keymap.set('n', '<C-F3>', ':silent! go fmt -w .<CR>:w<CR>', { noremap = true, silent = true, desc = 'Go Format' })
+    vim.keymap.set('n', '<S-F3>', ':vert term go fix .<CR>:vert resize 120<CR>', { noremap = true, silent = false, desc = 'Go Fix' })
+  end,
+})
+
+-- Configure build keymaps for Zig
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = {"*.zig", "*.zig.zod"},
+  callback = function()
+    vim.keymap.set('n', '<F6>', ':silent! hor term zig build run<CR>:hor resize -15<CR>', { noremap = true, silent = false, desc = 'Zig Run Project' })
+    vim.keymap.set('n', '<S-F6>', ':vert term zig build<CR>:vert resize 120<CR>', { noremap = true, silent = false, desc = 'Zig Build' })
+    vim.keymap.set("n", "<F3>", vim.lsp.buf.format, { desc = "Zig Format"})
+    vim.keymap.set('n', '<C-F3>', ':silent! zig fmt .<CR>:w<CR>', { noremap = true, silent = true, desc = 'Zig Format' })
+    vim.keymap.set('n', '<S-F3>', ':vert term zig ast-check<CR>:vert resize 120<CR>', { noremap = true, silent = false, desc = 'Zig check' })
+  end,
+})
+
+-- Configure build keymaps for Zig
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = {"*.odin"},
+  callback = function()
+    vim.keymap.set('n', '<F6>', ':silent! hor term odin run .<CR>:hor resize -15<CR>', { noremap = true, silent = false, desc = 'Odin Run Project' })
+    vim.keymap.set('n', '<S-F6>', ':vert term odin build .<CR>:vert resize 120<CR>', { noremap = true, silent = false, desc = 'Odin Build' })
+    vim.keymap.set("n", "<F3>", vim.lsp.buf.format, { desc = "Odin Format"})
+    vim.keymap.set('n', '<S-F3>', ':vert term odin check .<CR>:vert resize 120<CR>', { noremap = true, silent = false, desc = 'Zig check' })
+  end,
+})
+
+
 
 
 -- function IncreaseGuiFont()
