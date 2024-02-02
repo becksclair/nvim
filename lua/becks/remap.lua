@@ -140,11 +140,11 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
   pattern = {"*.go", "go.mod"},
   callback = function()
-    vim.keymap.set('n', '<F6>', ':silent! hor term go run .<CR>:hor resize -15<CR>', { noremap = true, silent = false, desc = 'Go Run Project' })
-    vim.keymap.set('n', '<S-F6>', ':vert term go build .<CR>:vert resize 120<CR>', { noremap = true, silent = false, desc = 'Go Build' })
+    vim.keymap.set('n', '<F6>', ':silent! split term go run .<CR>:hor resize -15<CR>', { noremap = true, silent = false, desc = 'Go Run Project' })
+    vim.keymap.set('n', '<S-F6>', ':vsplit term go build .<CR>:vert resize 120<CR>', { noremap = true, silent = false, desc = 'Go Build' })
     vim.keymap.set("n", "<F3>", vim.lsp.buf.format, { desc = "Go Format"})
     vim.keymap.set('n', '<C-F3>', ':silent! go fmt -w .<CR>:w<CR>', { noremap = true, silent = true, desc = 'Go Format' })
-    vim.keymap.set('n', '<S-F3>', ':vert term go fix .<CR>:vert resize 120<CR>', { noremap = true, silent = false, desc = 'Go Fix' })
+    vim.keymap.set('n', '<S-F3>', ':vsplit term go fix .<CR>:vert resize 120<CR>', { noremap = true, silent = false, desc = 'Go Fix' })
   end,
 })
 
@@ -160,14 +160,25 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
   end,
 })
 
--- Configure build keymaps for Zig
+-- Configure build keymaps for Odin
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
   pattern = {"*.odin"},
   callback = function()
     vim.keymap.set('n', '<F6>', ':silent! hor term odin run .<CR>:hor resize -15<CR>', { noremap = true, silent = false, desc = 'Odin Run Project' })
     vim.keymap.set('n', '<S-F6>', ':vert term odin build .<CR>:vert resize 120<CR>', { noremap = true, silent = false, desc = 'Odin Build' })
     vim.keymap.set("n", "<F3>", vim.lsp.buf.format, { desc = "Odin Format"})
-    vim.keymap.set('n', '<S-F3>', ':vert term odin check .<CR>:vert resize 120<CR>', { noremap = true, silent = false, desc = 'Zig check' })
+    vim.keymap.set('n', '<S-F3>', ':vert term odin check .<CR>:vert resize 120<CR>', { noremap = true, silent = false, desc = 'Odin check' })
+  end,
+})
+
+-- Configure build keymaps for Odin
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = {"*.rs", "*.toml"},
+  callback = function()
+    vim.keymap.set('n', '<F6>', ':split | term cargo run<CR>:hor resize -15<CR>', { noremap = true, silent = false, desc = 'Cargo Run Project' })
+    vim.keymap.set('n', '<S-F6>', ':vsplit | term cargo build<CR>:vert resize 120<CR>', { noremap = true, silent = false, desc = 'Cargo Build' })
+    vim.keymap.set("n", "<F3>", vim.lsp.buf.format, { desc = "Format document"})
+    vim.keymap.set('n', '<S-F3>', ':vsplit | term cargo check<CR>:vert resize 120<CR>', { noremap = true, silent = false, desc = 'Rust check' })
   end,
 })
 
