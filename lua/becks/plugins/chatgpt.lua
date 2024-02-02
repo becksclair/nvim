@@ -11,7 +11,7 @@ return {
     "ChatGPTRun"
   },
   keys = {
-    { "<F8>", "<cmd>ChatGPT<cr>", desc = "Open ChatGPT" },
+    -- { "<F8>", "<cmd>ChatGPT<cr>", desc = "Open ChatGPT" },
   },
   opts = {
     api_key_cmd = nil,
@@ -170,8 +170,8 @@ return {
     -- vim.keymap.set('v', '<F5>', require("chatgpt").edit_with_instructions, { noremap = true, silent = false, desc = 'Edit ChatGPT' })
 
 
-    vim.keymap.set('n', '<F5>', chatgpt.edit_with_instructions, { noremap = true, silent = false, desc = 'Edit ChatGPT' })
-    vim.keymap.set('v', '<F5>', chatgpt.edit_with_instructions, { noremap = true, silent = false, desc = 'Edit ChatGPT' })
+    vim.keymap.set('n', '<S-F5>', chatgpt.edit_with_instructions, { noremap = true, silent = false, desc = 'Edit ChatGPT' })
+    vim.keymap.set('v', '<S-F5>', chatgpt.edit_with_instructions, { noremap = true, silent = false, desc = 'Edit ChatGPT' })
 
 
 
