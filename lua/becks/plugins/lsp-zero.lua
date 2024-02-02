@@ -296,6 +296,8 @@ return {
 
                     pyright = {},
 
+                    gopls = {},
+
                     svelte = {
                         filetypes = { 'svelte' }
                     },
@@ -303,6 +305,10 @@ return {
                     v_analyzer = {
                         filetypes = { 'v', 'vv', 'vsh', 'vlang' },
                         root_pattern = { 'v.mod', '.git' }
+                    },
+
+                    slint_lsp = {
+                        filetypes = { 'slint' },
                     },
 
                     lua_ls = {
@@ -328,6 +334,16 @@ return {
                     qmlls = {
                         filetypes = { 'qml', 'qmljs' }
                     },
+
+                    clangd = {
+                        args = {
+                            "--clang-tidy"
+                        }
+                    },
+
+                    zls = {
+
+                    },
                 }
 
                 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -352,18 +368,46 @@ return {
                     filetypes = (servers['v_analyzer'] or {}).filetypes
                 }
 
-                require('lspconfig').quick_lint_js.setup {
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    settings = servers['quick_lint_js'],
-                    filetypes = (servers['quick_lint_js'] or {}).filetypes
-                }
+                -- require('lspconfig').quick_lint_js.setup {
+                --     capabilities = capabilities,
+                --     on_attach = on_attach,
+                --     settings = servers['quick_lint_js'],
+                --     filetypes = (servers['quick_lint_js'] or {}).filetypes
+                -- }
 
                 require('lspconfig').qmlls.setup {
                     capabilities = capabilities,
                     on_attach = on_attach,
                     settings = servers['qmlls'],
                     filetypes = (servers['qmlls'] or {}).filetypes
+                }
+
+                require('lspconfig').zls.setup {
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    settings = servers['zls'],
+                    filetypes = (servers['zls'] or {}).filetypes
+                }
+
+                require('lspconfig').gopls.setup {
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    settings = servers['gopls'],
+                    filetypes = (servers['gopls'] or {}).filetypes
+                }
+
+                require('lspconfig').slint_lsp.setup {
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    settings = servers['slint_lsp'],
+                    filetypes = (servers['slint_lsp'] or {}).filetypes
+                }
+
+                require('lspconfig').clangd.setup {
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    settings = servers['clangd'],
+                    filetypes = (servers['clangd'] or {}).filetypes
                 }
             end
         }, -- Useful status updates for LSP
