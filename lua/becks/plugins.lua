@@ -72,46 +72,46 @@ require('lazy').setup({
   },
 
   -- Git related plugins
-  {
-    'tpope/vim-fugitive',
-    lazy = true,
-    event = "VeryLazy",
-  },
+  -- {
+  --   'tpope/vim-fugitive',
+  --   lazy = true,
+  --   event = "VeryLazy",
+  -- },
 
-  {
-    "kdheepak/lazygit.nvim",
-    lazy = true,
-    keys = {
-      { "<leader>gg", "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
-    },
-    cmd = { "LazyGit", "LazyGitConfig" },
-    -- optional for floating window border decoration
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-      "nvim-lua/plenary.nvim",
-    },
-    -- init = function ()
-    -- end,
-    config = function()
-      vim.g.lazygit_floating_window_winblend = 0 -- transparency of floating window
-      vim.g.lazygit_floating_window_scaling_factor = 0.9 -- scaling factor for floating window
-      vim.g.lazygit_floating_window_border_chars = {'╭','─', '╮', '│', '╯','─', '╰', '│'} -- customize lazygit popup window border characters
-      vim.g.lazygit_floating_window_use_plenary = 1 -- use plenary.nvim to manage floating window if available
-      vim.g.lazygit_use_neovim_remote = 1 -- fallback to 0 if neovim-remote is not installed
-
-      vim.g.lazygit_use_custom_config_file_path = 0 -- config file path is evaluated if this value is 1
-      vim.g.lazygit_config_file_path = '' -- custom config file path
-
-      require("telescope").load_extension("lazygit")
-    end,
-  },
+  -- {
+  --   "kdheepak/lazygit.nvim",
+  --   lazy = true,
+  --   keys = {
+  --     { "<leader>gg", "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
+  --   },
+  --   cmd = { "LazyGit", "LazyGitConfig" },
+  --   -- optional for floating window border decoration
+  --   dependencies = {
+  --     "nvim-telescope/telescope.nvim",
+  --     "nvim-lua/plenary.nvim",
+  --   },
+  --   -- init = function ()
+  --   -- end,
+  --   config = function()
+  --     vim.g.lazygit_floating_window_winblend = 0 -- transparency of floating window
+  --     vim.g.lazygit_floating_window_scaling_factor = 0.9 -- scaling factor for floating window
+  --     vim.g.lazygit_floating_window_border_chars = {'╭','─', '╮', '│', '╯','─', '╰', '│'} -- customize lazygit popup window border characters
+  --     vim.g.lazygit_floating_window_use_plenary = 1 -- use plenary.nvim to manage floating window if available
+  --     vim.g.lazygit_use_neovim_remote = 1 -- fallback to 0 if neovim-remote is not installed
+  --
+  --     vim.g.lazygit_use_custom_config_file_path = 0 -- config file path is evaluated if this value is 1
+  --     vim.g.lazygit_config_file_path = '' -- custom config file path
+  --
+  --     require("telescope").load_extension("lazygit")
+  --   end,
+  -- },
 
   require('becks.plugins.git-worktree'),
 
   -- LSP Magic
   require('becks.plugins.lsp-zero'),
 
-  require('becks.plugins.quick-lint-js'),
+  -- require('becks.plugins.quick-lint-js'),
 
 
   {
@@ -264,7 +264,82 @@ require('lazy').setup({
     config = true
   },
 
-  -- { 'mfussenegger/nvim-dap' },
+  {
+    'mfussenegger/nvim-dap',
+    dependencies = {
+      {'rcarriga/nvim-dap-ui'},
+      {'theHamsta/nvim-dap-virtual-text'},
+      {"ldelossa/nvim-dap-projects"},
+      {'leoluz/nvim-dap-go'},
+      {'mfussenegger/nvim-dap-python'}
+    },
+    config = function()
+
+      vim.keymap.set('n', '<F5>', function()
+          require('dap').continue()
+        end,
+        { noremap = true, silent = false, desc = 'Debug' }
+      )
+      -- vim.keymap.set('n', '<F8>', function()
+      --     require('dap').toggle_breakpoint()
+      --   end,
+      --   { noremap = true, silent = false, desc = 'Continue' }
+      -- )
+      vim.keymap.set('n', '<F8>', function()
+          require('dap').continue()
+        end,
+        { noremap = true, silent = false, desc = 'Toggle breakpoint' }
+      )
+      vim.keymap.set('n', '<F9>', function()
+          require('dap').toggle_breakpoint()
+        end,
+        { noremap = true, silent = false, desc = 'Toggle breakpoint' }
+      )
+      vim.keymap.set('n', '<F10>', function()
+          require('dap').step_over()
+        end,
+        { noremap = true, silent = false, desc = 'Step over' }
+      )
+      vim.keymap.set('n', '<F11>', function()
+          require('dap').step_into()
+        end,
+        { noremap = true, silent = false, desc = 'Step into' }
+      )
+      vim.keymap.set('n', '<F12>', function()
+          require('dap').step_out()
+        end,
+        { noremap = true, silent = false, desc = 'Step out' }
+      )
+      vim.keymap.set('n', '<Leader>dr', function ()
+          require('dap').repl.open()
+        end,
+        { noremap = true, silent = false, desc = 'Open DAP repl' }
+      )
+      vim.keymap.set('n', '<Leader>do', function ()
+          require('dapui').open()
+        end,
+        { noremap = true, silent = false, desc = 'Open DAP UI' }
+      )
+      vim.keymap.set('n', '<Leader>dc', function ()
+          require('dapui').close()
+        end,
+        { noremap = true, silent = false, desc = 'Close DAP UI' }
+      )
+      vim.keymap.set('n', '<Leader>dt', function ()
+          require('dapui').toggle()
+        end,
+        { noremap = true, silent = false, desc = 'Toggle DAP UI' }
+      )
+
+      require("nvim-dap-projects").search_project_config()
+      require("dapui").setup()
+      require("nvim-dap-virtual-text").setup({})
+      require('dap-go').setup()
+      require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
+      require('dap-python').test_runner = 'pytest'
+    end,
+  },
+
   {
     'ggandor/leap.nvim',
     lazy = true,
@@ -442,6 +517,17 @@ require('lazy').setup({
       char = '┊',
       show_trailing_blankline_indent = true,
     },
+
+    {
+      'slint-ui/vim-slint',
+      lazy = true,
+    },
+  },
+
+  require('becks.plugins.leetcode'),
+
+  {
+    'alaviss/nim.nvim'
   },
 
 }, {})
