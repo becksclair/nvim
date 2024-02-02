@@ -1,7 +1,18 @@
+-- Get platform dependant build script
+local function isWindows()
+  if vim.loop.os_uname().sysname == "Windows_NT" then
+    return true
+  else
+    return false
+  end
+end
+
 vim.cmd("autocmd!")
 
-if not vim.fn.has('win32') then
-    vim.opt.rtp:append("~/.opam/default/share")
+if isWindows() then
+    vim.opt.rtp:append(os.getenv("USERPROFILE") .. "/.opam/default/share")
+else
+    vim.opt.rtp:append(os.getenv("HOME") .. "/.opam/default/share")
 end
 
 vim.scriptencoding = 'utf-8'
@@ -61,11 +72,12 @@ vim.o.termguicolors = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 
-if vim.fn.has('win32') then
-    vim.opt.undodir = os.getenv("USERPROFILE") .. "/.vim/undodir"
+if isWindows() then
+  vim.opt.undodir = os.getenv("USERPROFILE") .. "/.vim/undodir"
 else
-    vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+  vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 end
+
 vim.opt.undofile = true
 
 vim.opt.hlsearch = false
