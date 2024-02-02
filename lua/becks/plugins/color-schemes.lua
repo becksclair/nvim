@@ -50,11 +50,13 @@ return {
     'ishan9299/nvim-solarized-lua',
     priority = 1000,
   },
-  {
-    'HiPhish/resolarized.nvim',
-    url = 'git@gitlab.com:HiPhish/resolarized.nvim.git',
-    priority = 1000,
-  },
+
+  -- {
+  --   'HiPhish/resolarized.nvim',
+  --   url = 'git@gitlab.com:HiPhish/resolarized.nvim.git',
+  --   priority = 1000,
+  -- },
+
   {
     'rose-pine/neovim',
     name = 'rose-pine',
