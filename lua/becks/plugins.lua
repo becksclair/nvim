@@ -16,6 +16,15 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Get platform dependant build script
+local function tabnine_build_path()
+  if vim.loop.os_uname().sysname == "Windows_NT" then
+    return "pwsh.exe -file .\\dl_binaries.ps1"
+  else
+    return "./dl_binaries.sh"
+  end
+end
+
 
 -- NOTE: Lazy plugins
 
@@ -517,14 +526,9 @@ require('lazy').setup({
       char = '┊',
       show_trailing_blankline_indent = true,
     },
-
-    {
-      'slint-ui/vim-slint',
-      lazy = true,
-    },
-  },
-
   require('becks.plugins.leetcode'),
+
+  { 'codota/tabnine-nvim', build = tabnine_build_path()},
 
   {
     'alaviss/nim.nvim'
