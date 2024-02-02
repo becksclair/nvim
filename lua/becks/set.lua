@@ -89,7 +89,8 @@ vim.o.clipboard = 'unnamedplus'
 vim.filetype.add {
     extension = {
         v = 'vlang',
-        slint = 'slint'
+        slint = 'slint',
+        templ = 'templ'
     },
     pattern = {
         ["yabairc"] = "bash",
