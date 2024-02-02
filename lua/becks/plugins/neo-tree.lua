@@ -11,10 +11,10 @@ return {
     { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "NeoTree" },
   },
   opts = {
+    enable_git_status = false,
+    enable_diagnostics = false,
     close_if_last_window = true,
     popup_border_style = "rounded",
-    enable_git_status = true,
-    enable_diagnostics = true,
     -- Enable normal mode for input dialogs.
     enable_normal_mode_for_inputs = false,
     -- when opening files, do not use windows containing these filetypes or buftypes

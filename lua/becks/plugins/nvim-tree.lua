@@ -35,7 +35,16 @@ return {
     },
     renderer = {
       group_empty = true,
+      highlight_git = false,
       -- highlight_diagnostics = true,
+    },
+    git = {
+      enable = false,
+      show_on_dirs = false,
+      show_on_open_dirs = false,
+      disable_for_dirs = {},
+      timeout = 400,
+      cygwin_support = false,
     },
     filters = {
       dotfiles = false,
