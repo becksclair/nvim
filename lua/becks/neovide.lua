@@ -5,7 +5,7 @@ if vim.g.neovide then
   -- vim.g.neovide_transparency = 0.9
   vim.g.neovide_cursor_antialiasing = false
 
-  vim.g.neovide_padding_top    = 5
+  vim.g.neovide_padding_top    = 65
   vim.g.neovide_padding_bottom = 5
   vim.g.neovide_padding_right  = 5
   vim.g.neovide_padding_left   = 5
