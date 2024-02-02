@@ -7,7 +7,7 @@ local lsp_config = function()
     -- Uncomment to enable debug logging
     -- vim.lsp.set_log_level('debug')
 
-    lsp.ensure_installed({ 'tsserver', 'rust_analyzer', 'lua_ls', 'pyright' })
+    lsp.ensure_installed({ 'rust_analyzer', 'lua_ls', 'pyright' })
 
     -- Fix Undefined global 'vim'
     lsp.configure('lua_ls', {
@@ -341,8 +341,7 @@ return {
                         }
                     },
 
-                    zls = {
-
+                    tsserver = {
                     },
                 }
 
@@ -381,33 +380,11 @@ return {
                     settings = servers['qmlls'],
                     filetypes = (servers['qmlls'] or {}).filetypes
                 }
-
-                require('lspconfig').zls.setup {
+                require('lspconfig').tsserver.setup {
                     capabilities = capabilities,
                     on_attach = on_attach,
-                    settings = servers['zls'],
-                    filetypes = (servers['zls'] or {}).filetypes
-                }
-
-                require('lspconfig').gopls.setup {
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    settings = servers['gopls'],
-                    filetypes = (servers['gopls'] or {}).filetypes
-                }
-
-                require('lspconfig').slint_lsp.setup {
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    settings = servers['slint_lsp'],
-                    filetypes = (servers['slint_lsp'] or {}).filetypes
-                }
-
-                require('lspconfig').clangd.setup {
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    settings = servers['clangd'],
-                    filetypes = (servers['clangd'] or {}).filetypes
+                    settings = servers['tsserver'],
+                    filetypes = (servers['tsserver'] or {}).filetypes
                 }
             end
         }, -- Useful status updates for LSP
