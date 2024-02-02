@@ -110,8 +110,8 @@ return {
   opts = {
     options = {
       icons_enabled = true,
-      -- theme = 'auto',
-      theme = 'gruvbox',
+      theme = 'auto',
+      -- theme = 'gruvbox',
       -- theme = 'solarized',
       -- disabled_filetypes = {
       --   'NvimTree',
