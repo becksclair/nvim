@@ -526,6 +526,15 @@ require('lazy').setup({
       char = '┊',
       show_trailing_blankline_indent = true,
     },
+
+  },
+
+
+  {
+    'slint-ui/vim-slint',
+    lazy = true,
+  },
+
   require('becks.plugins.leetcode'),
 
   { 'codota/tabnine-nvim', build = tabnine_build_path()},
