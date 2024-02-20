@@ -537,7 +537,7 @@ require('lazy').setup({
 
   require('becks.plugins.leetcode'),
 
-  { 'codota/tabnine-nvim', build = tabnine_build_path()},
+  require('becks.plugins.cody'),
 
   {
     'alaviss/nim.nvim'
