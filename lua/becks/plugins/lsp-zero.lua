@@ -343,6 +343,8 @@ return {
 
                     tsserver = {
                     },
+
+                    zls = {},
                 }
 
                 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -385,6 +387,13 @@ return {
                     on_attach = on_attach,
                     settings = servers['tsserver'],
                     filetypes = (servers['tsserver'] or {}).filetypes
+                }
+
+                require('lspconfig').zls.setup {
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    settings = servers['zls'],
+                    filetypes = (servers['zls'] or {}).filetypes
                 }
             end
         }, -- Useful status updates for LSP
