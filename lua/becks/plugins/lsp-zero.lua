@@ -396,17 +396,32 @@ return {
                     filetypes = (servers['zls'] or {}).filetypes
                 }
             end
-        }, -- Useful status updates for LSP
+        },
+
+        -- Useful status updates for LSP
             {
                 'j-hui/fidget.nvim',
-                tag = 'legacy',
+                -- tag = 'legacy',
                 opts = {
-                    text = {
-                        spinner = 'dots_snake'
-                    },
-                    window = {
-                        blend = 40
+                    progress = {
+                        display = {
+                            done_style = "Constant",
+                            done_icon = "",
+
+                            -- Icon shown when LSP progress tasks are in progress
+                            progress_icon = {
+                                pattern = "dots_snake",
+                                period = 1
+                            },
+                        },
                     }
+                    -- text = {
+                        -- spinner = 'dots_snake'
+                    -- },
+
+                    -- window = {
+                    --     blend = 40
+                    -- }
                 }
             }, -- Additional lua configuration, makes nvim stuff amazing!
             { 'folke/neodev.nvim' },
