@@ -99,6 +99,9 @@ vim.o.clipboard = 'unnamedplus'
 -- vim.o.guifont = 'Maple Mono NF:h11:#e-subpixelantialias'
 
 vim.filetype.add {
+    filename = {
+      ['build.zig.zon'] = 'zig'
+    },
     extension = {
         v = 'vlang',
         slint = 'slint',
@@ -117,7 +120,7 @@ vim.diagnostic.config({
 })
 
 vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
-  pattern = "v.mod",
+  -- pattern = "v.mod",
   callback = function()
     -- Get the full path of the current file
     local filepath = vim.fn.expand('%:p')
@@ -127,5 +130,8 @@ vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
     if filepath == cwd .. "v.mod" then
       vim.bo.filetype = "vlang"
     end
+    -- if filepath == cwd .. "zig.zon" then
+    --   vim.bo.filetype = "zig"
+    -- end
   end,
 })
