@@ -102,12 +102,13 @@ vim.filetype.add {
     extension = {
         v = 'vlang',
         slint = 'slint',
-        templ = 'templ'
+        templ = 'templ',
     },
     pattern = {
         ["yabairc"] = "bash",
         ["[jt]sconfig.*.json"] = "jsonc",
-        ['v.mod'] = 'vlang'
+        ['v.mod'] = 'vlang',
+        -- ['*.zig.zon'] = 'zig'
     }
 }
 

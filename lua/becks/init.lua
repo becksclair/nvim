@@ -1,6 +1,7 @@
 require("becks.set")
 require("becks.remap")
 require("becks.plugins")
+require("becks.autocmds")
 require("becks.neovide")
 
 local augroup = vim.api.nvim_create_augroup
