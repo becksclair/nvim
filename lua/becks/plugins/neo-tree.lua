@@ -13,7 +13,7 @@ return {
   opts = {
     enable_git_status = false,
     enable_diagnostics = false,
-    close_if_last_window = true,
+    close_if_last_window = false,
     popup_border_style = "rounded",
     -- Enable normal mode for input dialogs.
     enable_normal_mode_for_inputs = false,
@@ -24,5 +24,8 @@ return {
     filesystem = {
       hijack_netrw_behavior = "open_current",
     },
+    window = {
+      position = "right"
+    }
   }
 }
