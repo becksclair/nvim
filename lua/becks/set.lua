@@ -26,8 +26,9 @@ vim.opt_local.spelllang = "en_us"
 
 -- vim.opt.guicursor = ""
 
--- vim.opt.nu = true
--- vim.opt.relativenumber = true
+vim.opt.nu = true
+vim.opt.relativenumber = true
+vim.opt.cursorline = true
 
 vim.opt.tabstop = 3
 vim.opt.softtabstop = 4
