@@ -16,6 +16,10 @@ return {
     }
   },
   {
+    'BoHomola/vsassist.nvim',
+    priority = 1000,
+  },
+  {
     'yorickpeterse/vim-paper',
     priority = 1000,
   },

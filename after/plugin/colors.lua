@@ -75,10 +75,28 @@ function SetTempusTheme()
   vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#FFFF00", bg = "#000000" })
 
 end
-
 vim.api.nvim_create_user_command('SetTempusTheme', SetTempusTheme, {nargs = 0})
 
 
+function SetTempusTempestTheme()
+  vim.o.background = "dark"
+  vim.cmd.colorscheme('tempus_tempest')
+  vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+  -- SetMyColorHls()
+
+  -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#FFFF00", bg = "#000000" })
+  -- vim.api.nvim_set_hl(0, 'Visual', { fg = "#FFFF00", bg = "#000000" })
+  -- vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#FFFF00", bg = "#000000" })
+
+end
+vim.api.nvim_create_user_command('SetTempusTempestTheme', SetTempusTheme, {nargs = 0})
+
+function SetVsAssistTheme()
+  vim.o.background = "dark"
+  vim.cmd.colorscheme('vsassist')
+  vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+end
+vim.api.nvim_create_user_command('SetVsAssistTheme', SetTempusTheme, {nargs = 0})
 
 function SetTempleTheme()
   vim.o.background = "light"
@@ -282,6 +300,8 @@ vim.api.nvim_create_user_command('SetPaperTheme', SetPaperTheme, {nargs = 0})
 -- SetTempleThemeDark()
 -- SetSolarized2()
 -- SetGruberDarker()
-SetNaysayer()
+-- SetNaysayer()
 -- SetVColors()
+-- SetTempusTempestTheme()
+SetVsAssistTheme()
 
