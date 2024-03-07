@@ -302,6 +302,6 @@ vim.api.nvim_create_user_command('SetPaperTheme', SetPaperTheme, {nargs = 0})
 -- SetGruberDarker()
 -- SetNaysayer()
 -- SetVColors()
--- SetTempusTempestTheme()
-SetVsAssistTheme()
+SetTempusTempestTheme()
+-- SetVsAssistTheme()
 
