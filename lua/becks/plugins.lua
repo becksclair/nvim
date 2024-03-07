@@ -537,7 +537,11 @@ require('lazy').setup({
 
   require('becks.plugins.leetcode'),
 
-  require('becks.plugins.cody'),
+  -- require('becks.plugins.cody'),
+
+  {
+    'dylanaraps/pascal_lint.nvim',
+  },
 
   {
     'alaviss/nim.nvim'
