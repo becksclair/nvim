@@ -537,10 +537,11 @@ require('lazy').setup({
 
   require('becks.plugins.leetcode'),
 
-  -- require('becks.plugins.cody'),
-
   {
     'dylanaraps/pascal_lint.nvim',
+  },
+  {
+    'Exafunction/codeium.vim',
   },
 
   {
