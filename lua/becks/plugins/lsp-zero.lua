@@ -331,6 +331,10 @@ return {
                         }
                     },
 
+                    htmx = {
+                       filetypes = { 'html', 'htmldjango' }
+                    },
+
                     qmlls = {
                         filetypes = { 'qml', 'qmljs' }
                     },

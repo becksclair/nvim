@@ -13,10 +13,11 @@ return {
   opts = {
     enable_git_status = false,
     enable_diagnostics = false,
-    close_if_last_window = false,
+    close_if_last_window = true,
     popup_border_style = "rounded",
     -- Enable normal mode for input dialogs.
-    enable_normal_mode_for_inputs = false,
+    -- enable_normal_mode_for_inputs = false,
+    -- neo_tree_popup_input_ready = false,
     -- when opening files, do not use windows containing these filetypes or buftypes
     open_files_do_not_replace_types = { "terminal", "trouble", "qf" },
     -- used when sorting files and directories in the tree
