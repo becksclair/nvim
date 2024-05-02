@@ -1,6 +1,6 @@
 return {
   "zbirenbaum/copilot-cmp",
-  enabled = false,
+  enabled = true,
   lazy = true,
   event = "BufEnter",
   dependencies = { "zbirenbaum/copilot.lua" },

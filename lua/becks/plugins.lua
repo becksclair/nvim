@@ -277,6 +277,7 @@ require('lazy').setup({
     'mfussenegger/nvim-dap',
     dependencies = {
       {'rcarriga/nvim-dap-ui'},
+      {'nvim-neotest/nvim-nio'},
       {'theHamsta/nvim-dap-virtual-text'},
       {"ldelossa/nvim-dap-projects"},
       {'leoluz/nvim-dap-go'},
@@ -540,12 +541,16 @@ require('lazy').setup({
   {
     'dylanaraps/pascal_lint.nvim',
   },
-  {
-    'Exafunction/codeium.vim',
-  },
+  -- {
+  --   'Exafunction/codeium.vim',
+  -- },
 
   {
     'alaviss/nim.nvim'
   },
+
+  {
+    'nat-418/tcl.nvim'
+  }
 
 }, {})
