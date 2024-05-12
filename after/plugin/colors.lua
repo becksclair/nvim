@@ -67,12 +67,12 @@ vim.api.nvim_create_user_command('SetAcmeTheme', SetAcmeTheme, {nargs = 0})
 
 function SetTempusTheme()
   vim.o.background = "light"
-  vim.cmd.colorscheme('tempus_totus')
-  SetMyColorHls()
+  vim.cmd.colorscheme('tempus_day')
+  -- SetMyColorHls()
 
-  vim.api.nvim_set_hl(0, 'Cursor', { fg = "#FFFF00", bg = "#000000" })
-  vim.api.nvim_set_hl(0, 'Visual', { fg = "#FFFF00", bg = "#000000" })
-  vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#FFFF00", bg = "#000000" })
+  -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#FFFF00", bg = "#000000" })
+  -- vim.api.nvim_set_hl(0, 'Visual', { fg = "#FFFF00", bg = "#000000" })
+  -- vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#FFFF00", bg = "#000000" })
 
 end
 vim.api.nvim_create_user_command('SetTempusTheme', SetTempusTheme, {nargs = 0})
@@ -303,9 +303,10 @@ vim.api.nvim_create_user_command('SetPaperTheme', SetPaperTheme, {nargs = 0})
 -- SetTempleTheme()
 -- SetTempleThemeDark()
 -- SetSolarized2()
-SetGruberDarker()
+-- SetGruberDarker()
 -- SetNaysayer()
 -- SetVColors()
+SetTempusTheme()
 -- SetTempusTempestTheme()
 -- SetVsAssistTheme()
 
