@@ -30,7 +30,7 @@ local components = {
   },
   copilot = {
     function()
-      local buf_clients = vim.lsp.get_active_clients { bufnr = 0 }
+      local buf_clients = vim.lsp.get_clients()
       if #buf_clients == 0 then
         return ""
       end
@@ -87,7 +87,7 @@ local components = {
       -- vim.list_extend(buf_client_names, supported_linters)
       --
       local unique_client_names = vim.fn.uniq(buf_client_names)
-      local language_servers = " " .. table.concat(unique_client_names, ", ") .. " "
+      local language_servers = "" .. #unique_client_names .. " 🧠 "
 
       -- if copilot_active then
       --   -- language_servers = language_servers .. "%#SLCopilot#" .. " " .. icons.git.Octoface .. "%*"
