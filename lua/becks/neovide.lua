@@ -68,6 +68,7 @@ function NeoLaptop()
     print("NeoLaptop: Refresh rate set to 120")
   end
 end
+vim.api.nvim_create_user_command('NeoLaptop', NeoLaptop, {nargs = 0})
 
 -- Function to make the guicursor blink and set to a specific color
 -- in Neovide
