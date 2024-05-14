@@ -22,3 +22,15 @@ end
 vim.api.nvim_create_autocmd({ "BufWritePre" }, { pattern = { "*.templ" }, callback = custom_format })
 
 
+-- Create an autocommand group to ensure we can cleanly define our autocommands
+local env_filetype_group = vim.api.nvim_create_augroup("EnvFiletype", { clear = true })
+
+-- Define the autocommand to set the filetype
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+  pattern = ".env*",
+  callback = function()
+    vim.bo.filetype = "sh"
+  end,
+  group = env_filetype_group,
+})
+

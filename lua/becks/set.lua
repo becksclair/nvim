@@ -112,6 +112,7 @@ vim.filetype.add {
         ["yabairc"] = "bash",
         ["[jt]sconfig.*.json"] = "jsonc",
         ['v.mod'] = 'vlang',
+        ['.env.*'] = 'env',
         -- ['*.zig.zon'] = 'zig'
     }
 }
