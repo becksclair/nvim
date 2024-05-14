@@ -503,6 +503,8 @@ require('lazy').setup({
     end,
   },
 
+  require('becks.plugins.nvim-notify'),
+
   require('becks.plugins.sniprun'),
 
   require('becks.plugins.package-info'),
