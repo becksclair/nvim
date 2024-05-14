@@ -351,6 +351,13 @@ return {
                         filetypes = { 'qml', 'qmljs' }
                     },
 
+                    cssmodules_ls = {
+                        filetypes = { 'css', 'scss', 'sass' },
+                        root_dir = function(fname)
+                            return vim.fn.fnamemodify(fname, ':p:h')
+                        end
+                    },
+
                     clangd = {
                         args = {
                             "--clang-tidy"
