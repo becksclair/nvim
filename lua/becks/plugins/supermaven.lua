@@ -6,6 +6,9 @@ return {
         accept_suggestion = "<Tab>",
         clear_suggestion = "<C-]>",
       },
+      ignore_filetypes = {
+        env = false,
+      },
     })
   end,
 }
