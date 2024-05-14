@@ -2,6 +2,9 @@ local lsp_config = function()
     local lsp = require("lsp-zero")
 
     -- require('lspconfig/quick_lint_js').setup {}
+
+    require'lspconfig'.gleam.setup{}
+
     lsp.preset("recommended")
 
     -- Uncomment to enable debug logging
@@ -302,6 +305,10 @@ return {
                     pyright = {},
 
                     gopls = {},
+
+                    gleam = {
+                        filetypes = { 'gleam' }
+                    },
 
                     svelte = {
                         filetypes = { 'svelte' }
