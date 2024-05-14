@@ -127,7 +127,8 @@ return {
     },
     sections = {
       lualine_a = { 'mode' },
-      lualine_b = { 'branch', 'diff', 'diagnostics' },
+      -- lualine_b = { 'branch', 'diff', 'diagnostics' },
+      lualine_b = { 'diagnostics' },
       lualine_c = { 'filename' },
       lualine_x = { 'fileformat', components.treesitter, components.lsp, components.copilot, 'filetype' },
       lualine_y = { 'progress' },
@@ -149,9 +150,9 @@ return {
     },
     extensions = {
       'quickfix',
-      'fugitive',
-      'symbols-outline',
-      'nvim-tree',
+      -- 'fugitive',
+      -- 'symbols-outline',
+      -- 'nvim-tree',
       'toggleterm',
     },
   }
