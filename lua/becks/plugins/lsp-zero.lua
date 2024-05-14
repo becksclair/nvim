@@ -95,13 +95,14 @@ local lsp_config = function()
             select = true
         }),
         ["<C-Space>"] = cmp.mapping.complete(),
-        ["<Tab>"] = vim.schedule_wrap(function(fallback)
-          if cmp.visible() and has_words_before() then
-            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-          else
-            fallback()
-          end
-        end),
+        ["<Tab>"] = nil,
+        -- ["<Tab>"] = vim.schedule_wrap(function(fallback)
+        --   if cmp.visible() and has_words_before() then
+        --     cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+        --   else
+        --     fallback()
+        --   end
+        -- end),
         ['<S-Tab>'] = nil,
     })
     -- cmp_mappings['<Tab>'] = nil
