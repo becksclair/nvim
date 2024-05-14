@@ -114,10 +114,10 @@ local lsp_config = function()
                 name = "nvim_lsp",
                 group_index = 2
             },
-            { -- Copilot Source
-                name = "copilot",
-                group_index = 2
-            }, -- Other Sources
+            -- { -- Copilot Source
+            --     name = "copilot",
+            --     group_index = 2
+            -- }, -- Other Sources
             {
                 name = "nvim_lua",
                 group_index = 2

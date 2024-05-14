@@ -155,7 +155,9 @@ require('lazy').setup({
   require('becks.plugins.gitsigns'),
 
   -- AI Help
-  require('becks.plugins.copilot-cmp'),
+  -- require('becks.plugins.copilot-cmp'),
+
+  require('becks.plugins.supermaven'),
 
   -- Animations for bored people
   {
