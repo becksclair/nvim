@@ -10,7 +10,7 @@ if vim.g.neovide then
   vim.g.neovide_padding_right  = 5
   vim.g.neovide_padding_left   = 5
 
-  vim.g.neovide_input_macos_alt_is_meta = true
+  vim.g.neovide_input_macos_option_key_is_meta = 'only_left'
 
   -- ->
   -- vim.g.neovide_font_features = {
