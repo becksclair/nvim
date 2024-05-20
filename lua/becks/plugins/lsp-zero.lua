@@ -2,15 +2,14 @@ local lsp_config = function()
     local lsp = require("lsp-zero")
 
     -- require('lspconfig/quick_lint_js').setup {}
-
-    require'lspconfig'.gleam.setup{}
+    -- require'lspconfig'.gleam.setup{}
 
     lsp.preset("recommended")
 
     -- Uncomment to enable debug logging
     -- vim.lsp.set_log_level('debug')
 
-    lsp.ensure_installed({ 'rust_analyzer', 'lua_ls', 'pyright' })
+    -- lsp.ensure_installed({ 'rust_analyzer', 'lua_ls', 'pyright' })
 
     -- Fix Undefined global 'vim'
     lsp.configure('lua_ls', {
@@ -75,6 +74,8 @@ local lsp_config = function()
 
     lsp.setup()
 
+    require'lspconfig'.gleam.setup{}
+
     -- NOTE: Configure Completions
 
     local cmp = require('cmp')
@@ -83,11 +84,11 @@ local lsp_config = function()
         behavior = cmp.SelectBehavior.Select
     }
 
-    local has_words_before = function()
-      if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
-      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-      return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
-    end
+    -- local has_words_before = function()
+    --   if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+    --   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    --   return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
+    -- end
 
     local cmp_mappings = lsp.defaults.cmp_mappings({
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -229,8 +230,21 @@ return {
                 'williamboman/mason-lspconfig.nvim',
                 opts = {
                     ensure_installed = { "tsserver", "rust_analyzer", -- "sqlls",
-                        "ocamllsp", "rescriptls", "reason_ls", "lua_ls" }
-                }
+                        "ocamllsp", "rescriptls", "reason_ls", "lua_ls" },
+                        -- handlers = {
+                        --     -- this first function is the "default handler"
+                        --     -- it applies to every language server without a "custom handler"
+                        --     function(server_name)
+                        --         require('lspconfig')[server_name].setup({})
+                        --     end,
+                        --
+                        --     -- this is the "custom handler" for `lua_ls`
+                        --     lua_ls = function()
+                        --         local lua_opts = lsp_zero.nvim_lua_ls()
+                        --         require('lspconfig').lua_ls.setup(lua_opts)
+                        --     end,
+                        -- }
+                },
             }, -- Optional
             -- Autocompletion
             { 'onsails/lspkind.nvim' },
@@ -279,6 +293,7 @@ return {
             },
             config = function()
                 require('neodev').setup()
+                -- local util = require 'lspconfig.util'
 
                 local servers = {
                     ['rust-analyzer'] = {
@@ -295,11 +310,16 @@ return {
                     },
 
                     -- quick_lint_js = {
-                    --   filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
+                    --     root_dir = nil,
+                    -- },
+
+                    -- quick_lint_js = {
+                    --   filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+                    --   -- Root pattern to disable when biome.json is found
+                    --   root_dir = util.root_pattern('package.json', 'jsconfig.json', '.git'),
                     -- },
 
                     biome = {
-                        filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
                     },
 
                     pyright = {},
@@ -358,6 +378,14 @@ return {
                         end
                     },
 
+                    reason_ls = {
+                        filetypes = { 're', 'rei' }
+                    },
+
+                    rescriptls = {
+                        filetypes = { 'rescript' }
+                    },
+
                     clangd = {
                         args = {
                             "--clang-tidy"
@@ -392,12 +420,13 @@ return {
                     filetypes = (servers['v_analyzer'] or {}).filetypes
                 }
 
-                -- require('lspconfig').quick_lint_js.setup {
-                --     capabilities = capabilities,
-                --     on_attach = on_attach,
-                --     settings = servers['quick_lint_js'],
-                --     filetypes = (servers['quick_lint_js'] or {}).filetypes
-                -- }
+                require('lspconfig').quick_lint_js.setup {
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    settings = servers['quick_lint_js'],
+                    filetypes = (servers['quick_lint_js'] or {}).filetypes,
+                    autostart = false
+                }
 
                 require('lspconfig').qmlls.setup {
                     capabilities = capabilities,
