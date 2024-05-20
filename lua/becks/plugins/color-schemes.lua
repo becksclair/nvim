@@ -182,5 +182,15 @@ return {
       vim.cmd('set background=light')
       vim.cmd('colorscheme intellij')
     end
+  },
+
+  {
+    "felipeagc/fleet-theme-nvim",
+    lazy = true,
+    priority = 1000,
+    config = function()
+      vim.cmd('set background=dark')
+      vim.cmd('colorscheme fleet')
+    end
   }
 }

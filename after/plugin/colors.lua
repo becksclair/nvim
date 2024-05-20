@@ -70,9 +70,18 @@ function SetIntelliJTheme()
   vim.cmd.colorscheme('intellij')
   SetMyColorHls()
 
-  vim.api.nvim_set_hl(0, 'Cursor', { fg = "#FFFF00", bg = "#000000" })
+  -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#FFFF00", bg = "#000000" })
   vim.api.nvim_set_hl(0, 'Visual', { fg = "#FFFF00", bg = "#000000" })
   vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#FFFF00", bg = "#000000" })
+
+  vim.api.nvim_set_hl(0, 'CursorLine', { bg = "#f0f2fc" }) -- Background for the cursor line
+  vim.api.nvim_set_hl(0, 'CursorColumn', { bg = "#f0f2fc" }) -- Background for the cursor column
+  vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = "#FFFF00", bg = "#001CAC" })
+
+  -- Set the cursor color
+  vim.api.nvim_set_hl(0, 'Cursor', { fg = "#FFFF00", bg = "#98a3d9" })
+  -- vim.api.nvim_set_hl(0, 'Cursor', { gui = "reverse" })
+  vim.api.nvim_set_hl(0, 'TermCursor', { fg = "#FFFF00", bg = "#001CAC" })
 end
 
 vim.api.nvim_create_user_command('SetIntelliJTheme', SetIntelliJTheme, {nargs = 0})
@@ -279,7 +288,19 @@ end
 vim.api.nvim_create_user_command('SetPaperTheme', SetPaperTheme, {nargs = 0})
 
 
+function SetFleetTheme()
+  vim.cmd.colorscheme("fleet")
 
+  vim.api.nvim_set_hl(0, 'TermCursor', { fg = "#062329", bg = "#8cde94" })
+  vim.api.nvim_set_hl(0, 'Cursor', { fg = "#062329", bg = "#8cde94" })
+  -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#062329", bg = "#8cde94" })
+  vim.api.nvim_set_hl(0, 'lCursor', { fg = "#062329", bg = "#8cde94" })
+  vim.api.nvim_set_hl(0, 'Visual', { fg = "#ffffff", bg = "#0000ff" })
+  vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#613315", bg = "#E66159" })
+
+  vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+end
+vim.api.nvim_create_user_command('SetFleetTheme', SetFleetTheme, {nargs = 0})
 
 -- function ToggleBg()
 --   if vim.o.background == "light" then
@@ -318,8 +339,9 @@ vim.api.nvim_create_user_command('SetPaperTheme', SetPaperTheme, {nargs = 0})
 -- SetGruberDarker()
 -- SetNaysayer()
 -- SetVColors()
--- SetTempusTheme()
+SetTempusTheme()
 -- SetTempusTempestTheme()
-SetIntelliJTheme()
+-- SetIntelliJTheme()
 -- SetVsAssistTheme()
+-- SetFleetTheme()
 
