@@ -48,5 +48,6 @@ vim.cmd [[
     set guicursor+=i-ci-a-sm:block-Cursor/Cursor-blinkwait175-blinkoff350-blinkon350
     set guicursor+=r-cr:hor95-Cursor/Cursor
     set guicursor+=n-v-c:block-Cursor/Cursor-blinkon0
+    " hi! Cursor gui=reverse guifg=NONE guibg=NONE
 ]]
 
