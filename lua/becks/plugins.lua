@@ -48,6 +48,23 @@ require('lazy').setup({
   },
 
   require('becks.plugins.color-schemes'),
+
+  {
+    'xiyaowong/transparent.nvim',
+     enabled = true,
+     opts = {
+       groups = { -- table: default groups
+         'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
+         'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
+         'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
+         'SignColumn', 'CursorLine', 'CursorLineNr', 'StatusLine', 'StatusLineNC',
+         'EndOfBuffer',
+       },
+       extra_groups = {}, -- table: additional groups that should be cleared
+       exclude_groups = {}, -- table: groups you don't want to clear
+     }
+   },
+
   -- require('becks.plugins.nvim-tree'),
   require('becks.plugins.neo-tree'),
   require('becks.plugins.trouble'),
@@ -119,6 +136,10 @@ require('lazy').setup({
 
   -- LSP Magic
   require('becks.plugins.lsp-zero'),
+
+  {
+    'LhKipp/nvim-nu',
+  },
 
   -- require('becks.plugins.quick-lint-js'),
 

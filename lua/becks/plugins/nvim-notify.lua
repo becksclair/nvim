@@ -2,7 +2,8 @@ return {
     "rcarriga/nvim-notify",
     opts = {
       style = "compact",
-      animation_style = "slide"
+      animation_style = "slide",
+      background = "#111111"
     }
 }
 
