@@ -43,11 +43,11 @@ vim.g.netrw_winsize = 25
 -- :highlight Cursor gui=NONE guifg=bg guibg=fg
 
 -- Configure blinking cursors
-vim.cmd [[
-    set guicursor=i-ci-a-sm:block-Cursor/Cursor-blinkwait175-blinkoff350-blinkon350
-    set guicursor+=i-ci-a-sm:block-Cursor/Cursor-blinkwait175-blinkoff350-blinkon350
-    set guicursor+=r-cr:hor95-Cursor/Cursor
-    set guicursor+=n-v-c:block-Cursor/Cursor-blinkon0
-    " hi! Cursor gui=reverse guifg=NONE guibg=NONE
-]]
+-- vim.cmd [[
+--     set guicursor=i-ci-a-sm:block-Cursor/Cursor-blinkwait175-blinkoff350-blinkon350
+--     set guicursor+=i-ci-a-sm:block-Cursor/Cursor-blinkwait175-blinkoff350-blinkon350
+--     set guicursor+=r-cr:hor95-Cursor/Cursor
+--     set guicursor+=n-v-c:block-Cursor/Cursor-blinkon0
+--     " hi! Cursor gui=reverse guifg=NONE guibg=NONE
+-- ]]
 

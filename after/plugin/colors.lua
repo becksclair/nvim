@@ -35,8 +35,8 @@ function SetMyColorHls()
   -- Custom highlight colors
   -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#ffffff", bg = "#E66159" })
   -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#ffffff", bg = "#f6c177" })
-  vim.api.nvim_set_hl(0, 'Cursor', { fg = "#ffffff", bg = "#f6c177" })
-  vim.api.nvim_set_hl(0, 'lCursor', { fg = "#ffffff", bg = "#f6c177" })
+  -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#ffffff", bg = "#f6c177" })
+  -- vim.api.nvim_set_hl(0, 'lCursor', { fg = "#ffffff", bg = "#f6c177" })
   vim.api.nvim_set_hl(0, 'Visual', { fg = "#ffffff", bg = "#E66159" })
   vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#ffffff", bg = "#E66159" })
 
@@ -105,8 +105,8 @@ function SetTempusTempestTheme()
 
   -- SetMyColorHls()
 
-  vim.api.nvim_set_hl(0, 'TermCursor', { fg = "#062329", bg = "#8cde94" })
-  vim.api.nvim_set_hl(0, 'Cursor', { fg = "#062329", bg = "#8cde94" })
+  -- vim.api.nvim_set_hl(0, 'TermCursor', { fg = "#062329", bg = "#8cde94" })
+  -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#062329", bg = "#8cde94" })
   -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#062329", bg = "#8cde94" })
   vim.api.nvim_set_hl(0, 'lCursor', { fg = "#062329", bg = "#8cde94" })
   vim.api.nvim_set_hl(0, 'Visual', { fg = "#ffffff", bg = "#0000ff" })

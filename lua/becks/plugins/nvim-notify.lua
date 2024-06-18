@@ -3,7 +3,7 @@ return {
     opts = {
       style = "compact",
       animation_style = "slide",
-      background = "#111111"
+      background_colour = "#111111"
     }
 }
 
