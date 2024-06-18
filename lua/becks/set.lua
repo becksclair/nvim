@@ -107,6 +107,7 @@ vim.filetype.add {
         v = 'vlang',
         slint = 'slint',
         templ = 'templ',
+        re = 'reason'
     },
     pattern = {
         ["yabairc"] = "bash",

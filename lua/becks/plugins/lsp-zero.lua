@@ -74,7 +74,7 @@ local lsp_config = function()
 
     lsp.setup()
 
-    require'lspconfig'.gleam.setup{}
+    require 'lspconfig'.gleam.setup {}
 
     -- NOTE: Configure Completions
 
@@ -127,20 +127,20 @@ local lsp_config = function()
                 name = "nvim_lua",
                 group_index = 2
             }, {
-                name = 'orgmode'
-            }, {
-                name = "vim-dadbod-completion"
-            }, {
-                name = "buffer",
-                keyword_length = 5,
-                group_index = 2
-            }, {
-                name = "path",
-                group_index = 2
-            }, {
-                name = "luasnip",
-                group_index = 2
-            }
+            name = 'orgmode'
+        }, {
+            name = "vim-dadbod-completion"
+        }, {
+            name = "buffer",
+            keyword_length = 5,
+            group_index = 2
+        }, {
+            name = "path",
+            group_index = 2
+        }, {
+            name = "luasnip",
+            group_index = 2
+        }
         },
         formatting = {
             format = require('lspkind').cmp_format({
@@ -231,19 +231,19 @@ return {
                 opts = {
                     ensure_installed = { "tsserver", "rust_analyzer", -- "sqlls",
                         "ocamllsp", "rescriptls", "reason_ls", "lua_ls" },
-                        -- handlers = {
-                        --     -- this first function is the "default handler"
-                        --     -- it applies to every language server without a "custom handler"
-                        --     function(server_name)
-                        --         require('lspconfig')[server_name].setup({})
-                        --     end,
-                        --
-                        --     -- this is the "custom handler" for `lua_ls`
-                        --     lua_ls = function()
-                        --         local lua_opts = lsp_zero.nvim_lua_ls()
-                        --         require('lspconfig').lua_ls.setup(lua_opts)
-                        --     end,
-                        -- }
+                    -- handlers = {
+                    --     -- this first function is the "default handler"
+                    --     -- it applies to every language server without a "custom handler"
+                    --     function(server_name)
+                    --         require('lspconfig')[server_name].setup({})
+                    --     end,
+                    --
+                    --     -- this is the "custom handler" for `lua_ls`
+                    --     lua_ls = function()
+                    --         local lua_opts = lsp_zero.nvim_lua_ls()
+                    --         require('lspconfig').lua_ls.setup(lua_opts)
+                    --     end,
+                    -- }
                 },
             }, -- Optional
             -- Autocompletion
@@ -259,6 +259,7 @@ return {
             { 'hrsh7th/cmp-nvim-lua' }, -- Snippets
             {
                 'L3MON4D3/LuaSnip',
+                make = "make install_jsregexp",
                 lazy = true
             }, -- Required
             {
@@ -267,6 +268,42 @@ return {
             }
         },
         config = lsp_config
+    },
+    {
+        'schrieveslaach/sonarlint.nvim',
+        url = 'https://gitlab.com/schrieveslaach/sonarlint.nvim',
+        dependencies = {
+            {
+                'mfussenegger/nvim-jdtls',
+                lazy = true
+            }
+        },
+        opts = {
+            server = {
+                cmd = {
+                    'sonarlint-language-server',
+                    -- Ensure that sonarlint-language-server uses stdio channel
+                    '-stdio',
+                    '-analyzers',
+                    -- paths to the analyzers you need, using those for python and java in this example
+                    vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarpython.jar"),
+                    vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarcfamily.jar"),
+                    vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjava.jar"),
+                    vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjs.jar"),
+                    vim.fn.expand("$MASON/share/sonarlint-analyzers/sonargo.jar"),
+                    vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarhtml.jar"),
+                    vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarxml.jar"),
+                }
+            },
+            filetypes = {
+                -- Tested and working
+                'python',
+                'cpp',
+                'java',
+                'javascript',
+                'typescript'
+            }
+        }
     },
     {
         -- LSP Configuration & Plugins
@@ -322,6 +359,8 @@ return {
                     biome = {
                     },
 
+                    sonarlint = {},
+
                     pyright = {},
 
                     gopls = {},
@@ -364,7 +403,7 @@ return {
                     },
 
                     htmx = {
-                       filetypes = { 'html', 'htmldjango' }
+                        filetypes = { 'html', 'htmldjango' }
                     },
 
                     qmlls = {
@@ -396,6 +435,10 @@ return {
                     },
 
                     zls = {},
+
+                    nushell = {
+                        filetypes = { 'nu' }
+                    }
                 }
 
                 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -447,10 +490,17 @@ return {
                     settings = servers['zls'],
                     filetypes = (servers['zls'] or {}).filetypes
                 }
+
+                require('lspconfig').nushell.setup {
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    settings = servers['nushell'],
+                    filetypes = (servers['nushell'] or {}).filetypes
+                }
             end
         },
 
-        -- Useful status updates for LSP
+            -- Useful status updates for LSP
             {
                 'j-hui/fidget.nvim',
                 -- tag = 'legacy',
@@ -468,7 +518,7 @@ return {
                         },
                     }
                     -- text = {
-                        -- spinner = 'dots_snake'
+                    -- spinner = 'dots_snake'
                     -- },
 
                     -- window = {
