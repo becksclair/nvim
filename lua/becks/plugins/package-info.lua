@@ -3,8 +3,9 @@ return {
   dependencies = {
     "MunifTanjim/nui.nvim"
   },
-  -- lazy = true,
-  -- event = "BufEnter",
+  lazy = true,
+  enabled = false,
+  event = "BufReadPost",
   opts = {
     package_manager = 'pnpm'
   },

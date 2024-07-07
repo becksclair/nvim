@@ -28,32 +28,30 @@ local components = {
     end,
     cond = conditions.hide_in_width,
   },
-  copilot = {
-    function()
-      local buf_clients = vim.lsp.get_clients()
-      if #buf_clients == 0 then
-        return ""
-      end
-
-      -- local buf_ft = vim.bo.filetype
-      local copilot_active = false
-
-      -- add client
-      for _, client in pairs(buf_clients) do
-        if client.name == "copilot" then
-          copilot_active = true
-        end
-      end
-
-      local language_servers = ""
-      if copilot_active then
-        language_servers = '' .. icons.git.Octoface .. ' '
-      end
-      return language_servers
-    end,
-    color = { fg = '#6CC644', gui = "bold" },
-    cond = conditions.hide_in_width,
-  },
+  -- copilot = {
+  --   function()
+  --     local buf_clients = vim.lsp.get_clients()
+  --     if #buf_clients == 0 then
+  --       return ""
+  --     end
+  --
+  --     -- add client
+  --     local copilot_active = false
+  --     for _, client in pairs(buf_clients) do
+  --       if client.name == "copilot" then
+  --         copilot_active = true
+  --       end
+  --     end
+  --
+  --     local language_servers = ""
+  --     if copilot_active then
+  --       language_servers = '' .. icons.git.Octoface .. ' '
+  --     end
+  --     return language_servers
+  --   end,
+  --   color = { fg = '#6CC644', gui = "bold" },
+  --   cond = conditions.hide_in_width,
+  -- },
   lsp = {
     function()
       local buf_clients = vim.lsp.get_clients { bufnr = 0 }
@@ -63,17 +61,12 @@ local components = {
 
       -- local buf_ft = vim.bo.filetype
       local buf_client_names = {}
-      -- local copilot_active = false
 
       -- add client
       for _, client in pairs(buf_clients) do
         if client.name ~= "null-ls" and client.name ~= "copilot" then
           table.insert(buf_client_names, client.name)
         end
-
-        -- if client.name == "copilot" then
-        --   copilot_active = true
-        -- end
       end
 
       -- -- add formatter
@@ -130,7 +123,13 @@ return {
       -- lualine_b = { 'branch', 'diff', 'diagnostics' },
       lualine_b = { 'diagnostics' },
       lualine_c = { 'filename' },
-      lualine_x = { 'fileformat', components.treesitter, components.lsp, components.copilot, 'filetype' },
+      lualine_x = {
+        'fileformat',
+        components.treesitter,
+        components.lsp,
+        -- components.copilot,
+        'filetype'
+      },
       lualine_y = { 'progress' },
       lualine_z = { 'location' }
     },

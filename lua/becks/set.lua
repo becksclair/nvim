@@ -15,6 +15,8 @@ else
     vim.opt.rtp:append(os.getenv("HOME") .. "/.opam/default/share")
 end
 
+-- vim.opt.rocks.hererocks = true
+
 vim.scriptencoding = 'utf-8'
 vim.opt.encoding = 'utf-8'
 vim.opt.fileencoding = 'utf-8'
@@ -89,7 +91,7 @@ vim.o.splitright = true
 vim.opt.scrolloff = 8
 vim.opt.isfname:append("@-@")
 
-vim.opt.updatetime = 50
+-- vim.opt.updatetime = 50
 
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 

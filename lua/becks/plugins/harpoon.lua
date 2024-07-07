@@ -4,7 +4,8 @@ return {
   dependencies = { "nvim-lua/plenary.nvim" },
   enabled = true,
   lazy = true,
-  event = "BufEnter",
+  -- event = "BufEnter",
+  event = "VeryLazy",
   config = function()
     local harpoon = require("harpoon")
 

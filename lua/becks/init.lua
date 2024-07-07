@@ -1,6 +1,6 @@
 require("becks.set")
 require("becks.remap")
-require("becks.plugins")
+require("becks.lazy")
 require("becks.autocmds")
 require("becks.neovide")
 
@@ -31,13 +31,20 @@ autocmd({"BufWritePre"}, {
     command = [[%s/\s\+$//e]]
 })
 
+-- Disable perl
+vim.g.loaded_perl_provider = 0
+
+-- Disable ruby integration
+vim.g.loaded_ruby_provider = 0
+
+-- Disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 
--- Disable netrw
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
 
 -- :highlight Cursor gui=reverse guifg=NONE guibg=NONE
 -- :highlight Cursor gui=NONE guifg=bg guibg=fg

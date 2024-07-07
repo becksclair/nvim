@@ -69,7 +69,7 @@ function B.SudoWrite(tmpfile, filepath)
     vim.fn.shellescape(filepath))
 
   -- no need to check error as this fails the entire function
-  vim.api.nvim_exec2(string.format("write! %s", tmpfile), { output = true})
+  vim.api.nvim_exec2(string.format("write! %s", tmpfile), { output = true })
 
   if B.SudoExec(cmd) then
     B.Info(string.format([[  "%s" written]], filepath))
@@ -78,5 +78,34 @@ function B.SudoWrite(tmpfile, filepath)
   vim.fn.delete(tmpfile)
 end
 
-return B
+function B.root_pattern_excludes(opt)
+  local util = require('lspconfig.util')
 
+  local root = opt.root
+  local exclude = opt.exclude
+
+  local function matches(path, pattern)
+    return 0 < #vim.fn.glob(util.path.join(path, pattern))
+  end
+
+  return function(startpath)
+    return util.search_ancestors(startpath, function(path)
+      return matches(path, root) and not matches(path, exclude)
+    end)
+  end
+end
+
+function B.match_filename_pattern(filename)
+  local patterns = {
+    "biome.json?",
+    ".eslint?"
+  }
+  for _, pattern in ipairs(patterns) do
+    if filename:match(pattern) then
+      return true
+    end
+  end
+  return false
+end
+
+return B

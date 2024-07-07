@@ -8,6 +8,8 @@ require('lint').linters_by_ft = {
   zsh = { 'shellcheck', },
   cpp = { 'clangtidy' },
 
+  -- yaml = { 'cfn_lint' },
+
   -- vlang = { 'vlang' },
 
   -- rust = { 'clippy' }

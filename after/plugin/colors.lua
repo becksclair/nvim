@@ -110,7 +110,11 @@ function SetTempusTempestTheme()
   -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#062329", bg = "#8cde94" })
   vim.api.nvim_set_hl(0, 'lCursor', { fg = "#062329", bg = "#8cde94" })
   vim.api.nvim_set_hl(0, 'Visual', { fg = "#ffffff", bg = "#0000ff" })
-  vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#613315", bg = "#E66159" })
+  vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#FFFF00", bg = "#0000ff" })
+
+  vim.api.nvim_set_hl(0, 'CursorLine', { bg = "#111111" }) -- Background for the cursor line
+  vim.api.nvim_set_hl(0, 'CursorColumn', { bg = "#f0f2fc" }) -- Background for the cursor column
+  vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = "#FFFF00", bg = "#001CAC" })
 
   vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 end
