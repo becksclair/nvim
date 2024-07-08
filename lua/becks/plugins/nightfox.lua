@@ -1,6 +1,8 @@
 return {
   "EdenEast/nightfox.nvim",
-  lazy = true,
+  lazy = false,
+  enabled = true,
+  priority = 1000,
   opts = {
     options = {
       -- transparent = true
