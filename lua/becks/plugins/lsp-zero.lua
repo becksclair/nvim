@@ -370,6 +370,14 @@ return {
                         }
                     },
 
+                    bacon_ls = {
+                        enable = true,
+                        settings = {
+                            -- locationsFile = ".locations",
+                            -- waitTimeSeconds = 5
+                        },
+                    },
+
                     bashls = {
                         filetypes = { '%.env.*' },
                     },
