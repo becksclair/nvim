@@ -174,6 +174,12 @@ function SetTempleTheme()
   vim.api.nvim_set_hl(0, 'Visual', { fg = "#FFFF00", bg = "#000000" })
   vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#FFFF00", bg = "#000000" })
 
+
+  vim.api.nvim_set_hl(0, 'TermCursor', { fg = "#FFFF00", bg = "#000000" })
+  vim.api.nvim_set_hl(0, 'lCursor', { fg = "#FFFF00", bg = "#000000" })
+  vim.api.nvim_set_hl(0, 'Visual', { fg = "#FFFF00", bg = "#000000" })
+  vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#FFFF00", bg = "#000000" })
+
 end
 
 function SetTempleThemeDark()
@@ -334,11 +340,11 @@ vim.api.nvim_create_user_command('SetFleetTheme', SetFleetTheme, {nargs = 0})
 -- ColorMyPencils()
 -- SetNightFox()
 -- SetDayFox()
--- SetAcmeTheme()
+SetAcmeTheme()
 -- SetTempusTheme()
 -- SetPaperTheme()
 -- SetTempleTheme()
-SetTempleThemeDark()
+-- SetTempleThemeDark()
 -- SetSolarized2()
 -- SetGruberDarker()
 -- SetNaysayer()

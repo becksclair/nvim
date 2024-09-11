@@ -423,6 +423,10 @@ return {
                     --     -- end,
                     -- },
 
+                    tailwindcss = {
+                        filetypes = { 'html', 'css', 'scss', 'javascriptreact', 'typescriptreact' },
+                    },
+
                     sonarlint = {},
 
                     vacuum = {

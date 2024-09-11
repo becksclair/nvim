@@ -1,7 +1,7 @@
 return {
   'Mofiqul/vscode.nvim',
-  lazy = true,
-  enabled = false,
+  lazy = false,
+  enabled = true,
   priority = 1000,
   -- opts = {
   --   -- Alternatively set style in setup
