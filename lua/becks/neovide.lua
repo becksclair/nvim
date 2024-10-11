@@ -1,8 +1,9 @@
 if vim.g.neovide then
-  vim.g.neovide_refresh_rate = 60
+  vim.g.neovide_refresh_rate = 240
   vim.g.neovide_cursor_trail_size = 0.5
   vim.g.neovide_cursor_animation_length = 0.13
-  vim.g.neovide_transparency = 0.9
+  vim.g.neovide_transparency = 1.0
+  -- vim.g.neovide_transparency = 0.9
   vim.g.neovide_cursor_antialiasing = false
 
   vim.g.neovide_padding_top    = 65
@@ -64,8 +65,8 @@ function NeoLaptop()
     vim.g.neovide_refresh_rate = 60
     print("NeoLaptop: Refresh rate set to 60")
   else
-    vim.g.neovide_refresh_rate = 120
-    print("NeoLaptop: Refresh rate set to 120")
+    vim.g.neovide_refresh_rate = 240
+    print("NeoLaptop: Refresh rate set to 240")
   end
 end
 vim.api.nvim_create_user_command('NeoLaptop', NeoLaptop, {nargs = 0})
