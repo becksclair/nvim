@@ -56,9 +56,9 @@ function SetAcmeTheme()
   vim.cmd.colorscheme('acme')
   SetMyColorHls()
 
-  vim.api.nvim_set_hl(0, 'Cursor', { fg = "#FFFF00", bg = "#000000" })
-  vim.api.nvim_set_hl(0, 'Visual', { fg = "#FFFF00", bg = "#000000" })
-  vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#FFFF00", bg = "#000000" })
+  vim.api.nvim_set_hl(0, 'Cursor', { fg = "#000000", bg = "#000000" })
+  vim.api.nvim_set_hl(0, 'Visual', { fg = "#000000", bg = "#eeee9e" })
+  vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#000000", bg = "#eaffff" })
 
 end
 
