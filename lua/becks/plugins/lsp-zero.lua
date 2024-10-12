@@ -311,6 +311,7 @@ return {
         'schrieveslaach/sonarlint.nvim',
         url = 'https://gitlab.com/schrieveslaach/sonarlint.nvim',
         lazy = true,
+        enabled = false,
         event = 'BufReadPost',
         dependencies = {
             {
