@@ -5,8 +5,6 @@ local lsp_config = function()
     -- Uncomment to enable debug logging
     -- vim.lsp.set_log_level('debug')
 
-    -- lsp.ensure_installed({ 'rust_analyzer', 'lua_ls', 'pyright' })
-
     -- Fix Undefined global 'vim'
     lsp.configure('lua_ls', {
         settings = {
@@ -238,23 +236,54 @@ return {
                 'williamboman/mason-lspconfig.nvim',
                 lazy = true,
                 opts = {
-                    ensure_installed = { "vtsls", "rust_analyzer", -- "sqlls",
-                        "ocamllsp", "rescriptls", "reason_ls", "lua_ls" },
+                    ensure_installed = {
+                        'astro',
+                        'rust_analyzer',
+                        'arudino_language_server',
+                        'lua_ls',
+                        'ruff',
+                        'ruff_lsp',
+                        'rubocop',
+                        'ruby_lsp',
+                        'solargraph',
+                        'sorbet',
+                        'vtsls',
+                        'gopls',
+                        'cssls',
+                        'tailwindcss',
+                        'html_ls',
+                        'htmx_ls',
+                        'svelte',
+                        'biome',
+                        'cmake',
+                        'clangd',
+                        'dockerls',
+                        'docker_compose_language_service',
+                        'elmls',
+                        'jsonls',
+                        'marksman',
+                        'mdx_analyzer',
+                        'vacuum',
+                        'nim_langserver',
+                        'intelephense',
+                        'prismals',
+                        'yamlls'
+                    },
                     -- handlers = {
-                    --     -- this first function is the "default handler"
-                    --     -- it applies to every language server without a "custom handler"
-                    --     function(server_name)
-                    --         require('lspconfig')[server_name].setup({})
-                    --     end,
-                    --
-                    --     -- this is the "custom handler" for `lua_ls`
-                    --     lua_ls = function()
-                    --         local lua_opts = lsp_zero.nvim_lua_ls()
-                    --         require('lspconfig').lua_ls.setup(lua_opts)
-                    --     end,
-                    -- }
-                },
-            }, -- Optional
+                        --     -- this first function is the "default handler"
+                        --     -- it applies to every language server without a "custom handler"
+                        --     function(server_name)
+                            --         require('lspconfig')[server_name].setup({})
+                            --     end,
+                            --
+                            --     -- this is the "custom handler" for `lua_ls`
+                            --     lua_ls = function()
+                                --         local lua_opts = lsp_zero.nvim_lua_ls()
+                                --         require('lspconfig').lua_ls.setup(lua_opts)
+                                --     end,
+                                -- }
+                            },
+                        }, -- Optional
 
             -- Autocompletion
             { 'onsails/lspkind.nvim' },
