@@ -41,6 +41,12 @@ vim.keymap.set("v", "H", "^", { noremap = true, silent = true, desc = "Begining 
 vim.keymap.set("v", "L", "g_", { noremap = true, silent = true, desc = "End of file" })
 
 
+-- Folds
+
+vim.keymap.set({ "n" }, "<leader>'", "za", { desc = "Toggle fold" })
+vim.keymap.set({ "n" }, "zO", "zCzO", { desc = "Recursively open fold" })
+vim.keymap.set({ "n" }, "z'", "mzzMzvzz15", { desc = "Focus current line (fold rest)" })
+
 -- Fix quit
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<leader>q", vim.cmd.quit, { noremap = true, desc = 'Kill window' })
