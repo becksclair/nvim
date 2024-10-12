@@ -78,29 +78,29 @@ local lsp_config = function()
         behavior = cmp.SelectBehavior.Select
     }
 
-    -- local has_words_before = function()
-    --   if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
-    --   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    --   return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
-    -- end
+    local has_words_before = function()
+      -- if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+      if vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "prompt" then return false end
+      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+      return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
+    end
 
     local cmp_mappings = lsp.defaults.cmp_mappings({
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
         ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-        ['<C-y>'] = cmp.mapping.confirm({
-            select = true
-        }),
+        ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         ["<C-Space>"] = cmp.mapping.complete(),
-        ["<Tab>"] = vim.NIL,
-        -- ["<Tab>"] = vim.schedule_wrap(function(fallback)
-        --   if cmp.visible() and has_words_before() then
-        --     cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-        --   else
-        --     fallback()
-        --   end
-        -- end),
+        -- ["<Tab>"] = vim.NIL,
+        ["<Tab>"] = vim.schedule_wrap(function(fallback)
+          if cmp.visible() and has_words_before() then
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+          else
+            fallback()
+          end
+        end),
         ['<S-Tab>'] = nil,
     })
     -- cmp_mappings['<Tab>'] = nil
