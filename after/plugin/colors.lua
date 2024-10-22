@@ -212,7 +212,12 @@ function SetSolarized2()
 end
 vim.api.nvim_create_user_command('SetSolarized2', SetSolarized2, {nargs = 0})
 
-
+function SetTokyoNight()
+  vim.o.background = "dark"
+  vim.cmd.colorscheme("tokyonight-night")
+  -- SetMyColorHls()
+end
+vim.api.nvim_create_user_command('SetTokyoNight', SetTokyoNight, {nargs = 0})
 
 function SetNightFox()
   vim.o.background = "dark"
@@ -338,6 +343,7 @@ vim.api.nvim_create_user_command('SetFleetTheme', SetFleetTheme, {nargs = 0})
 -- end
 
 -- ColorMyPencils()
+SetTokyoNight()
 -- SetNightFox()
 -- SetDayFox()
 -- SetAcmeTheme()
