@@ -1,4 +1,4 @@
 return {
   'yorickpeterse/vim-paper',
-  enabled = false,
+  enabled = true,
 }
