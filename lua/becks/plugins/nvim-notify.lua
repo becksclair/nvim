@@ -3,9 +3,9 @@ return {
     enabled = true,
     lazy = true,
     opts = {
-      style = "compact",
-      animation_style = "slide",
-      background_colour = "#111111"
+      -- style = "compact",
+      -- animation_style = "slide",
+      -- background_colour = "#111111"
     }
 }
 

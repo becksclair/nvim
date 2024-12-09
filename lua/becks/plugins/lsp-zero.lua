@@ -614,31 +614,31 @@ return {
         },
 
             -- Useful status updates for LSP
-            {
-                'j-hui/fidget.nvim',
-                -- tag = 'legacy',
-                opts = {
-                    progress = {
-                        display = {
-                            done_style = "Constant",
-                            done_icon = "",
-
-                            -- Icon shown when LSP progress tasks are in progress
-                            progress_icon = {
-                                pattern = "dots_snake",
-                                period = 1
-                            },
-                        },
-                    }
-                    -- text = {
-                    -- spinner = 'dots_snake'
-                    -- },
-
-                    -- window = {
-                    --     blend = 40
-                    -- }
-                }
-            }, -- Additional lua configuration, makes nvim stuff amazing!
+            -- {
+            --     'j-hui/fidget.nvim',
+            --     -- tag = 'legacy',
+            --     opts = {
+            --         progress = {
+            --             display = {
+            --                 done_style = "Constant",
+            --                 done_icon = "",
+            --
+            --                 -- Icon shown when LSP progress tasks are in progress
+            --                 progress_icon = {
+            --                     pattern = "dots_snake",
+            --                     period = 1
+            --                 },
+            --             },
+            --         }
+            --         -- text = {
+            --         -- spinner = 'dots_snake'
+            --         -- },
+            --
+            --         -- window = {
+            --         --     blend = 40
+            --         -- }
+            --     }
+            -- }, -- Additional lua configuration, makes nvim stuff amazing!
             { 'folke/neodev.nvim' },
             'nlsp-settings.nvim',
             {
