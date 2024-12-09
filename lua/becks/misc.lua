@@ -53,7 +53,7 @@ function B.hello()
 end
 
 function B.SudoWrite(tmpfile, filepath)
-  vim.cmd('echo "test"')
+  vim.cmd('echo "Write with sudo"')
   if not tmpfile then tmpfile = vim.fn.tempname() end
   if not filepath then filepath = vim.fn.expand("%") end
   if not filepath or #filepath == 0 then

@@ -58,6 +58,8 @@ vim.keymap.set("n", "<leader>Q", vim.cmd.quitall, { noremap = true, desc = 'Kill
 -- w!! to save with sudo
 vim.keymap.set("c", "w!!", "<esc>:lua require'becks.misc'.SudoWrite()<CR>", { silent = true, desc = 'Sudo to write' })
 
+vim.keymap.set("c", "ww", "<esc>:lua require'becks.misc'.SudoWrite()<CR>", { silent = true, desc = 'Sudo to write' })
+
 vim.keymap.set("n", "<leader>xb", "<cmd>bd<CR>", { desc = 'Discard buffer' })
 
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { desc = 'Open tmux sessionizer' })
@@ -120,6 +122,11 @@ vim.keymap.set("n", "gf", function()
   end
 end, { noremap = false, expr = true })
 
+
+-- Diff
+
+-- vim.keymap.set('v', '<', function() return vim.o.diff and "<Cmd>lua visual_diff_get()<CR>" or '<' end, { expr = true })
+-- vim.keymap.set('v', '<', function() return vim.o.diff and ":'<,'>diffget<CR>" or '<' end, { expr = true })
 
 
 vim.keymap.set('n', '<leader>nn', function()
