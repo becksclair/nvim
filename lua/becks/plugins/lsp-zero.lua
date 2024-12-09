@@ -564,7 +564,12 @@ return {
 
                     nushell = {
                         filetypes = { 'nu' }
-                    }
+                    },
+
+                    ruff = {
+                        -- Additional Ruff CLI arguments can be specified here
+                        interpreter = { '.venv/bin/python' }
+                    },
                 }
 
                 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -609,6 +614,19 @@ return {
                     on_attach = on_attach,
                     settings = servers['zls'],
                     filetypes = (servers['zls'] or {}).filetypes
+                }
+
+                require('lspconfig').ruff.setup {
+                    init_options = {
+                        settings = {
+                            -- Server settings should go here
+                            interpreter = { '.venv/bin/python' }
+                        }
+                    },
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    settings = servers['ruff'],
+                    filetypes = (servers['ruff'] or {}).filetypes
                 }
             end
         },
