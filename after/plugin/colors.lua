@@ -242,6 +242,40 @@ function SetDayFox()
 end
 vim.api.nvim_create_user_command('SetDayFox', SetNightFox, {nargs = 0})
 
+
+function SetMelange()
+  vim.o.background = "light"
+  vim.cmd.colorscheme("melange")
+  SetMyColorHls()
+
+  vim.api.nvim_set_hl(0, 'TermCursor', { fg = "#2D4AA3", bg = "#2D4AA3" })
+  vim.api.nvim_set_hl(0, 'Cursor', { fg = "#2D4AA3", bg = "#2D4AA3" })
+  -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#2D4AA3", bg = "#2D4AA3" })
+  vim.api.nvim_set_hl(0, 'lCursor', { fg = "#2D4AA3", bg = "#2D4AA3" })
+  vim.api.nvim_set_hl(0, 'Visual', { fg = "#ffffff", bg = "#2D4AA3" })
+  vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#ffffff", bg = "#2D4AA3" })
+
+  vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+end
+vim.api.nvim_create_user_command('SetMelange', SetMelange, {nargs = 0})
+
+
+function SetMelangeDark()
+  vim.o.background = "dark"
+  vim.cmd.colorscheme("melange")
+  SetMyColorHls()
+
+  vim.api.nvim_set_hl(0, 'TermCursor', { fg = "#062329", bg = "#2D4AA3" })
+  vim.api.nvim_set_hl(0, 'Cursor', { fg = "#062329", bg = "#2D4AA3" })
+  -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#062329", bg = "#2D4AA3" })
+  vim.api.nvim_set_hl(0, 'lCursor', { fg = "#062329", bg = "#2D4AA3" })
+  vim.api.nvim_set_hl(0, 'Visual', { fg = "#ffffff", bg = "#2D4AA3" })
+  vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#613315", bg = "#2D4AA3" })
+
+  vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+end
+vim.api.nvim_create_user_command('SetMelangeDark', SetMelangeDark, {nargs = 0})
+
 function SetGruberDarker()
   vim.o.background = "dark"
   vim.cmd.colorscheme("gruber-darker")
@@ -280,6 +314,22 @@ function SetVColors()
 end
 vim.api.nvim_create_user_command('SetVColors', SetVColors, {nargs = 0})
 
+
+function SetVColorsDark()
+  vim.o.background = "dark"
+  vim.cmd.colorscheme("vcolors")
+  -- SetMyColorHls()
+  --  vim.api.nvim_set_hl(0, 'Normal', { fg = "#F5F5F5", bg = "None" })
+
+  -- vim.api.nvim_set_hl(0, 'TermCursor', { fg = "#062329", bg = "#8cde94" })
+  -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#062329", bg = "#8cde94" })
+  -- vim.api.nvim_set_hl(0, 'lCursor', { fg = "#062329", bg = "#8cde94" })
+  -- vim.api.nvim_set_hl(0, 'Visual', { fg = "#ffffff", bg = "#0000ff" })
+  vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#613315", bg = "#E66159" })
+
+  vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+end
+vim.api.nvim_create_user_command('SetVColorsDark', SetVColorsDark, {nargs = 0})
 
 function SetPaperTheme()
   vim.o.background = "light"
@@ -346,15 +396,18 @@ vim.api.nvim_create_user_command('SetFleetTheme', SetFleetTheme, {nargs = 0})
 -- SetTokyoNight()
 -- SetNightFox()
 -- SetDayFox()
+SetMelange()
+-- SetMelangeDark()
 -- SetAcmeTheme()
 -- SetTempusTheme()
-SetPaperTheme()
+-- SetPaperTheme()
 -- SetTempleTheme()
 -- SetTempleThemeDark()
 -- SetSolarized2()
 -- SetGruberDarker()
 -- SetNaysayer()
 -- SetVColors()
+-- SetVColorsDark()
 -- SetTempusTheme()
 -- SetTempusTempestTheme()
 -- SetIntelliJTheme()
