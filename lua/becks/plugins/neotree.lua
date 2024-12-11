@@ -2,7 +2,6 @@ return {
   "nvim-neo-tree/neo-tree.nvim",
   lazy = true,
   event = "VeryLazy",
-  enabled = true,
   branch = "v3.x",
   dependencies = {
     "nvim-lua/plenary.nvim",
@@ -34,7 +33,7 @@ return {
       sort_case_insensitive = false,
       window = {
         position = "right",
-        width = 79,
+        width = 70,
         mappings = {
           ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
         },

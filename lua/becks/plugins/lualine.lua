@@ -54,7 +54,7 @@ local components = {
   -- },
   lsp = {
     function()
-      local buf_clients = vim.lsp.get_clients { bufnr = 0 }
+      local buf_clients = vim.lsp.get_clients()
       if #buf_clients == 0 then
         return "LSP Inactive"
       end

@@ -1,6 +1,7 @@
 -- Undo GUI
 return {
   'mbbill/undotree',
+  enabled = false,
   lazy = true,
   event = "VeryLazy",
   cmd = {

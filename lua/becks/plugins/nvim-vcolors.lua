@@ -1,6 +1,6 @@
 -- V-Colors
 return {
-  dir = '~/projects/neovim/nvim-vcolors',
+  dir = '~/projects/nvim/nvim-vcolors',
   -- dev = true,
   priority = 1000,
   -- config = function()

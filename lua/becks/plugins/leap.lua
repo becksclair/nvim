@@ -1,5 +1,6 @@
 return {
   'ggandor/leap.nvim',
+  enabled = false,
   lazy = true,
   event = "BufEnter",
   config = function()
