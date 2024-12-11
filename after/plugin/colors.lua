@@ -1,20 +1,6 @@
 function ColorMyPencils(color)
   vim.o.background = "dark"
-  -- vim.o.background = "light"
-  color = color or "rose-pine"
-  -- color = color or "vcolors"
-  -- color = color or "iceberg"
-  -- color = color or "vscode"
-  -- color = color or "visual_studio_code"
-  -- color = color or "tokyonight-night"
-  -- color = color or "smyck"
-  -- color = color or "kanagawa-wave"
-
-  -- require('rose-pine').setup({
-  --     disable_background = true
-  -- })
-
-  vim.g.rose_pine_disable_background = true
+  color = color or "melange"
   vim.cmd.colorscheme(color)
 
   SetMyColorHls()
@@ -33,19 +19,23 @@ end
 
 function SetMyColorHls()
   -- Custom highlight colors
-  -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#ffffff", bg = "#E66159" })
-  -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#ffffff", bg = "#f6c177" })
-  -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#ffffff", bg = "#f6c177" })
-  -- vim.api.nvim_set_hl(0, 'lCursor', { fg = "#ffffff", bg = "#f6c177" })
   vim.api.nvim_set_hl(0, 'Visual', { fg = "#ffffff", bg = "#E66159" })
   vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#ffffff", bg = "#E66159" })
 
   vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 
-  -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#FFFF00", bg = "#000000" })
-  -- vim.api.nvim_set_hl(0, 'Visual', { fg = "#FFFF00", bg = "#000000" })
-  -- vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#FFFF00", bg = "#000000" })
-
+  if vim.o.background == "light" then
+    vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = "#E66159" })
+    vim.api.nvim_set_hl(0, "TelescopeSelection", { fg = "#000000", bg = "#cdd6f4" })
+    vim.api.nvim_set_hl(0, "TelescopeSelectionCaret", { fg = "#000000", bg = "#cdd6f4" })
+    vim.api.nvim_set_hl(0, "TelescopeNormal", { fg = "#2D4AA3" })
+  else
+    vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = "#E49B5D" })
+    vim.api.nvim_set_hl(0, "TelescopeSelection", { fg = "#ECE1D7", bg = "#4d5796" })
+    vim.api.nvim_set_hl(0, "TelescopeSelectionCaret", { fg = "#ECE1D7", bg = "#4d5796" })
+    vim.api.nvim_set_hl(0, "TelescopeNormal", { fg = "#ECE1D7" })
+    vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = "#EBC06D" })
+  end
 
   -- vim.api.nvim_set_hl(0, 'Normal', { bg = "none" })
   -- vim.api.nvim_set_hl(0, 'NonText', { bg = "none" })
@@ -248,31 +238,24 @@ function SetMelange()
   vim.cmd.colorscheme("melange")
   SetMyColorHls()
 
-  vim.api.nvim_set_hl(0, 'TermCursor', { fg = "#2D4AA3", bg = "#2D4AA3" })
-  vim.api.nvim_set_hl(0, 'Cursor', { fg = "#2D4AA3", bg = "#2D4AA3" })
-  -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#2D4AA3", bg = "#2D4AA3" })
-  vim.api.nvim_set_hl(0, 'lCursor', { fg = "#2D4AA3", bg = "#2D4AA3" })
-  vim.api.nvim_set_hl(0, 'Visual', { fg = "#ffffff", bg = "#2D4AA3" })
-  vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#ffffff", bg = "#2D4AA3" })
-
-  vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+  vim.api.nvim_set_hl(0, 'TermCursor', { fg = "#ffffff", bg = "#2D4AA3" })
+  vim.api.nvim_set_hl(0, 'Cursor', { fg = "#ffffff", bg = "#2D4AA3" })
+  vim.api.nvim_set_hl(0, 'lCursor', { fg = "#ffffff", bg = "#ffffff" })
+  vim.api.nvim_set_hl(0, 'Visual', { fg = "#ffffff", bg = "#4A679A" })
+  vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#ffffff", bg = "#4A679A" })
 end
 vim.api.nvim_create_user_command('SetMelange', SetMelange, {nargs = 0})
-
 
 function SetMelangeDark()
   vim.o.background = "dark"
   vim.cmd.colorscheme("melange")
   SetMyColorHls()
 
-  vim.api.nvim_set_hl(0, 'TermCursor', { fg = "#062329", bg = "#2D4AA3" })
-  vim.api.nvim_set_hl(0, 'Cursor', { fg = "#062329", bg = "#2D4AA3" })
-  -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#062329", bg = "#2D4AA3" })
-  vim.api.nvim_set_hl(0, 'lCursor', { fg = "#062329", bg = "#2D4AA3" })
-  vim.api.nvim_set_hl(0, 'Visual', { fg = "#ffffff", bg = "#2D4AA3" })
-  vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#613315", bg = "#2D4AA3" })
-
-  vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+  vim.api.nvim_set_hl(0, 'TermCursor', { fg = "#292522", bg = "#E49B5D" })
+  vim.api.nvim_set_hl(0, 'Cursor', { fg = "#292522", bg = "#E49B5D" })
+  vim.api.nvim_set_hl(0, 'lCursor', { fg = "#292522", bg = "#ffffff" })
+  vim.api.nvim_set_hl(0, 'Visual', { fg = "#292522", bg = "#E49B5D" })
+  vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#292522", bg = "#E49B5D" })
 end
 vim.api.nvim_create_user_command('SetMelangeDark', SetMelangeDark, {nargs = 0})
 
@@ -396,8 +379,8 @@ vim.api.nvim_create_user_command('SetFleetTheme', SetFleetTheme, {nargs = 0})
 -- SetTokyoNight()
 -- SetNightFox()
 -- SetDayFox()
-SetMelange()
--- SetMelangeDark()
+-- SetMelange()
+SetMelangeDark()
 -- SetAcmeTheme()
 -- SetTempusTheme()
 -- SetPaperTheme()
