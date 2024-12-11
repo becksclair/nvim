@@ -1,7 +1,5 @@
 return {
   "epwalsh/obsidian.nvim",
-  enabled = false,
-  lazy = true,
   event = {
     -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
     -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
@@ -17,10 +15,10 @@ return {
     'nvim-telescope/telescope.nvim',
   },
   opts = {
-    dir = "~/personal/HeliasMind",   -- no need to call 'vim.fn.expand' here
+    dir = "~/Sync/HeliasMind/",   -- no need to call 'vim.fn.expand' here
 
     -- Optional, if you keep notes in a specific subdirectory of your vault.
-    notes_subdir = "Inbox",
+    -- notes_subdir = "Inbox",
 
     daily_notes = {
       -- Optional, if you keep daily notes in a separate directory.
@@ -33,20 +31,17 @@ return {
       template = 'Daily.md',
     },
 
+    -- Where to put new notes created from completion. Valid options are
+    --  * "current_dir" - put new notes in same directory as the current buffer.
+    --  * "notes_subdir" - put new notes in the default notes subdirectory.
+    new_notes_location = "Inbox",
+
     -- Optional, completion.
     completion = {
       -- If using nvim-cmp, otherwise set to false
       nvim_cmp = true,
       -- Trigger completion at 2 chars
       min_chars = 2,
-      -- Where to put new notes created from completion. Valid options are
-      --  * "current_dir" - put new notes in same directory as the current buffer.
-      --  * "notes_subdir" - put new notes in the default notes subdirectory.
-      new_notes_location = "notes_subdir",
-
-      -- Whether to add the output of the node_id_func to new notes in autocompletion.
-      -- E.g. "[[Foo" completes to "[[foo|Foo]]" assuming "foo" is the ID of the note.
-      prepend_note_id = true
     },
 
     -- Optional, key mappings.
@@ -62,14 +57,6 @@ return {
       time_format = "%H:%M",
       -- A map for custom variables, the key should be the variable and the value a function
       substitutions = {}
-    },
-
-    -- Optional, customize the backlinks interface.
-    backlinks = {
-      -- The default height of the backlinks pane.
-      height = 10,
-      -- Whether or not to wrap lines.
-      wrap = true,
     },
 
     -- Optional, by default when you use `:ObsidianFollowLink` on a link to an external
