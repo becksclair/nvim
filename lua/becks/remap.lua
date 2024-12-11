@@ -62,7 +62,7 @@ vim.keymap.set("c", "ww", "<esc>:lua require'becks.misc'.SudoWrite()<CR>", { sil
 
 vim.keymap.set("n", "<leader>xb", "<cmd>bd<CR>", { desc = 'Discard buffer' })
 
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { desc = 'Open tmux sessionizer' })
+vim.keymap.set("n", "<C-S-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { desc = 'Open tmux sessionizer' })
 
 
 -- -- Remap <C-p> to fzf

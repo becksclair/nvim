@@ -9,12 +9,6 @@ end
 
 vim.cmd("autocmd!")
 
-if isWindows() then
-    vim.opt.rtp:append(os.getenv("USERPROFILE") .. "/.opam/default/share")
-else
-    vim.opt.rtp:append(os.getenv("HOME") .. "/.opam/default/share")
-end
-
 -- vim.opt.rocks.hererocks = true
 
 vim.scriptencoding = 'utf-8'
@@ -28,9 +22,9 @@ vim.opt_local.spelllang = "en_us"
 
 -- vim.opt.guicursor = ""
 
-vim.opt.nu = true
-vim.opt.relativenumber = true
-vim.opt.cursorline = true
+vim.opt.number = false
+vim.opt.relativenumber = false
+vim.opt.cursorline = false
 
 vim.opt.tabstop = 3
 vim.opt.softtabstop = 4
@@ -95,16 +89,17 @@ vim.opt.isfname:append("@-@")
 
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.opt.foldcolumn = "0"
-vim.opt.foldlevel = 99
+-- vim.opt.foldmethod = "expr"
+-- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- vim.opt.foldcolumn = "0"
+-- vim.opt.foldlevel = 99
 
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
 -- vim.o.guifont = 'Maple Mono NF:h11:#e-subpixelantialias'
+
 
 vim.filetype.add {
     filename = {
@@ -114,7 +109,8 @@ vim.filetype.add {
         v = 'vlang',
         slint = 'slint',
         templ = 'templ',
-        re = 'reason'
+        re = 'reason',
+        pcss = 'css',
     },
     pattern = {
         ["yabairc"] = "bash",

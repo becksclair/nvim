@@ -1,58 +1,42 @@
 if vim.g.neovide then
+  vim.g.neovide_theme = 'auto'
+  vim.g.neovide_floating_shadow = true
+
   vim.g.neovide_refresh_rate = 240
   vim.g.neovide_cursor_trail_size = 0.5
   vim.g.neovide_cursor_animation_length = 0.13
-  vim.g.neovide_transparency = 1.0
-  -- vim.g.neovide_transparency = 0.9
-  vim.g.neovide_cursor_antialiasing = false
+  -- vim.g.neovide_transparency = 1.0
+  vim.g.neovide_transparency = 0.9
+  -- vim.g.neovide_background_color = "#292522" .. alpha()
+  vim.g.neovide_cursor_antialiasing = true
 
-  vim.g.neovide_padding_top    = 65
+  vim.g.neovide_padding_top    = 5
   vim.g.neovide_padding_bottom = 5
   vim.g.neovide_padding_right  = 5
   vim.g.neovide_padding_left   = 5
 
   vim.g.neovide_input_macos_option_key_is_meta = 'only_left'
 
-  -- ->
-  -- vim.g.neovide_font_features = {
-  --   ["Maple Mono NF"] = {
-  --     "+cv02",
-  --     "+calt",
-  --     "+dlig",
-  --     "+ss01",
-  --     "+ss02",
-  --     "+ss03",
-  --     "+ss04",
-  --     "+ss05",
-  --     "+ss06",
-  --     "+ss07",
-  --     "+ss08",
-  --   },
-  -- }
-  -- vim.o.guifont = 'Maple Mono NF:h11:#e-subpixelantialias'
-  -- vim.o.guifont = 'Maple Mono NF,Symbols_Nerd_Font:h11'
-  -- vim.o.guifont = 'Maple Mono NF:h11:#e-subpixelantialias'
+  vim.cmd("TransparentDisable")
 
   vim.opt.linespace = -2
 
-  vim.keymap.set('n', '<D-s>', ':w<CR>')      -- Save
-  vim.keymap.set('v', '<D-c>', '"+y')         -- Copy
-  vim.keymap.set('n', '<D-v>', '"+P')         -- Paste normal mode
-  vim.keymap.set('v', '<D-v>', '"+P')         -- Paste visual mode
-  vim.keymap.set('c', '<D-v>', '<C-R>+')      -- Paste command mode
-  vim.keymap.set('i', '<D-v>', '<ESC>l"+Pli') -- Paste insert mode
 
+  vim.keymap.set('n', '<A-s>', ':w<CR>')      -- Save
+  vim.keymap.set('v', '<A-c>', '"+y')         -- Copy
+  vim.keymap.set('n', '<A-v>', '"+P')         -- Paste normal mode
+  vim.keymap.set('v', '<A-v>', '"+P')         -- Paste visual mode
+  vim.keymap.set('c', '<A-v>', '<C-R>+')      -- Paste command mode
+  vim.keymap.set('i', '<A-v>', '<ESC>l"+Pli') -- Paste insert mode
 
   vim.g.neovide_scale_factor = 1.0
   local change_scale_factor = function(delta)
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
   end
-  vim.keymap.set("n", "<C-=>", function()
-    change_scale_factor(1.25)
-  end)
-  vim.keymap.set("n", "<C-->", function()
-    change_scale_factor(1/1.25)
-  end)
+  vim.keymap.set("n", "<C-=>", function() change_scale_factor(1.25) end)
+  vim.keymap.set("n", "<C-->", function() change_scale_factor(1/1.25) end)
+
+  SetMelangeDark()
 end
 
 function NeoLaptop()
@@ -89,6 +73,7 @@ function NeoCursor()
   vim.cmd(string.format("highlight Cursor guifg=%s", color))
   vim.cmd(string.format("highlight iCursor guifg=%s", color))
 end
+vim.api.nvim_create_user_command('NeoCursor', NeoCursor, { nargs = 0 })
 
 function NeoLineSpace(linespace)
   if not vim.g.neovide then
@@ -99,4 +84,5 @@ function NeoLineSpace(linespace)
   linespace = linespace or vim.fn.input("Line space: ")
   vim.opt.linespace = tonumber(linespace)
 end
+vim.api.nvim_create_user_command('NeoLineSpace', NeoLineSpace, { nargs = 1 })
 
