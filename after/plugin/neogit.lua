@@ -1,5 +1,3 @@
-local neogit = require("neogit")
-
 vim.keymap.set("n", "<leader>gs", ":Neogit kind=floating<CR>", { silent = true, noremap = true })
 vim.keymap.set("n", "<leader>gc", ":Neogit commit<CR>", { silent = true, noremap = true })
 vim.keymap.set("n", "<leader>gp", ":Neogit pull<CR>", { silent = true, noremap = true })
