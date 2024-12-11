@@ -5,17 +5,6 @@ local lsp_config = function()
     -- Uncomment to enable debug logging
     -- vim.lsp.set_log_level('debug')
 
-    -- Fix Undefined global 'vim'
-    lsp.configure('lua_ls', {
-        settings = {
-            Lua = {
-                diagnostics = {
-                    globals = { 'vim' }
-                }
-            }
-        }
-    })
-
     lsp.set_preferences({
         suggest_lsp_servers = false
     })
@@ -28,42 +17,40 @@ local lsp_config = function()
     })
 
     lsp.on_attach(function(client, bufnr)
+        local nmap = function(keys, func, desc)
+            if desc then
+                desc = 'LSP: ' .. desc
+            end
+
+            vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+        end
+
         local opts = {
             buffer = bufnr,
             remap = false
         }
 
-        vim.keymap.set("n", "gd", function()
-            vim.lsp.buf.definition()
-        end, opts)
-        vim.keymap.set("n", "K", function()
-            vim.lsp.buf.hover()
-        end, opts)
+        nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+        nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+        nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+        nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+        nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+        nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+        nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+
+
+        vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+        vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+
         -- It doesn't require a parameter, it's optinal
-        vim.keymap.set("n", "<leader>vws", function()
-            vim.lsp.buf.workspace_symbol()
-        end, opts)
-        vim.keymap.set("n", "<leader>vd", function()
-            vim.diagnostic.open_float()
-        end, opts)
-        vim.keymap.set("n", "[d", function()
-            vim.diagnostic.jump({ count = 1 })
-        end, opts)
-        vim.keymap.set("n", "]d", function()
-            vim.diagnostic.jump({ count = -1 })
-        end, opts)
-        vim.keymap.set("n", "<leader>vca", function()
-            vim.lsp.buf.code_action()
-        end, opts)
-        vim.keymap.set("n", "<leader>vrr", function()
-            vim.lsp.buf.references()
-        end, opts)
-        vim.keymap.set("n", "<leader>vrn", function()
-            vim.lsp.buf.rename()
-        end, opts)
-        vim.keymap.set("i", "<C-h>", function()
-            vim.lsp.buf.signature_help()
-        end, opts)
+        -- vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
+        vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
+        vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = 1 }) end, opts)
+        vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = -1 }) end, opts)
+        -- vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
+        -- vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
+        -- vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
+        vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
     end)
 
     lsp.setup()
@@ -72,57 +59,58 @@ local lsp_config = function()
 
     -- NOTE: Configure Completions
 
-    local cmp = require('cmp')
+    if false then
+        local cmp = require('cmp')
 
-    local cmp_select = {
-        behavior = cmp.SelectBehavior.Select
-    }
+        local cmp_select = {
+            behavior = cmp.SelectBehavior.Select
+        }
 
-    local has_words_before = function()
-      -- if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
-      if vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "prompt" then return false end
-      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-      return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
-    end
+        local has_words_before = function()
+            -- if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+            if vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "prompt" then return false end
+            local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+            return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+        end
 
-    local cmp_mappings = lsp.defaults.cmp_mappings({
-        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-        ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-        ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        ["<C-Space>"] = cmp.mapping.complete(),
-        -- ["<Tab>"] = vim.NIL,
-        ["<Tab>"] = vim.schedule_wrap(function(fallback)
-          if cmp.visible() and has_words_before() then
-            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-          else
-            fallback()
-          end
-        end),
-        ['<S-Tab>'] = nil,
-    })
-    -- cmp_mappings['<Tab>'] = nil
-    -- cmp_mappings['<S-Tab>'] = nil
+        local cmp_mappings = lsp.defaults.cmp_mappings({
+            ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+            ['<C-y>'] = cmp.mapping.scroll_docs(4),
+            ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+            ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+            ['<C-f>'] = cmp.mapping.confirm({ select = true }),
+            ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+            ["<C-Space>"] = cmp.mapping.complete(),
+            -- ["<Tab>"] = vim.NIL,
+            ["<Tab>"] = vim.schedule_wrap(function(fallback)
+                if cmp.visible() and has_words_before() then
+                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                else
+                    fallback()
+                end
+            end),
+            ['<S-Tab>'] = nil,
+        })
+        -- cmp_mappings['<Tab>'] = nil
+        -- cmp_mappings['<S-Tab>'] = nil
 
-    local lspkind = require('lspkind')
+        local lspkind = require('lspkind')
 
-    cmp.setup({
-        mapping = cmp_mappings,
-        sources = {
-            {
-                name = "nvim_lsp",
-                group_index = 2
-            },
-            -- { -- Copilot Source
-            --     name = "copilot",
-            --     group_index = 2
-            -- }, -- Other Sources
-            {
-                name = "nvim_lua",
-                group_index = 2
-            }, {
+        cmp.setup({
+            mapping = cmp_mappings,
+            sources = {
+                {
+                    name = "nvim_lsp",
+                    group_index = 2
+                },
+                -- { -- Copilot Source
+                --     name = "copilot",
+                --     group_index = 2
+                -- }, -- Other Sources
+                {
+                    name = "nvim_lua",
+                    group_index = 2
+                }, {
                 name = 'orgmode'
             }, {
                 name = "vim-dadbod-completion"
@@ -137,41 +125,42 @@ local lsp_config = function()
                 name = "luasnip",
                 group_index = 2
             }
-        },
+            },
 
-        formatting = {
-            fields = { "kind", "abbr", "menu" },
-            expandable_indicator = true,
-            format = lspkind.cmp_format({
-                mode = "symbol_text",
-                max_width = 50,
-                ellipsis_char = '…',
-                symbol_map = {
-                    Copilot = ""
-                },
-                before = function(_, vim_item)
-                    return vim_item
-                end
-            }),
-        },
-        -- formatting = {
-        --     -- format = lspkind.cmp_format({
-        --     --     mode = "symbol_text",
-        --     --     max_width = 50,
-        --     --     ellipsis_char = '…',
-        --     --     symbol_map = {
-        --     --         Copilot = ""
-        --     --     },
-        --     --     before = function(_, vim_item)
-        --     --         return vim_item
-        --     --     end
-        --     -- })
-        -- },
-        window = {
-            completion = cmp.config.window.bordered('rounded'),
-            documentation = cmp.config.window.bordered('rounded')
-        }
-    })
+            formatting = {
+                fields = { "kind", "abbr", "menu" },
+                expandable_indicator = true,
+                format = lspkind.cmp_format({
+                    mode = "symbol_text",
+                    max_width = 50,
+                    ellipsis_char = '…',
+                    symbol_map = {
+                        Copilot = ""
+                    },
+                    before = function(_, vim_item)
+                        return vim_item
+                    end
+                }),
+            },
+            -- formatting = {
+            --     -- format = lspkind.cmp_format({
+            --     --     mode = "symbol_text",
+            --     --     max_width = 50,
+            --     --     ellipsis_char = '…',
+            --     --     symbol_map = {
+            --     --         Copilot = ""
+            --     --     },
+            --     --     before = function(_, vim_item)
+            --     --         return vim_item
+            --     --     end
+            --     -- })
+            -- },
+            window = {
+                completion = cmp.config.window.bordered('rounded'),
+                documentation = cmp.config.window.bordered('rounded')
+            }
+        })
+    end
 end
 
 -- [[ Configure LSP ]]
@@ -270,20 +259,20 @@ return {
                         'yamlls'
                     },
                     -- handlers = {
-                        --     -- this first function is the "default handler"
-                        --     -- it applies to every language server without a "custom handler"
-                        --     function(server_name)
-                            --         require('lspconfig')[server_name].setup({})
-                            --     end,
-                            --
-                            --     -- this is the "custom handler" for `lua_ls`
-                            --     lua_ls = function()
-                                --         local lua_opts = lsp_zero.nvim_lua_ls()
-                                --         require('lspconfig').lua_ls.setup(lua_opts)
-                                --     end,
-                                -- }
-                            },
-                        }, -- Optional
+                    --     -- this first function is the "default handler"
+                    --     -- it applies to every language server without a "custom handler"
+                    --     function(server_name)
+                    --         require('lspconfig')[server_name].setup({})
+                    --     end,
+                    --
+                    --     -- this is the "custom handler" for `lua_ls`
+                    --     lua_ls = function()
+                    --         local lua_opts = lsp_zero.nvim_lua_ls()
+                    --         require('lspconfig').lua_ls.setup(lua_opts)
+                    --     end,
+                    -- }
+                },
+            }, -- Optional
 
             -- Autocompletion
             { 'onsails/lspkind.nvim' },
@@ -366,270 +355,250 @@ return {
                         border = "rounded"
                     }
                 }
-            }, {
-            'williamboman/mason-lspconfig.nvim',
-            dependencies = {
-                { 'hrsh7th/nvim-cmp' } -- Required
             },
-            config = function()
-                require('neodev').setup()
-                local util = require('lspconfig.util')
+            {
+                'williamboman/mason-lspconfig.nvim',
+                dependencies = {
+                    {
+                        -- 'hrsh7th/nvim-cmp',
+                        'saghen/blink.cmp',
+                    } -- Required
+                },
+                config = function()
+                    -- local util = require('lspconfig.util')
 
-                -- local function root_pattern_excludes(opt)
-                --   local root = opt.root
-                --   local exclude = opt.exclude
-                --
-                --   local function matches(path, pattern)
-                --     return 0 < #vim.fn.glob(util.path.join(path, pattern))
-                --   end
-                --
-                --   return function(startpath)
-                --     return util.search_ancestors(startpath, function(path)
-                --       return matches(path, root) and not matches(path, exclude)
-                --     end)
-                --   end
-                -- end
+                    -- local function root_pattern_excludes(opt)
+                    --   local root = opt.root
+                    --   local exclude = opt.exclude
+                    --
+                    --   local function matches(path, pattern)
+                    --     return 0 < #vim.fn.glob(util.path.join(path, pattern))
+                    --   end
+                    --
+                    --   return function(startpath)
+                    --     return util.search_ancestors(startpath, function(path)
+                    --       return matches(path, root) and not matches(path, exclude)
+                    --     end)
+                    --   end
+                    -- end
 
-                local servers = {
-                    ['rust-analyzer'] = {
-                        checkOnSave = {
-                            allFeatures = true,
-                            overrideCommand = { 'cargo', 'clippy', '--workspace', '--message-format=json',
-                                '--all-targets',
-                                '--all-features' }
-                        }
-                    },
+                    -- Make runtime files discoverable to the server
+                    local runtime_path = vim.split(package.path, ';')
+                    table.insert(runtime_path, 'lua/?.lua')
+                    table.insert(runtime_path, 'lua/?/init.lua')
 
-                    bacon_ls = {
-                        enable = true,
-                        settings = {
-                            -- locationsFile = ".locations",
-                            -- waitTimeSeconds = 5
+                    local servers = {
+                        ['rust-analyzer'] = {
+                            checkOnSave = {
+                                allFeatures = true,
+                                overrideCommand = { 'cargo', 'clippy', '--workspace', '--message-format=json',
+                                    '--all-targets',
+                                    '--all-features' }
+                            }
                         },
-                    },
 
-                    bashls = {
-                        filetypes = { '%.env.*' },
-                    },
-
-                    -- quick_lint_js = {
-                    --     root_dir = nil,
-                    -- },
-
-                    -- quick_lint_js = {
-                    --   filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
-                    --   -- Root pattern to disable when biome.json is found
-                    --   root_dir = util.root_pattern('package.json', 'jsconfig.json', '.git'),
-                    --   root_pattern = root_pattern_excludes({
-                    --     root = 'package.json?',
-                    --     exclude = '.eslint?'
-                    --   }),
-                    --   single_file_support = true
-                    -- },
-
-                    -- biome = {
-                    --     root_pattern = root_pattern_excludes({
-                    --         root = 'biome.json?',
-                    --         -- exclude=
-                    --     })
-                    -- },
-
-                    -- eslint = {
-                    --     codeAction = {
-                    --         disableRuleComment = {
-                    --             enable = true,
-                    --             location = "separateLine",
-                    --         },
-                    --         showDocumentation = {
-                    --             enable = true,
-                    --         },
-                    --     },
-                    --     onIgnoredFiles = "off",
-                    --     -- root_dir = function(fname)
-                    --     --     require('becks.misc').root_pattern_excludes({
-                    --     --         root = 'package.json',
-                    --     --         exclude = 'biome.json?'
-                    --     --     })
-                    --     -- end,
-                    -- },
-
-                    tailwindcss = {
-                        filetypes = { 'html', 'css', 'scss', 'javascriptreact', 'typescriptreact' },
-                    },
-
-                    sonarlint = {},
-
-                    vacuum = {
-                        filetypes = { 'yaml', 'yml' },
-                    },
-
-                    pyright = {},
-
-                    gopls = {},
-
-                    gleam = {
-                        filetypes = { 'gleam' }
-                    },
-
-                    svelte = {
-                        filetypes = { 'svelte' }
-                    },
-
-                    v_analyzer = {
-                        filetypes = { 'v', 'vv', 'vsh', 'vlang' },
-                        root_pattern = { 'v.mod', '.git' }
-                    },
-
-                    slint_lsp = {
-                        filetypes = { 'slint' },
-                    },
-
-                    lua_ls = {
-                        Lua = {
-                            workspace = {
-                                checkThirdParty = false
-                            },
-                            telemetry = {
-                                enable = false
-                            }
-                        }
-                    },
-
-                    jsonls = {
-                        json = {
-                            schemas = require('schemastore').json.schemas(),
-                            validate = {
-                                enable = true
-                            }
-                        }
-                    },
-
-                    htmx = {
-                        filetypes = { 'html', 'htmldjango' }
-                    },
-
-                    yamlls = {
-                        yaml = {
-                            customTags = {
-                                "!Base64",
-                                "!Cidr",
-                                "!FindInMap sequence",
-                                "!GetAtt",
-                                "!GetAZs",
-                                "!ImportValue",
-                                "!Join sequence",
-                                "!Ref",
-                                "!Select sequence",
-                                "!Split sequence",
-                                "!Sub sequence",
-                                "!Sub",
-                                "!And sequence",
-                                "!Condition",
-                                "!Equals sequence",
-                                "!If sequence",
-                                "!Not sequence",
-                                "!Or sequence",
-                                -- OpenAPI
-                                "$ref",
+                        bacon_ls = {
+                            enable = true,
+                            settings = {
+                                -- locationsFile = ".locations",
+                                -- waitTimeSeconds = 5
                             },
                         },
-                    },
 
-                    qmlls = {
-                        filetypes = { 'qml', 'qmljs' }
-                    },
+                        bashls = {
+                            filetypes = { '%.env.*' },
+                        },
 
-                    cssmodules_ls = {
-                        filetypes = { 'css', 'scss', 'sass' },
-                        root_dir = function(fname)
-                            return vim.fn.fnamemodify(fname, ':p:h')
-                        end
-                    },
+                        tailwindcss = {
+                            filetypes = { 'html', 'pcss', 'css', 'scss', 'javascriptreact', 'typescriptreact', 'svelte' },
+                        },
 
-                    reason_ls = {
-                        filetypes = { 're', 'rei' }
-                    },
+                        sonarlint = {},
 
-                    rescriptls = {
-                        filetypes = { 'rescript' }
-                    },
+                        vacuum = {
+                            filetypes = { 'yaml', 'yml' },
+                        },
 
-                    clangd = {
-                        args = {
-                            "--clang-tidy"
+                        pyright = {},
+
+                        gopls = {},
+
+                        gleam = {
+                            filetypes = { 'gleam' }
+                        },
+
+                        svelte = {
+                            filetypes = { 'svelte' }
+                        },
+
+                        v_analyzer = {
+                            filetypes = { 'v', 'vv', 'vsh', 'vlang' },
+                            root_pattern = { 'v.mod', '.git' }
+                        },
+
+                        slint_lsp = {
+                            filetypes = { 'slint' },
+                        },
+
+                        lua_ls = {
+                            Lua = {
+                                runtime = {
+                                    version = 'LuaJIT',
+                                    path = runtime_path,
+                                },
+                                diagnostics = {
+                                    globals = { 'vim' },
+                                    disable = { "missing-fields" },
+                                },
+                                workspace = {
+                                  library = {vim.env.VIMRUNTIME},
+                                    checkThirdParty = false,
+                                },
+                                -- workspace = {
+                                --     library = vim.api.nvim_get_runtime_file('', true),
+                                --     checkThirdParty = false,
+                                -- },
+                                telemetry = {
+                                    enable = false
+                                }
+                            }
+                        },
+
+                        jsonls = {
+                            json = {
+                                schemas = require('schemastore').json.schemas(),
+                                validate = {
+                                    enable = true
+                                }
+                            }
+                        },
+
+                        htmx = {
+                            filetypes = { 'html', 'htmldjango' }
+                        },
+
+                        yamlls = {
+                            yaml = {
+                                customTags = {
+                                    "!Base64",
+                                    "!Cidr",
+                                    "!FindInMap sequence",
+                                    "!GetAtt",
+                                    "!GetAZs",
+                                    "!ImportValue",
+                                    "!Join sequence",
+                                    "!Ref",
+                                    "!Select sequence",
+                                    "!Split sequence",
+                                    "!Sub sequence",
+                                    "!Sub",
+                                    "!And sequence",
+                                    "!Condition",
+                                    "!Equals sequence",
+                                    "!If sequence",
+                                    "!Not sequence",
+                                    "!Or sequence",
+                                    -- OpenAPI
+                                    "$ref",
+                                },
+                            },
+                        },
+
+                        qmlls = {
+                            filetypes = { 'qml', 'qmljs' }
+                        },
+
+                        cssmodules_ls = {
+                            filetypes = { 'css', 'scss', 'sass' },
+                            root_dir = function(fname)
+                                return vim.fn.fnamemodify(fname, ':p:h')
+                            end
+                        },
+
+                        reason_ls = {
+                            filetypes = { 're', 'rei' }
+                        },
+
+                        rescriptls = {
+                            filetypes = { 'rescript' }
+                        },
+
+                        clangd = {
+                            args = {
+                                "--clang-tidy"
+                            }
+                        },
+
+                        zls = {},
+
+                        nushell = {
+                            filetypes = { 'nu' }
+                        },
+
+                        ruff = {
+                            -- Additional Ruff CLI arguments can be specified here
+                            interpreter = { '.venv/bin/python' }
+                        },
+                    }
+
+                    -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+                    local capabilities = vim.lsp.protocol.make_client_capabilities()
+                    capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+                    local mason_lspconfig = require 'mason-lspconfig'
+                    mason_lspconfig.setup_handlers { function(server_name)
+                        -- print('Setting up ' .. server_name)
+                        require('lspconfig')[server_name].setup {
+                            capabilities = capabilities,
+                            on_attach = on_attach,
+                            settings = servers[server_name],
+                            filetypes = (servers[server_name] or {}).filetypes
                         }
-                    },
+                    end }
 
-                    zls = {},
-
-                    nushell = {
-                        filetypes = { 'nu' }
-                    },
-
-                    ruff = {
-                        -- Additional Ruff CLI arguments can be specified here
-                        interpreter = { '.venv/bin/python' }
-                    },
-                }
-
-                -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-                local capabilities = vim.lsp.protocol.make_client_capabilities()
-                capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-                local mason_lspconfig = require 'mason-lspconfig'
-                mason_lspconfig.setup_handlers { function(server_name)
-                    -- print('Setting up ' .. server_name)
-                    require('lspconfig')[server_name].setup {
+                    require('lspconfig').v_analyzer.setup {
                         capabilities = capabilities,
                         on_attach = on_attach,
-                        settings = servers[server_name],
-                        filetypes = (servers[server_name] or {}).filetypes
+                        settings = servers['v_analyzer'],
+                        filetypes = (servers['v_analyzer'] or {}).filetypes
                     }
-                end }
 
-                require('lspconfig').v_analyzer.setup {
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    settings = servers['v_analyzer'],
-                    filetypes = (servers['v_analyzer'] or {}).filetypes
-                }
+                    require('lspconfig').quick_lint_js.setup {
+                        capabilities = capabilities,
+                        on_attach = on_attach,
+                        settings = servers['quick_lint_js'],
+                        filetypes = (servers['quick_lint_js'] or {}).filetypes,
+                        autostart = false
+                    }
 
-                require('lspconfig').quick_lint_js.setup {
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    settings = servers['quick_lint_js'],
-                    filetypes = (servers['quick_lint_js'] or {}).filetypes,
-                    autostart = false
-                }
+                    require('lspconfig').qmlls.setup {
+                        capabilities = capabilities,
+                        on_attach = on_attach,
+                        settings = servers['qmlls'],
+                        filetypes = (servers['qmlls'] or {}).filetypes
+                    }
 
-                require('lspconfig').qmlls.setup {
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    settings = servers['qmlls'],
-                    filetypes = (servers['qmlls'] or {}).filetypes
-                }
+                    require('lspconfig').zls.setup {
+                        capabilities = capabilities,
+                        on_attach = on_attach,
+                        settings = servers['zls'],
+                        filetypes = (servers['zls'] or {}).filetypes
+                    }
 
-                require('lspconfig').zls.setup {
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    settings = servers['zls'],
-                    filetypes = (servers['zls'] or {}).filetypes
-                }
-
-                require('lspconfig').ruff.setup {
-                    init_options = {
-                        settings = {
-                            -- Server settings should go here
-                            interpreter = { '.venv/bin/python' }
-                        }
-                    },
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    settings = servers['ruff'],
-                    filetypes = (servers['ruff'] or {}).filetypes
-                }
-            end
-        },
+                    require('lspconfig').ruff.setup {
+                        init_options = {
+                            settings = {
+                                -- Server settings should go here
+                                interpreter = { '.venv/bin/python' }
+                            }
+                        },
+                        capabilities = capabilities,
+                        on_attach = on_attach,
+                        settings = servers['ruff'],
+                        filetypes = (servers['ruff'] or {}).filetypes
+                    }
+                end
+            },
 
             -- Useful status updates for LSP
             -- {
@@ -656,8 +625,7 @@ return {
             --         --     blend = 40
             --         -- }
             --     }
-            -- }, -- Additional lua configuration, makes nvim stuff amazing!
-            { 'folke/neodev.nvim' },
+            -- },
             'nlsp-settings.nvim',
             {
                 "b0o/schemastore.nvim",
