@@ -387,6 +387,8 @@ return {
                     table.insert(runtime_path, 'lua/?.lua')
                     table.insert(runtime_path, 'lua/?/init.lua')
 
+                    local util = require('lspconfig.util')
+
                     local servers = {
                         ['rust-analyzer'] = {
                             checkOnSave = {
@@ -433,7 +435,10 @@ return {
 
                         v_analyzer = {
                             filetypes = { 'v', 'vv', 'vsh', 'vlang' },
-                            root_pattern = { 'v.mod', '.git' }
+                            root_pattern = { 'v.mod', '.git', '.v-analyzer' },
+                            root_dir = function()
+                                return vim.fn.getcwd() -- or return a custom root directory path
+                            end,
                         },
 
                         slint_lsp = {
