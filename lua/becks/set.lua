@@ -98,8 +98,38 @@ vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
+
 vim.o.clipboard = 'unnamedplus'
--- vim.o.guifont = 'Maple Mono NF:h11:#e-subpixelantialias'
+
+if vim.env.WAYLAND_DISPLAY then
+    -- Wayland clipboard setup
+    vim.g.clipboard = {
+        name = "wl-clipboard",
+        copy = {
+            ["+"] = "wl-copy",
+            ["*"] = "wl-copy",
+        },
+        paste = {
+            ["+"] = "wl-paste",
+            ["*"] = "wl-paste",
+        },
+        cache_enabled = 1,
+    }
+else
+    -- Fallback for X11 (xclip or xsel)
+    vim.g.clipboard = {
+        name = "xclip",
+        copy = {
+            ["+"] = "xclip -selection clipboard",
+            ["*"] = "xclip -selection primary",
+        },
+        paste = {
+            ["+"] = "xclip -selection clipboard -o",
+            ["*"] = "xclip -selection primary -o",
+        },
+        cache_enabled = 1,
+    }
+end
 
 
 vim.filetype.add {

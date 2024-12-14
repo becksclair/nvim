@@ -20,6 +20,16 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
+
+-- Clipboard
+vim.keymap.set("n", "y", '"+y')
+vim.keymap.set("n", "p", '"+p')
+vim.keymap.set("n", "P", '"+P')
+vim.keymap.set("v", "y", '"+y')
+vim.keymap.set("v", "p", '"+p')
+vim.keymap.set("v", "P", '"+P')
+
+
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
