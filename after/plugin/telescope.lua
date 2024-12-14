@@ -1,5 +1,3 @@
-
-
 require("telescope").setup({
   extensions = {
     fzf = {
@@ -11,7 +9,7 @@ require("telescope").setup({
     }
   },
   defaults = {
-    winblend = 20,
+    winblend = 10,
 
     layout_strategy = "vertical",
     layout_config = {

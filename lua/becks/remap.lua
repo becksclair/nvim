@@ -42,10 +42,10 @@ vim.keymap.set("v", "L", "g_", { noremap = true, silent = true, desc = "End of f
 
 
 -- Folds
-
 vim.keymap.set({ "n" }, "<leader>'", "za", { desc = "Toggle fold" })
 vim.keymap.set({ "n" }, "zO", "zCzO", { desc = "Recursively open fold" })
 vim.keymap.set({ "n" }, "z'", "mzzMzvzz15", { desc = "Focus current line (fold rest)" })
+
 
 -- Fix quit
 vim.keymap.set("n", "Q", "<nop>")

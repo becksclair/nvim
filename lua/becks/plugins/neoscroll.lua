@@ -1,6 +1,7 @@
 return {
   "karb94/neoscroll.nvim",
   enabled = true,
+  cond = not require('becks.misc').RunningOnVConsole(),
   lazy = false,
   opts = {
     mappings = { -- Keys to be mapped to their corresponding default scrolling animation
@@ -13,7 +14,7 @@ return {
     stop_eof = true,           -- Stop at <EOF> when scrolling downwards
     respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
     cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-    duration_multiplier = 0.2, -- Global duration multiplier
+    duration_multiplier = 0.1, -- Global duration multiplier
     easing = 'linear',         -- Default easing function
     pre_hook = nil,            -- Function to run before the scrolling animation starts
     post_hook = nil,           -- Function to run after the scrolling animation ends

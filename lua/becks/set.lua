@@ -25,6 +25,7 @@ vim.opt_local.spelllang = "en_us"
 vim.opt.number = false
 vim.opt.relativenumber = false
 vim.opt.cursorline = false
+vim.opt.splitkeep = 'cursor'
 
 vim.opt.tabstop = 3
 vim.opt.softtabstop = 4

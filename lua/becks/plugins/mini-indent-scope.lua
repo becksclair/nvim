@@ -1,6 +1,7 @@
 return {
   'echasnovski/mini.indentscope',
   version = '*',
+  cond = not require('becks.misc').RunningOnVConsole(),
   event = "BufEnter",
   opts = {
     -- Draw options

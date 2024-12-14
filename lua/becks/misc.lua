@@ -1,5 +1,12 @@
 local B = {}
 
+function B.RunningOnVConsole()
+    if vim.env.TERM == 'linux' then
+        return true
+    end
+    return false
+end
+
 function B.EchoMultiline(msg)
   for _, s in ipairs(vim.fn.split(msg, "\n")) do
     vim.cmd("echom '" .. s:gsub("'", "''") .. "'")
@@ -22,6 +29,18 @@ function B.Err(msg)
   vim.cmd("echohl ErrorMsg")
   B.EchoMultiline(msg)
   vim.cmd("echohl None")
+end
+
+function B.SudoExecNoPasswd(cmd, print_output)
+  local out = vim.fn.system(string.format("sudo %s", cmd))
+
+  if vim.v.shell_error ~= 0 then
+    print("\n")
+    B.Err(out)
+    return false
+  end
+  if print_output then print("\n", out) end
+  return true
 end
 
 function B.SudoExec(cmd, print_output)
@@ -71,7 +90,7 @@ function B.SudoWrite(tmpfile, filepath)
   -- no need to check error as this fails the entire function
   vim.api.nvim_exec2(string.format("write! %s", tmpfile), { output = true })
 
-  if B.SudoExec(cmd) then
+  if B.SudoExecNoPasswd(cmd) then
     B.Info(string.format([[  "%s" written]], filepath))
     vim.cmd("e!")
   end

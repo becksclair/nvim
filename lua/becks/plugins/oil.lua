@@ -48,10 +48,11 @@ return {
         max_height = 50,
         border = "rounded",
         win_options = {
-          winblend = 20,
+          winblend = 10,
         },
         -- preview_split: Split direction: "auto", "left", "right", "above", "below".
-        preview_split = "below",
+        -- preview_split = "below",
+        preview_split = "auto",
         -- This is the config that will be passed to nvim_open_win.
         -- Change values here to customize the layout
         override = function(conf)
@@ -65,9 +66,9 @@ return {
         -- How to open the preview window "load"|"scratch"|"fast_scratch"
         preview_method = "fast_scratch",
         -- A function that returns true to disable preview on a file e.g. to avoid lag
-        disable_preview = function(filename)
-          return false
-        end,
+        -- disable_preview = function(filename)
+        --   return false
+        -- end,
         -- Window-local options to use for preview window buffers
         win_options = {},
       },

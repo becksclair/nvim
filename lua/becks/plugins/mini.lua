@@ -1,6 +1,7 @@
 -- Treesitter based actions
 return {
   'echasnovski/mini.nvim',
+  cond = not require('becks.misc').RunningOnVConsole(),
   lazy = true,
   event = 'BufReadPost',
   version = false,
@@ -22,13 +23,23 @@ return {
       -- use_file_extension = function(ext, file) return true end,
     }
 
-    require('mini.animate').setup {
+    local MiniAnimate = require('mini.animate')
+
+    MiniAnimate.setup {
       cursor = {
         enable = false,
       },
       scroll = {
         enable = false,
       },
+      resize = {
+        enable = true,
+        timing = MiniAnimate.gen_timing.cubic {
+          duration = 30,
+          easing = 'in',
+          unit = 'total'
+        },
+      }
     }
 
     require('mini.diff').setup {}
