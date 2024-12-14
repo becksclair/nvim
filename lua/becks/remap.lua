@@ -85,7 +85,10 @@ vim.keymap.set("n", "<C-S-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { 
 --
 
 -- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-vim.keymap.set("n", "<F3>", vim.lsp.buf.format, { desc = "Format buffer"})
+-- vim.keymap.set("n", "<F3>", vim.lsp.buf.format, { desc = "Format buffer"})
+
+
+
 -- vim.keymap.set("n", "<leader>bf", vim.lsp.buf.format, { desc = "Format buffer"})
 vim.keymap.set("n", "<leader>bb", ":!bunx @biomejs/biome format --write %<CR>", { desc = "Format with biome"})
 vim.keymap.set("n", "<leader>bF", ":%!prettier --stdin-filepath %<CR>", { desc = "Format with prettier" })
