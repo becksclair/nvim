@@ -1,6 +1,7 @@
 -- Autopairs
 return {
   "windwp/nvim-autopairs",
+  cond = not require('becks.misc').RunningOnVConsole(),
   lazy = true,
   event = "InsertEnter",
   dependencies = {

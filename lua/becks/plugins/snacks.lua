@@ -2,6 +2,7 @@ return {
   "folke/snacks.nvim",
   priority = 1000,
   enabled = true,
+  cond = not require('becks.misc').RunningOnVConsole(),
   lazy = false,
   opts = {
     -- your configuration comes here
@@ -82,7 +83,6 @@ return {
       sections = {
         { section = "header", width = 30 },
         { section = "keys",   gap = 1,   padding = 1, width = 30 },
-        -- { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 2 },
         {
           pane = 2,
           icon = " ",

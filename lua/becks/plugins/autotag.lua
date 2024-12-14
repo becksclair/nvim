@@ -1,5 +1,7 @@
 return {
   "windwp/nvim-ts-autotag",
+
+  cond = not require('becks.misc').RunningOnVConsole(),
   opts = {
     opts = {
       -- Defaults
