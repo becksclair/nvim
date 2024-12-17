@@ -6,7 +6,26 @@ return {
   {
     'williamboman/mason.nvim',
     lazy = false,
-    config = true,
+    config = function()
+      require("mason").setup({
+        PATH = "prepend", -- Ensures Mason uses the system PATH
+
+        ui = {
+            icons = {
+                package_installed = "",
+                package_pending = "➜",
+                package_uninstalled = "✗"
+            },
+            border = "rounded",
+        },
+
+        pip = {
+            ---@since 1.0.0
+            -- Whether to upgrade pip to the latest version in the virtual environment before installing packages.
+            upgrade_pip = true,
+        },
+      })
+    end,
   },
   {
     -- LSP servers and clients communicate which features they support through "capabilities".
@@ -121,10 +140,61 @@ return {
             }
           end,
 
+          ["cssmodules_ls"] = function()
+            local lspconfig = require("lspconfig")
+            lspconfig.cssmodules_ls.setup {
+              filetypes = { 'css', 'scss', 'sass' },
+            }
+          end,
+
+          ["yamlls"] = function()
+            local lspconfig = require("lspconfig")
+            lspconfig.yamlls.setup {
+              yaml = {
+                customTags = {
+                    "!Base64",
+                    "!Cidr",
+                    "!FindInMap sequence",
+                    "!GetAtt",
+                    "!GetAZs",
+                    "!ImportValue",
+                    "!Join sequence",
+                    "!Ref",
+                    "!Select sequence",
+                    "!Split sequence",
+                    "!Sub sequence",
+                    "!Sub",
+                    "!And sequence",
+                    "!Condition",
+                    "!Equals sequence",
+                    "!If sequence",
+                    "!Not sequence",
+                    "!Or sequence",
+                    -- OpenAPI
+                    "$ref",
+                },
+              }
+            }
+          end,
+
+          ["v_analyzer"] = function()
+            local lspconfig = require("lspconfig")
+            lspconfig.v_analyzer.setup {
+                cmd = { '/data/data/com.termux/files/home/.config/v-analyzer/bin/v-analyzer' },
+                filetypes = { 'v', 'vv', 'vsh', 'vlang' },
+                root_pattern = { 'v.mod', "build.vsh", '.v-analyzer' },
+                -- root_dir = function()
+                --     return vim.fn.getcwd() -- or return a custom root directory path
+                -- end,
+            }
+          end,
+
           -- ["rust_analyzer"] = function()
           -- end,
         }
       })
+
+      -- require'lspconfig'.v_analyzer.setup{}
     end,
   },
 }
