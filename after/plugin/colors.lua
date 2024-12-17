@@ -42,7 +42,6 @@ end
 
 vim.api.nvim_create_user_command('SetAcmeTheme', SetAcmeTheme, {nargs = 0})
 
-
 function SetIntelliJTheme()
   vim.o.background = "light"
   vim.cmd.colorscheme('intellij')
@@ -69,7 +68,6 @@ function SetTempusTheme()
   vim.cmd.colorscheme('tempus_day')
 end
 vim.api.nvim_create_user_command('SetTempusTheme', SetTempusTheme, {nargs = 0})
-
 
 function SetTempusTempestTheme()
   vim.o.background = "dark"
@@ -201,6 +199,7 @@ vim.api.nvim_create_user_command('SetDayFox', SetNightFox, {nargs = 0})
 
 function SetMelange()
   vim.o.background = "light"
+  vim.g.melange_enable_font_variants = { italic = false }
   vim.cmd.colorscheme("melange")
   SetMyColorHls()
 
@@ -214,6 +213,7 @@ vim.api.nvim_create_user_command('SetMelange', SetMelange, {nargs = 0})
 
 function SetMelangeDark()
   vim.o.background = "dark"
+  vim.g.melange_enable_font_variants = { italic = false }
   vim.cmd.colorscheme("melange")
   SetMyColorHls()
 
