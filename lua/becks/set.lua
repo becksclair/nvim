@@ -115,7 +115,7 @@ if vim.env.WAYLAND_DISPLAY then
         },
         cache_enabled = 1,
     }
-else
+elseif not vim.env.TERMUX_API_VERSION then
     -- Fallback for X11 (xclip or xsel)
     vim.g.clipboard = {
         name = "xclip",
@@ -156,19 +156,19 @@ vim.diagnostic.config({
     virtual_text = true
 })
 
-vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
-  -- pattern = "v.mod",
-  callback = function()
-    -- Get the full path of the current file
-    local filepath = vim.fn.expand('%:p')
-    -- Get the full path of the current working directory
-    local cwd = vim.fn.getcwd() .. "/"
-    -- Check if the file is in the current working directory
-    if filepath == cwd .. "v.mod" then
-      vim.bo.filetype = "vlang"
-    end
-    -- if filepath == cwd .. "zig.zon" then
-    --   vim.bo.filetype = "zig"
-    -- end
-  end,
-})
+-- vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+--   -- pattern = "v.mod",
+--   callback = function()
+--     -- Get the full path of the current file
+--     local filepath = vim.fn.expand('%:p')
+--     -- Get the full path of the current working directory
+--     local cwd = vim.fn.getcwd() .. "/"
+--     -- Check if the file is in the current working directory
+--     if filepath == cwd .. "v.mod" then
+--       vim.bo.filetype = "vlang"
+--     end
+--     -- if filepath == cwd .. "zig.zon" then
+--     --   vim.bo.filetype = "zig"
+--     -- end
+--   end,
+-- })
