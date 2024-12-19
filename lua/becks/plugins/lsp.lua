@@ -43,6 +43,8 @@ return {
       { 'williamboman/mason.nvim' },
       { 'williamboman/mason-lspconfig.nvim' },
       { "b0o/schemastore.nvim",             lazy = true },
+      { "folke/neoconf.nvim" },
+      -- { 'tamago324/nlsp-settings.nvim', }
     },
 
     init = function()
@@ -53,6 +55,15 @@ return {
 
     -- LSP Server configurations
     config = function()
+      require("neoconf").setup({
+        -- override any of the default settings here
+        import = {
+          vscode = true, -- local .vscode/settings.json
+          coc = true, -- global/local coc-settings.json
+          nlsp = false, -- global/local nlsp-settings.nvim json settings
+        },
+      })
+
       local lsp_defaults = require('lspconfig').util.default_config
 
       lsp_defaults.capabilities = vim.tbl_deep_extend(
