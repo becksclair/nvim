@@ -2,7 +2,7 @@ return {
   "3rd/image.nvim",
   -- enabled = false,
   build = false,
-  cond = vim.env.TERMINAL == "kitty",
+  cond = vim.env.KITTY_WINDOW_ID ~= nil,
   event = "VeryLazy",
   opts = {
     backend = "kitty",
