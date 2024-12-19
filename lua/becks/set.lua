@@ -103,6 +103,9 @@ vim.opt.isfname:append("@-@")
 
 -- vim.opt.updatetime = 50
 
+-- views can only be fully collapsed with the global statusline
+vim.opt.laststatus = 3
+
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- vim.opt.foldmethod = "expr"
