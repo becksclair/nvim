@@ -11,18 +11,18 @@ return {
         PATH = "prepend", -- Ensures Mason uses the system PATH
 
         ui = {
-            icons = {
-                package_installed = "",
-                package_pending = "➜",
-                package_uninstalled = "✗"
-            },
-            border = "rounded",
+          icons = {
+            package_installed = "",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+          },
+          border = "rounded",
         },
 
         pip = {
-            ---@since 1.0.0
-            -- Whether to upgrade pip to the latest version in the virtual environment before installing packages.
-            upgrade_pip = true,
+          ---@since 1.0.0
+          -- Whether to upgrade pip to the latest version in the virtual environment before installing packages.
+          upgrade_pip = true,
         },
       })
     end,
@@ -42,7 +42,7 @@ return {
       'saghen/blink.cmp',
       { 'williamboman/mason.nvim' },
       { 'williamboman/mason-lspconfig.nvim' },
-      { "b0o/schemastore.nvim", lazy = true },
+      { "b0o/schemastore.nvim",             lazy = true },
     },
 
     init = function()
@@ -152,40 +152,52 @@ return {
             lspconfig.yamlls.setup {
               yaml = {
                 customTags = {
-                    "!Base64",
-                    "!Cidr",
-                    "!FindInMap sequence",
-                    "!GetAtt",
-                    "!GetAZs",
-                    "!ImportValue",
-                    "!Join sequence",
-                    "!Ref",
-                    "!Select sequence",
-                    "!Split sequence",
-                    "!Sub sequence",
-                    "!Sub",
-                    "!And sequence",
-                    "!Condition",
-                    "!Equals sequence",
-                    "!If sequence",
-                    "!Not sequence",
-                    "!Or sequence",
-                    -- OpenAPI
-                    "$ref",
+                  "!Base64",
+                  "!Cidr",
+                  "!FindInMap sequence",
+                  "!GetAtt",
+                  "!GetAZs",
+                  "!ImportValue",
+                  "!Join sequence",
+                  "!Ref",
+                  "!Select sequence",
+                  "!Split sequence",
+                  "!Sub sequence",
+                  "!Sub",
+                  "!And sequence",
+                  "!Condition",
+                  "!Equals sequence",
+                  "!If sequence",
+                  "!Not sequence",
+                  "!Or sequence",
+                  -- OpenAPI
+                  "$ref",
                 },
               }
+            }
+          end,
+
+          ["bashls"] = function()
+            local lspconfig = require("lspconfig")
+            lspconfig.bashls.setup {
+              filetypes = { 'sh', 'bash', 'zsh', 'shell' },
+              settings = {
+                bashIde = {
+                  globPattern = "*@(.sh|.inc|.bash|.command)"
+                },
+              },
             }
           end,
 
           ["v_analyzer"] = function()
             local lspconfig = require("lspconfig")
             lspconfig.v_analyzer.setup {
-                cmd = { '/data/data/com.termux/files/home/.config/v-analyzer/bin/v-analyzer' },
-                filetypes = { 'v', 'vv', 'vsh', 'vlang' },
-                root_pattern = { 'v.mod', "build.vsh", '.v-analyzer' },
-                -- root_dir = function()
-                --     return vim.fn.getcwd() -- or return a custom root directory path
-                -- end,
+              cmd = { '/data/data/com.termux/files/home/.config/v-analyzer/bin/v-analyzer' },
+              filetypes = { 'v', 'vv', 'vsh', 'vlang' },
+              root_pattern = { 'v.mod', "build.vsh", '.v-analyzer' },
+              -- root_dir = function()
+              --     return vim.fn.getcwd() -- or return a custom root directory path
+              -- end,
             }
           end,
 

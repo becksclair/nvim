@@ -22,17 +22,27 @@ end
 vim.api.nvim_create_autocmd({ "BufWritePre" }, { pattern = { "*.templ" }, callback = custom_format })
 
 
+local lsp_hacks = vim.api.nvim_create_augroup("LspHacks", { clear = true })
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
+  group = lsp_hacks,
+  pattern = ".env*",
+  callback = function(e)
+    vim.diagnostic.enable(false, { bufnr = e.buf })
+  end,
+})
+
 -- Create an autocommand group to ensure we can cleanly define our autocommands
-local env_filetype_group = vim.api.nvim_create_augroup("EnvFiletype", { clear = true })
+-- local env_filetype_group = vim.api.nvim_create_augroup("EnvFiletype", { clear = true })
 
 -- Define the autocommand to set the filetype
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-    pattern = ".env*",
-    callback = function()
-        vim.bo.filetype = "sh"
-    end,
-    group = env_filetype_group,
-})
+-- vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+--     pattern = ".env*",
+--     callback = function()
+--         vim.bo.filetype = "sh"
+--     end,
+--     group = env_filetype_group,
+-- })
 
 
 local ag = vim.api.nvim_create_augroup
