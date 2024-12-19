@@ -211,9 +211,6 @@ return {
               -- end,
             }
           end,
-
-          -- ["rust_analyzer"] = function()
-          -- end,
         }
       })
 
