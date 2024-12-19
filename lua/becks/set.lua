@@ -1,10 +1,25 @@
 -- Get platform dependant build script
+local function get_os_name()
+    if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 then
+        return "Windows"
+    elseif vim.fn.has("macunix") == 1 then
+        return "macOS"
+    elseif vim.fn.has("unix") == 1 then
+        return "Linux/Unix"
+    else
+        return "Unknown OS"
+    end
+end
+
+-- print("Current OS: " .. get_os_name())
+
+
 local function isWindows()
-  if vim.loop.os_uname().sysname == "Windows_NT" then
-    return true
-  else
-    return false
-  end
+    if get_os_name()  == "Windows" then
+        return true
+    else
+        return false
+    end
 end
 
 vim.cmd("autocmd!")
@@ -71,9 +86,9 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 
 if isWindows() then
-  vim.opt.undodir = os.getenv("USERPROFILE") .. "/.vim/undodir"
+    vim.opt.undodir = os.getenv("USERPROFILE") .. "/.vim/undodir"
 else
-  vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+    vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 end
 
 vim.opt.undofile = true
