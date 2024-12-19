@@ -72,7 +72,11 @@ return {
       ['<A-9>'] = { function(cmp) cmp.accept({ index = 9 }) end },
 
       cmdline = {
-        preset = 'default'
+        preset = 'default',
+
+        ['<tab>'] = { 'select_next', 'fallback' },
+        ['<S-tab>'] = { 'select_prev', 'fallback' },
+        ['<C-f>'] = { 'select_and_accept' },
       }
     },
 
