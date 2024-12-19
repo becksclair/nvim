@@ -3,8 +3,9 @@ return {
   event = {
     -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
     -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
-    "BufReadPre " .. vim.fn.expand("~") .. "/HeliasMind/**.md",
-    "BufNewFile " .. vim.fn.expand("~") .. "/HeliasMind/**.md",
+    -- "BufReadPre " .. vim.fn.expand("~") .. "/Sync/HeliasMind/**.md",
+    -- "BufNewFile " .. vim.fn.expand("~") .. "/Sync/HeliasMind/**.md",
+    "VeryLazy",
   },
   dependencies = {
     -- Required.
@@ -15,7 +16,13 @@ return {
     'nvim-telescope/telescope.nvim',
   },
   opts = {
-    dir = "~/Sync/HeliasMind/",   -- no need to call 'vim.fn.expand' here
+    ui = {
+      enable = false,
+    },
+
+    -- conceallevel = 2,
+
+    dir = "~/Sync/HeliasMind/", -- no need to call 'vim.fn.expand' here
 
     -- Optional, if you keep notes in a specific subdirectory of your vault.
     -- notes_subdir = "Inbox",
@@ -63,7 +70,7 @@ return {
     -- URL it will be ignored but you can customize this behavior here.
     follow_url_func = function(url)
       -- Open the URL in the default web browser.
-      vim.fn.jobstart({ "open", url })   -- Mac OS
+      vim.fn.jobstart({ "open", url }) -- Mac OS
       -- vim.fn.jobstart({"xdg-open", url})  -- linux
     end,
 
