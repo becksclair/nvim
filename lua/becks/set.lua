@@ -116,35 +116,35 @@ vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,
 
 vim.o.clipboard = 'unnamedplus'
 
-if vim.env.WAYLAND_DISPLAY then
-    -- Wayland clipboard setup
-    vim.g.clipboard = {
-        name = "wl-clipboard",
-        copy = {
-            ["+"] = "wl-copy",
-            ["*"] = "wl-copy",
-        },
-        paste = {
-            ["+"] = "wl-paste",
-            ["*"] = "wl-paste",
-        },
-        cache_enabled = 1,
-    }
-elseif not vim.env.TERMUX_API_VERSION then
-    -- Fallback for X11 (xclip or xsel)
-    vim.g.clipboard = {
-        name = "xclip",
-        copy = {
-            ["+"] = "xclip -selection clipboard",
-            ["*"] = "xclip -selection primary",
-        },
-        paste = {
-            ["+"] = "xclip -selection clipboard -o",
-            ["*"] = "xclip -selection primary -o",
-        },
-        cache_enabled = 1,
-    }
-end
+-- if vim.env.WAYLAND_DISPLAY then
+--     -- Wayland clipboard setup
+--     vim.g.clipboard = {
+--         name = "wl-clipboard",
+--         copy = {
+--             ["+"] = "wl-copy",
+--             ["*"] = "wl-copy",
+--         },
+--         paste = {
+--             ["+"] = "wl-paste",
+--             ["*"] = "wl-paste",
+--         },
+--         cache_enabled = 1,
+--     }
+-- elseif not vim.env.TERMUX_API_VERSION then
+--     -- Fallback for X11 (xclip or xsel)
+--     vim.g.clipboard = {
+--         name = "xclip",
+--         copy = {
+--             ["+"] = "xclip -selection clipboard",
+--             ["*"] = "xclip -selection primary",
+--         },
+--         paste = {
+--             ["+"] = "xclip -selection clipboard -o",
+--             ["*"] = "xclip -selection primary -o",
+--         },
+--         cache_enabled = 1,
+--     }
+-- end
 
 
 vim.filetype.add {
