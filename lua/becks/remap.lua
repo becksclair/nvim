@@ -82,7 +82,6 @@ vim.keymap.set("n", "<C-S-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { 
 -- -- Remap <C-n> to fzf files
 -- vim.keymap.set("i", "<C-n>", "<cmd>Files<CR>")
 -- vim.keymap.set({ "n", "v" }, "<C-n>", "<cmd>Files<CR>")
---
 
 -- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 -- vim.keymap.set("n", "<F3>", vim.lsp.buf.format, { desc = "Format buffer"})
@@ -99,7 +98,7 @@ vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "gwr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'Replace word'})
 vim.keymap.set("n", "<C-x>", "<cmd>!chmod +x %<CR>", { silent = true })
 
 vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.config/nvim/lua/becks/plugins.lua<CR>");
