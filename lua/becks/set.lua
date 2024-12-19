@@ -149,9 +149,15 @@ end
 
 vim.filetype.add {
     filename = {
-      ['build.zig.zon'] = 'zig'
+        ['build.zig.zon'] = 'zig',
+        [".env"] = "sh",
+        [".envx"] = "sh",
+        ["tsconfig.json"] = "jsonc",
+        [".yamlfmt"] = "yaml",
     },
     extension = {
+        env = "sh",
+        conf = "conf",
         v = 'vlang',
         slint = 'slint',
         templ = 'templ',
@@ -162,7 +168,12 @@ vim.filetype.add {
         ["yabairc"] = "bash",
         ["[jt]sconfig.*.json"] = "jsonc",
         ['v.mod'] = 'vlang',
-        ['.env.*'] = 'env',
+        [".*/waybar/config"] = "jsonc",
+        [".*/mako/config"] = "dosini",
+        [".*/kitty/.+%.conf"] = "kitty",
+        [".*/hypr/.+%.conf"] = "hyprlang",
+        ["%.env%.[%w_.-]+"] = "sh",
+
         -- ['*.zig.zon'] = 'zig'
     }
 }
