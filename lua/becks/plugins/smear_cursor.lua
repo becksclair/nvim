@@ -1,7 +1,8 @@
 return {
   "sphamba/smear-cursor.nvim",
+  enabled = false,
   event = "VeryLazy",
-  cond = vim.g.neovide == nil and  (not require('becks.misc').RunningOnVConsole()),
+  cond = vim.g.neovide == nil and vim.env.KITTY_WINDOW_ID == nil and (not require('becks.misc').RunningOnVConsole()),
   opts = {
     cursor_color = "#cdd6f4",
     smear_between_neighbor_lines = true,
