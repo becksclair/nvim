@@ -4,6 +4,8 @@ return {
   enabled = true,
   cond = not require('becks.misc').RunningOnVConsole(),
   lazy = false,
+
+  ---@class snacks.Config
   opts = {
     -- your configuration comes here
     -- or leave it empty to use the default settings
@@ -152,14 +154,31 @@ return {
         { section = "startup" },
       }
     },
+
     bigfile = {
       enabled = true
     },
+
+    ---@class snacks.notifier.Config
     notifier = {
       enabled = true,
       timeout = 3000,
+      ---
+      style = "fancy",
+
+      top_down = true,    -- place notifications from top to bottom
+      date_format = "%R", -- time format for notifications
+      -- format for footer when more lines are available
+      -- `%d` is replaced with the number of lines.
+      -- only works for styles with a border
+
+      ---@type string|boolean
+      more_format = " ↓ %d lines ",
+      refresh = 50, -- refresh at most every 50ms
     },
-    quickfile = { enabled = true },
+    quickfile = {
+      enabled = true
+    },
     -- statuscolumn = {
     --   enabled = false,
     --   left = { "mark", "sign" }, -- priority of signs on the left (high to low)
@@ -207,21 +226,69 @@ return {
     ---@field enabled? boolean
     words = {
       enabled = true,
-      debounce = 200, -- time in ms to wait before updating
-      notify_jump = false, -- show a notification when jumping
-      notify_end = true, -- show a notification when reaching the end
-      foldopen = true, -- open folds after jumping
-      jumplist = true, -- set jump point before jumping
+      debounce = 200,            -- time in ms to wait before updating
+      notify_jump = false,       -- show a notification when jumping
+      notify_end = true,         -- show a notification when reaching the end
+      foldopen = true,           -- open folds after jumping
+      jumplist = true,           -- set jump point before jumping
       modes = { "n", "i", "c" }, -- modes to show references
     },
+
+    ---@class snacks.terminal.Config
+    ---@field win? snacks.win.Config
+    ---@field override? fun(cmd?: string|string[], opts?: snacks.terminal.Opts) Use this to use a different terminal implementation
+    terminal = {
+      win = { style = "terminal" },
+    },
+
+    ---@class snacks.lazygit.Config
+    ---@field args? string[]
+    lazygit = {
+      -- your lazygit configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+      configure = true,
+
+      config = {
+        os = { editPreset = "nvim-remote" },
+        gui = {
+          -- set to an empty string "" to disable icons
+          nerdFontsVersion = "3",
+        },
+      },
+      theme_path = vim.fs.normalize(vim.fn.stdpath("cache") .. "/lazygit-theme.yml"),
+
+      -- Theme for lazygit
+      theme = {
+        [241]                      = { fg = "Special" },
+        activeBorderColor          = { fg = "MatchParen", bold = true },
+        cherryPickedCommitBgColor  = { fg = "Identifier" },
+        cherryPickedCommitFgColor  = { fg = "Function" },
+        defaultFgColor             = { fg = "Normal" },
+        inactiveBorderColor        = { fg = "FloatBorder" },
+        optionsTextColor           = { fg = "Function" },
+        searchingActiveBorderColor = { fg = "MatchParen", bold = true },
+        selectedLineBgColor        = { bg = "Visual" }, -- set to `default` to have no background colour
+        unstagedChangesColor       = { fg = "DiagnosticError" },
+      },
+      win = {
+        style = "float",
+      },
+    },
+
     styles = {
       notification = {
         wo = {
-          winblend = 20,
+          -- winblend = 20,
           wrap = true
         } -- Wrap notifications
-      }
-    }
+      },
+      float = {
+        winblend = 20,
+        backdrop = 60,
+        -- border = "rounded",
+      },
+    },
   },
   keys = {
     { "<leader>.",  function() Snacks.scratch() end,                 desc = "Toggle Scratch Buffer" },
@@ -239,6 +306,7 @@ return {
     -- { "<c-_>",      function() Snacks.terminal() end,                desc = "which_key_ignore" },
     { "]]",         function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",              mode = { "n", "t" } },
     { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference",              mode = { "n", "t" } },
+
     {
       "<leader>N",
       desc = "Neovim News",
@@ -260,6 +328,7 @@ return {
       end,
     }
   },
+
   init = function()
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
