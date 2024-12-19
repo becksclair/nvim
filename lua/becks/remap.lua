@@ -66,13 +66,13 @@ vim.keymap.set("n", "<leader>Q", vim.cmd.quitall, { noremap = true, desc = 'Kill
 -- vim.keymap.set('c', 'w!!', 'w !sudo tee % >/dev/null %<CR>:e!<CR><CR>', { noremap = true, silent = true, desc = 'Sudo to write' })
 
 -- w!! to save with sudo
-vim.keymap.set("c", "w!!", "<esc>:lua require'becks.misc'.SudoWrite()<CR>", { silent = true, desc = 'Sudo to write' })
+vim.keymap.set("c", "w!!", require('becks.misc').SudoWrite, { silent = true, desc = 'Sudo to write' })
 
-vim.keymap.set("c", "ww", "<esc>:lua require'becks.misc'.SudoWrite()<CR>", { silent = true, desc = 'Sudo to write' })
+vim.keymap.set("c", "ww", require('becks.misc').SudoWrite, { silent = true, desc = 'Sudo to write' })
 
 vim.keymap.set("n", "<leader>xb", "<cmd>bd<CR>", { desc = 'Discard buffer' })
 
-vim.keymap.set("n", "<C-S-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { desc = 'Open tmux sessionizer' })
+-- vim.keymap.set("n", "<C-S-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { desc = 'Open tmux sessionizer' })
 
 
 -- -- Remap <C-p> to fzf
