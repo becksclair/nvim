@@ -179,6 +179,7 @@ return {
     quickfile = {
       enabled = true
     },
+
     -- statuscolumn = {
     --   enabled = false,
     --   left = { "mark", "sign" }, -- priority of signs on the left (high to low)
@@ -193,10 +194,12 @@ return {
     --   -- },
     --   refresh = 50, -- refresh at most every 50ms
     -- },
+
     ---@class snacks.dim.Config
-    -- dim = {
-    --   enabled = true,
-    -- },
+    dim = {
+      enabled = false,
+    },
+
     ---@class snacks.input.Config
     input = {
       -- your input configuration comes here
