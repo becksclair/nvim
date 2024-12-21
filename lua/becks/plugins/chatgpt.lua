@@ -141,7 +141,7 @@ return {
       frequency_penalty = 0.1,
       presence_penalty = 0.1,
       max_tokens = 1024,
-      temperature = 0.1,
+      temperature = 0.3,
       top_p = 0.9,
       n = 2,
     },
