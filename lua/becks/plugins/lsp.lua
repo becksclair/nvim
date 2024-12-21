@@ -24,6 +24,8 @@ return {
           -- Whether to upgrade pip to the latest version in the virtual environment before installing packages.
           upgrade_pip = true,
         },
+
+        ensure_installed = { "markdownlint-cli2", "markdown-toc" },
       })
     end,
   },

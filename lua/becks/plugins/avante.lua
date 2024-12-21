@@ -50,10 +50,25 @@ return {
         file_types = { "markdown", "Avante", "vimwiki" },
         only_render_image_at_cursor = false,
       },
-      ft = { "markdown", "Avante", "vimwiki" },
+      ft = { "markdown", "Avante", "vimwiki", "norg", "rmd", "org" },
       cmd = { 'RenderMarkdown' },
       config = function(_, opts)
         require("render-markdown").setup(opts)
+
+        Snacks.toggle({
+          name = "Render Markdown",
+          get = function()
+            return require("render-markdown.state").enabled
+          end,
+          set = function(enabled)
+            local m = require("render-markdown")
+            if enabled then
+              m.enable()
+            else
+              m.disable()
+            end
+          end,
+        }):map("<leader>um")
 
         vim.treesitter.language.register('markdown', 'vimwiki')
       end,
@@ -164,7 +179,7 @@ return {
         start_insert = true, -- Start insert mode when opening the edit window
       },
       ask = {
-        floating = false,     -- Open the 'AvanteAsk' prompt in a floating window
+        floating = false,    -- Open the 'AvanteAsk' prompt in a floating window
         start_insert = true, -- Start insert mode when opening the ask window
         border = "rounded",
         ---@type "ours" | "theirs"

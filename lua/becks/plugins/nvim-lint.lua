@@ -16,6 +16,8 @@ return {
     },
 
     linters_by_ft = {
+      markdown = { "markdownlint-cli2" },
+
       -- markdown = {'vale',},
       -- python = { 'flake8', 'pylint', },
       python = { 'ruff' },
