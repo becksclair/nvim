@@ -1,5 +1,6 @@
 -- V-Colors
 return {
+  enabled = false,
   dir = '~/projects/nvim/nvim-vcolors',
   -- dev = true,
   priority = 1000,
