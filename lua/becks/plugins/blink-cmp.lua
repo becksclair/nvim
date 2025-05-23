@@ -11,20 +11,6 @@ return {
         -- impersonate_nvim_cmp = false
       },
     },
-    {
-      "supermaven-inc/supermaven-nvim",
-      opts = {
-        keymaps = {
-          accept_suggestion = false, -- handled by nvim-cmp / blink.cmp
-
-          -- accept_suggestion = "<C-f>",
-          clear_suggestion = "<C-c>",
-          accept_word = "<C-j>",
-        },
-        disable_inline_completion = true,
-        ignore_filetypes = { "bigfile", "snacks_input", "snacks_notif" },
-      }
-    },
 
     {'MeanderingProgrammer/render-markdown.nvim'},
 
@@ -72,14 +58,14 @@ return {
       ['<A-7>'] = { function(cmp) cmp.accept({ index = 7 }) end },
       ['<A-8>'] = { function(cmp) cmp.accept({ index = 8 }) end },
       ['<A-9>'] = { function(cmp) cmp.accept({ index = 9 }) end },
+    },
 
-      cmdline = {
-        preset = 'default',
-
+    cmdline = {
+      keymap = {
         ['<tab>'] = { 'select_next', 'fallback' },
         ['<S-tab>'] = { 'select_prev', 'fallback' },
         ['<C-f>'] = { 'select_and_accept' },
-      }
+      },
     },
 
     appearance = {
@@ -146,7 +132,6 @@ return {
     sources = {
       -- dont show LuaLS require statements when lazydev has items
       default = {
-        'supermaven',
         'lsp',
         'path',
         -- 'snippets',
@@ -170,13 +155,6 @@ return {
         markdown = {
           name = 'RenderMarkdown',
           module = 'render-markdown.integ.blink'
-        },
-        supermaven = {
-          kind = "Supermaven",
-          name = 'supermaven',
-          module = "blink.compat.source",
-          score_offset = 100,
-          async = true,
         },
       },
     },
