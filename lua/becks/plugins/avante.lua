@@ -77,23 +77,29 @@ return {
 
   opts = {
     ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
-    -- provider = "openai",                  -- Recommend using Claude
-    provider = "claude",                  -- Recommend using Claude
+    provider = "claude", -- The provider used in Aider mode or in the planning phase of Cursor Planning Mode
+    ---@alias Mode "agentic" | "legacy"
+    mode = "agentic", -- The default mode for interaction. "agentic" uses tools to automatically generate code, "legacy" uses the old planning method to generate code.
+
     auto_suggestions_provider = "claude", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
 
     claude = {
       endpoint = "https://api.anthropic.com",
-      model = "claude-3-5-sonnet-20241022",
-      temperature = 0,
-      max_tokens = 4096,
+      model = "claude-3-7-sonnet-20250219",
+      -- temperature = 0,
+      -- max_tokens = 4096,
+      -- max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
+      -- reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
     },
 
     openai = {
       endpoint = "https://api.openai.com/v1",
-      model = "gpt-4o-2024-11-20",
+      model = "gpt-4.1-2025-04-14",
       timeout = 30000, -- Timeout in milliseconds
-      temperature = 0,
-      max_tokens = 4096,
+      -- temperature = 0,
+      -- max_tokens = 4096,
+      -- max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
+      -- reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
     },
 
     ---Specify the special dual_boost mode
