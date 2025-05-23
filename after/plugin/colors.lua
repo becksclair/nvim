@@ -327,7 +327,7 @@ vim.api.nvim_create_user_command('SetFleetTheme', SetFleetTheme, {nargs = 0})
 
 function SetTheme()
   local env_var = vim.env.TERM_DARK_MODE
-  if env_var == "1" then
+  if env_var == "1" or env_var == "True" then
     SetMelangeDark()
   else
     SetMelange()
