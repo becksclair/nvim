@@ -68,7 +68,7 @@ vim.keymap.set("n", "<leader>Q", vim.cmd.quitall, { noremap = true, desc = 'Kill
 -- w!! to save with sudo
 vim.keymap.set("c", "w!!", require('becks.misc').SudoWrite, { silent = true, desc = 'Sudo to write' })
 
-vim.keymap.set("c", "ww", require('becks.misc').SudoWrite, { silent = true, desc = 'Sudo to write' })
+vim.keymap.set("n", "<Leader>WW", require('becks.misc').SudoWrite, { silent = true, desc = 'Sudo to write' })
 
 vim.keymap.set("n", "<leader>xb", "<cmd>bd<CR>", { desc = 'Discard buffer' })
 
