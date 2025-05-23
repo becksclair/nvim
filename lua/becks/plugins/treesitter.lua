@@ -71,7 +71,6 @@ return {
         "sql",
         "markdown",
         "markdown_inline",
-        "org",
         "git_config", "fish", "bash", "rasi", "hyprlang"
       },
 
