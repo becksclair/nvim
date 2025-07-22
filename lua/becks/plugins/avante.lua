@@ -7,7 +7,7 @@ return {
 
   -- If you want to build from source then do `make BUILD_FROM_SOURCE=true`
   -- build = "make BUILD_FROM_SOURCE=true",
-  -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false", -- for windows
+  build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false", -- for windows
 
   dependencies = {
     "stevearc/dressing.nvim",
@@ -83,24 +83,32 @@ return {
 
     auto_suggestions_provider = "claude", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
 
-    claude = {
-      endpoint = "https://api.anthropic.com",
-      model = "claude-3-7-sonnet-20250219",
-      -- temperature = 0,
-      -- max_tokens = 4096,
+    providers = {
+      claude = {
+        endpoint = "https://api.anthropic.com",
+      model = "claude-3-5-sonnet-20241022",
+        timeout = 30000, -- Timeout in milliseconds
+          extra_request_body = {
+      temperature = 0,
+      max_tokens = 4096,
       -- max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
       -- reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+          },
+      },
+
+      openai = {
+        endpoint = "https://api.openai.com/v1",
+      model = "gpt-4o-2024-11-20",
+        timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
+        extra_request_body = {
+      -- temperature = 0,
+      max_tokens = 4096,
+      -- max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
+        },
+      },
     },
 
-    openai = {
-      endpoint = "https://api.openai.com/v1",
-      model = "gpt-4.1-2025-04-14",
-      timeout = 30000, -- Timeout in milliseconds
-      -- temperature = 0,
-      -- max_tokens = 4096,
-      -- max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
-      -- reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
-    },
+
 
     ---Specify the special dual_boost mode
     ---1. enabled: Whether to enable dual_boost mode. Default to false.

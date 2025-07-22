@@ -22,7 +22,7 @@ return {
 
     -- conceallevel = 2,
 
-    dir = "~/MEGA/HeliasMind/", -- no need to call 'vim.fn.expand' here
+    dir = "~/OneDrive/HeliasMind/", -- no need to call 'vim.fn.expand' here
 
     -- Optional, if you keep notes in a specific subdirectory of your vault.
     -- notes_subdir = "Inbox",

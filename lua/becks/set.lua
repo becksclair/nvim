@@ -119,6 +119,23 @@ vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,
 
 vim.o.clipboard = 'unnamedplus'
 
+
+-- if vim.env.WAYLAND_DISPLAY then
+--     -- Wayland clipboard setup
+--     vim.g.clipboard = {
+--         name = "wl-clipboard",
+--         copy = {
+--             ["+"] = "wl-copy",
+--             ["*"] = "wl-copy",
+--         },
+--         paste = {
+--             ["+"] = "wl-paste",
+--             ["*"] = "wl-paste",
+--         },
+--         cache_enabled = 1,
+--     }
+-- end
+
 -- if vim.env.WAYLAND_DISPLAY then
 --     -- Wayland clipboard setup
 --     vim.g.clipboard = {
