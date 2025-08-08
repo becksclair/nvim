@@ -46,23 +46,45 @@ xcode-select --install || true
 
 ## Installation
 
-1) Back up any existing config:
+1) Back up any existing config
 
-  ```bash
-  mv ~/.config/nvim ~/.config/nvim.bak-$(date +%Y%m%d-%H%M%S)
-  ```
+    ```bash
+    mv ~/.config/nvim ~/.config/nvim.bak-$(date +%Y%m%d-%H%M%S)
+    ```
 
-2) Clone this repo as your Neovim config:
+2) Clone this repo as your Neovim config
 
-  ```bash
-  git clone https://github.com/becksclair/nvim ~/.config/nvim
-  ```
+    ```bash
+    git clone https://github.com/becksclair/nvim ~/.config/nvim
+    ```
 
-3) Start Neovim. Lazy.nvim will bootstrap and install plugins. Optional follow-ups:
+3) Start Neovim. Lazy.nvim will bootstrap and install plugins
 
-   - Run :Lazy to review status and updates
-   - Run :Mason to install LSPs/formatters/linters (auto-install is enabled)
-   - Run :TSUpdate to fetch Treesitter parsers
+Optional follow-ups:
+
+- Run :Lazy to review status and updates
+- Run :Mason to install LSPs/formatters/linters (auto-install is enabled)
+- Run :TSUpdate to fetch Treesitter parsers
+
+### Mason tools: export, restore, and auto-install
+
+This config includes portable helpers to manage your Mason tools across machines (macOS, Linux, Windows).
+
+- Manual export of installed tools (writes one name per line):
+  - `:MasonExport` → saves to `~/.config/nvim/mason-packages.txt` (uses Neovim's stdpath)
+
+- Manual restore on a fresh machine:
+  - `:MasonRestore` → refreshes the registry and queues installs from `mason-packages.txt`
+
+- Automatic install on startup:
+  - `mason-tool-installer` reads `mason-packages.txt` and installs missing tools automatically.
+  - If the file doesn't exist yet, a small baseline (e.g. `lua-language-server`) is ensured so LSP works out of the box.
+
+Tips
+
+- Commit `mason-packages.txt` with your dotfiles to reuse the same toolset everywhere.
+- You can still use `:Mason` for the UI, and `:MasonUpdate` to refresh indices.
+- The export/restore logic uses only Neovim APIs and mason-registry; no shell assumptions (works on Windows too).
 
 ### External tools for format/lint
 
@@ -210,7 +232,7 @@ When editing files in these languages, build/run mappings attach automatically:
 - Add plugins as individual files under `lua/becks/plugins/` following Lazy.nvim conventions
 - Use `R("module.name")` during development to hot-reload Lua modules
 - Theme switching helpers live in `after/plugin/colors.lua`
-- Custom utilities in `lua/becks/misc.lua` (e.g., `SudoWrite` bound to `w!!` and `<Leader>WW`)
+- Custom utilities in `lua/becks/misc.lua` (e.g., Mason export/restore commands, `SudoWrite` bound to `w!!` and `<Leader>WW`)
 
 ## Troubleshooting
 
