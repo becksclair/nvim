@@ -18,6 +18,29 @@ return {
     vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
     vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "DiagnosticSignHint" })
 
+    local s = vim.diagnostic.severity
+
+    vim.diagnostic.config({
+      severity_sort = true, -- optional but nice with signs priority changes
+      signs = {
+        -- replace with your favorite glyphs
+        text = {
+          [s.ERROR] = " ",
+          [s.WARN]  = " ",
+          [s.INFO]  = " ",
+          [s.HINT]  = "󰌵",
+        },
+        -- optionally highlight number or line for each severity:
+        numhl = {
+          [s.ERROR] = "DiagnosticSignError",
+          [s.WARN]  = "DiagnosticSignWarn",
+          [s.INFO]  = "DiagnosticSignInfo",
+          [s.HINT]  = "DiagnosticSignHint",
+        },
+        linehl = { [s.ERROR] = "ErrorMsg" },
+      },
+    })
+
     require("neo-tree").setup({
 
       enable_git_status = true,
