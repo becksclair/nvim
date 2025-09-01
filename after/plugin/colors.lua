@@ -320,25 +320,28 @@ vim.api.nvim_create_user_command('SetFleetTheme', SetFleetTheme, {nargs = 0})
 --   end
 -- end
 
--- ColorMyPencils()
--- SetTokyoNight()
+ColorMyPencils()
+SetTokyoNight()
 -- SetNightFox()
 -- SetDayFox()
 
 function SetTheme()
   local env_var = vim.env.TERM_DARK_MODE
   if env_var == "1" or env_var == "True" then
-    SetMelangeDark()
+    -- SetMelangeDark()
+    -- SetTokyoNight()
+
+    SetNightFox()
   else
     SetMelange()
   end
 end
 vim.api.nvim_create_user_command('SetTheme', SetTheme, {nargs = 0})
 
-local utils = require('becks.misc')
-if not utils.RunningOnVConsole() then
-  SetTheme()
-end
+-- local utils = require('becks.misc')
+-- if not utils.RunningOnVConsole() then
+--   SetTheme()
+-- end
 
 
 -- SetMelange()
