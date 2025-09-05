@@ -185,6 +185,7 @@ vim.filetype.add {
         pcss = 'css',
     },
     pattern = {
+        ["Caddyfile"] = "caddy",
         ["yabairc"] = "bash",
         ["[jt]sconfig.*.json"] = "jsonc",
         ['v.mod'] = 'vlang',
