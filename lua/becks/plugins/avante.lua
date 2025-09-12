@@ -3,16 +3,19 @@ return {
   event = "VeryLazy",
   lazy = true,
   cond = not require('becks.misc').RunningOnVConsole(),
+  build = vim.fn.has("win32") ~= 0
+      and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+      or "BUILD_FROM_SOURCE=true make",
   version = false, -- set this if you want to always pull the latest change
 
   -- If you want to build from source then do `make BUILD_FROM_SOURCE=true`
-  build = function()
-    if vim.fn.has("win32") == 1 then
-      return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-    else
-      return "make BUILD_FROM_SOURCE=true"
-    end
-  end,
+  -- build = function()
+  --   if vim.fn.has("win32") == 1 then
+  --     return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+  --   else
+  --     return "make BUILD_FROM_SOURCE=true"
+  --   end
+  -- end,
 
   dependencies = {
     "stevearc/dressing.nvim",
