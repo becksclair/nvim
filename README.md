@@ -11,7 +11,7 @@ Personal, modular Neovim setup powered by Lazy.nvim with one-file-per-plugin. It
 - Treesitter for highlighting, motions, textobjects, and incremental selection
 - Formatting via conform.nvim, linting via nvim-lint, and sensible on-save tweaks
 - Polished UI with noice.nvim + snacks.nvim (dashboard, notifications, terminal, toggles)
-- Thoughtful defaults: system clipboard, helpful keymaps, easy theme switching, and per-language build keys
+- Thoughtful defaults: system clipboard, helpful keymaps, easy theme switching, and focused language-aware defaults
 
 ## Repository layout
 
@@ -19,7 +19,7 @@ Personal, modular Neovim setup powered by Lazy.nvim with one-file-per-plugin. It
   - `becks/init.lua`: boot order: settings → keymaps → plugin manager → autocmds → neovide
   - `becks/lazy.lua`: Lazy.nvim bootstrap and setup (imports `becks.plugins`)
   - `becks/set.lua`: core options, OS detection, clipboard, filetype mappings
-  - `becks/remap.lua`: global keymaps (leader = space, clipboard integration, motions, build keys)
+- `becks/remap.lua`: global keymaps (leader = space, clipboard integration, motions, quickfix/list navigation)
   - `becks/autocmds.lua`: format-on-save for .templ, LSP/diagnostic tweaks
   - `after/plugin/colors.lua`: theme switching helpers and highlight adjustments
 - `lua/becks/plugins/*`: one file per plugin (LSP, Telescope, Git, UI, etc.)
@@ -145,7 +145,7 @@ Leader is space. Only a selection of the most-used maps is shown here.
 ### Diagnostics & quickfix
 
 - `[d` / `]d` jump diagnostics with a float
-- `<C-k>`/`<C-j>` quickfix next/prev; `<leader>k`/`<leader>j` location list next/prev
+- `]q` / `[q` quickfix next/prev; `<leader>k`/`<leader>j` location list next/prev
 
 ### Windows & movement
 
@@ -166,7 +166,6 @@ Leader is space. Only a selection of the most-used maps is shown here.
 
 ### DB UI
 
-- `<F10>` open DBUI (vim-dadbod-ui)
 
 ## Theming
 
@@ -205,7 +204,7 @@ Custom highlights are applied for Visual/IncSearch, Telescope, and Copilot compl
 - snacks.nvim
   - Dashboard, notifications, terminal, quickfile/bigfile, words navigation (`[[`/`]]`), and convenient toggles
 - Other helpers
-  - autopairs, comment, indent guides, dressing, lualine, etc. (see `lua/becks/plugins/`)
+  - autopairs, comment, indent guides, lualine, etc. (see `lua/becks/plugins/`)
 
 ## Formatting & linting — rationale
 
@@ -219,13 +218,7 @@ Custom highlights are applied for Visual/IncSearch, Telescope, and Copilot compl
 
 ## Language-specific build keys
 
-When editing files in these languages, build/run mappings attach automatically:
-
-- V: `<F6>` run, `<S-F6>` prod build, `<F3>`/`<C-F3>` format
-- Go: `<F6>` run, `<S-F6>` build, `<F3>`/`<C-F3>` format
-- Zig: `<F6>` zig build run, `<S-F6>` build, `<F3>`/`<C-F3>` format/check
-- Odin: `<F6>` run, `<S-F6>` build, `<F3>`/`<S-F3>` check
-- Rust (Cargo): `<F6>` run, `<S-F6>` build, `<S-F3>` check
+Language-specific build/run maps were removed from global remaps. Use language-specific tooling (commands or ftplugin-local mappings) when needed.
 
 ## Development notes
 

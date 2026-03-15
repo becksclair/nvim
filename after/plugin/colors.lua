@@ -82,14 +82,14 @@ function SetTempusTempestTheme()
 
   vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 end
-vim.api.nvim_create_user_command('SetTempusTempestTheme', SetTempusTheme, {nargs = 0})
+vim.api.nvim_create_user_command('SetTempusTempestTheme', SetTempusTempestTheme, {nargs = 0})
 
 function SetVsAssistTheme()
   vim.o.background = "dark"
   vim.cmd.colorscheme('vsassist')
   vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 end
-vim.api.nvim_create_user_command('SetVsAssistTheme', SetTempusTheme, {nargs = 0})
+vim.api.nvim_create_user_command('SetVsAssistTheme', SetVsAssistTheme, {nargs = 0})
 
 function SetTempleTheme()
   vim.o.background = "light"
@@ -210,7 +210,7 @@ function SetDayFox()
 
   vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 end
-vim.api.nvim_create_user_command('SetDayFox', SetNightFox, {nargs = 0})
+vim.api.nvim_create_user_command('SetDayFox', SetDayFox, {nargs = 0})
 
 
 function SetMelange()

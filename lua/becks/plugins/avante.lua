@@ -16,7 +16,6 @@ return {
   end,
 
   dependencies = {
-    "stevearc/dressing.nvim",
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
     --- The below dependencies are optional,

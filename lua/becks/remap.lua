@@ -85,8 +85,8 @@ vim.keymap.set("n", "<leader>bb", ":!bunx oxfmt %<CR>", { desc = "Format with ox
 vim.keymap.set("n", "<leader>bF", ":%!bunx oxfmt --stdin-filepath %<CR>", { desc = "Format with oxfmt" })
 vim.keymap.set("n", "<C-S-f>", ":%!sqlfluff fix --force %<CR>", { desc = "Format with sqlfluff" })
 
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "]q", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "[q", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
@@ -115,14 +115,15 @@ vim.keymap.set("n", "<S-Down>", ":resize +2<CR>", { noremap = true, silent = tru
 vim.keymap.set("n", "<S-Left>", ":vertical resize -2<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<S-Right>", ":vertical resize +2<CR>", { noremap = true, silent = true })
 
-vim.keymap.set("n", "<F10>", "<cmd>DBUI<CR>", { noremap = true, silent = true, desc = "Open Db UI" })
-
 vim.keymap.set("n", "gf", function()
-	if require("obsidian").util.cursor_on_markdown_link() then
-		return "<cmd>ObsidianFollowLink<CR>"
-	else
-		return "gf"
+	local ok, obsidian = pcall(require, "obsidian")
+	if ok and obsidian and obsidian.util and obsidian.util.cursor_on_markdown_link then
+		if obsidian.util.cursor_on_markdown_link() then
+			return "<cmd>ObsidianFollowLink<CR>"
+		end
 	end
+
+	return "gf"
 end, { noremap = false, expr = true })
 
 -- Diff
@@ -135,69 +136,6 @@ vim.keymap.set("n", "<leader>nn", function()
 	vim.opt.nu = not nu_active
 end, { noremap = true, silent = true })
 
--- Configure build keymaps for Golang
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-	pattern = { "*.go", "go.mod" },
-	callback = function()
-		vim.keymap.set(
-			"n",
-			"<F6>",
-			":silent! split term go run .<CR>:hor resize -15<CR>",
-			{ noremap = true, silent = false, desc = "Go Run Project" }
-		)
-		vim.keymap.set(
-			"n",
-			"<S-F6>",
-			":vsplit term go build .<CR>:vert resize 120<CR>",
-			{ noremap = true, silent = false, desc = "Go Build" }
-		)
-		vim.keymap.set("n", "<F3>", vim.lsp.buf.format, { desc = "Go Format" })
-		vim.keymap.set(
-			"n",
-			"<C-F3>",
-			":silent! go fmt -w .<CR>:w<CR>",
-			{ noremap = true, silent = true, desc = "Go Format" }
-		)
-		vim.keymap.set(
-			"n",
-			"<S-F3>",
-			":vsplit term go fix .<CR>:vert resize 120<CR>",
-			{ noremap = true, silent = false, desc = "Go Fix" }
-		)
-	end,
-})
-
--- Configure build keymaps for Zig
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-	pattern = { "*.zig", "*.zig.zod" },
-	callback = function()
-		vim.keymap.set(
-			"n",
-			"<F6>",
-			":silent! hor term zig build run<CR>:hor resize -15<CR>",
-			{ noremap = true, silent = false, desc = "Zig Run Project" }
-		)
-		vim.keymap.set(
-			"n",
-			"<S-F6>",
-			":vert term zig build<CR>:vert resize 120<CR>",
-			{ noremap = true, silent = false, desc = "Zig Build" }
-		)
-		vim.keymap.set("n", "<F3>", vim.lsp.buf.format, { desc = "Zig Format" })
-		vim.keymap.set(
-			"n",
-			"<C-F3>",
-			":silent! zig fmt .<CR>:w<CR>",
-			{ noremap = true, silent = true, desc = "Zig Format" }
-		)
-		vim.keymap.set(
-			"n",
-			"<S-F3>",
-			":vert term zig ast-check<CR>:vert resize 120<CR>",
-			{ noremap = true, silent = false, desc = "Zig check" }
-		)
-	end,
-})
 
 -- function IncreaseGuiFont()
 --   local delta = 1

@@ -61,7 +61,6 @@ return {
         "help",
         "lazy",
         "mason",
-        "neo-tree",
         "notify",
         "snacks_dashboard",
         "snacks_notif",
