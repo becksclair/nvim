@@ -174,6 +174,8 @@ vim.filetype.add {
         [".envx"] = "sh",
         ["tsconfig.json"] = "jsonc",
         [".yamlfmt"] = "yaml",
+        ["config"] = "ini",
+        ["*.code-workspace"] = "jsonc",
     },
     extension = {
         env = "sh",
@@ -183,9 +185,11 @@ vim.filetype.add {
         templ = 'templ',
         re = 'reason',
         pcss = 'css',
+        service = 'systemd',
     },
     pattern = {
         ["Caddyfile"] = "caddy",
+        ["config.txt"] = "ini",
         ["yabairc"] = "bash",
         ["[jt]sconfig.*.json"] = "jsonc",
         ['v.mod'] = 'vlang',
@@ -194,10 +198,13 @@ vim.filetype.add {
         [".*/kitty/.+%.conf"] = "kitty",
         [".*/hypr/.+%.conf"] = "hyprlang",
         ["%.env%.[%w_.-]+"] = "sh",
+        ["*.code-workspace"] = "jsonc",
 
         -- ['*.zig.zon'] = 'zig'
     }
 }
+
+vim.treesitter.language.register("json", "jsonl")
 
 vim.diagnostic.config({
     virtual_text = true

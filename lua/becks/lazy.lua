@@ -4,7 +4,7 @@
 --`:help lazy.nvim.txt` for more info
 
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system {
     'git',
     'clone',
@@ -16,16 +16,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Get platform dependant build script
-local function tabnine_build_path()
-  if vim.loop.os_uname().sysname == "Windows_NT" then
-    return "pwsh.exe -file .\\dl_binaries.ps1"
-  else
-    return "./dl_binaries.sh"
-  end
-end
-
-
 -- NOTE: Lazy plugins
 
 require('lazy').setup({
@@ -34,13 +24,26 @@ require('lazy').setup({
     { import = "becks.plugins" },
   },
 
+  git = {
+    timeout = 600, -- seconds (10 minutes)
+    -- optional: rate-limit network ops if needed
+    throttle = {
+      enabled = true,
+      rate = 4,         -- max 2 ops
+      duration = 5 * 1000, -- per 5000 ms
+    },
+  },
+
+  concurrency = 10,
+
   -- automatically check for plugin updates
   checker = { enabled = false },
 
   defaults = { lazy = true },
 
   install = {
-    colorscheme = { "tempus_tempest" }
+    -- colorscheme = { "tempus_tempest" }
+    colorscheme = { "catppuccin" }
   },
 
   performance = {

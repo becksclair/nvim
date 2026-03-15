@@ -64,9 +64,13 @@ return {
       ensure_installed = {
         "javascript",
         "typescript",
+        "json",
+        "jsonc",
+        "json5",
         "c",
         "v",
         "lua",
+        "nu",
         "rust",
         "sql",
         "markdown",
@@ -222,7 +226,7 @@ return {
     },
 
     config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
+      require("nvim-treesitter").setup(opts)
 
       vim.filetype.add({
         extension = { rasi = "rasi", rofi = "rasi", wofi = "rasi" },

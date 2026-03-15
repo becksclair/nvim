@@ -1,38 +1,41 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-- Config root: `init.lua` boots `lua/becks/*` (settings, keymaps, lazy setup, autocmds).
-- Core modules: `lua/becks/{set,remap,misc,lazy,autocmds}.lua`.
-- Plugins: one file per plugin under `lua/becks/plugins/` (Lazy.nvim spec tables).
-- Filetype tweaks: `ftplugin/*`; Treesitter queries: `queries/`.
-- Theme helpers: `after/plugin/colors.lua`.
-- Mason helpers: `mason-packages.txt`, `install-in-mason` script.
+- Entry point: `init.lua` loads `lua/becks/init.lua`, which initializes settings, mappings, plugin setup, autocmds, and Neovide options.
+- Core config lives in `lua/becks/` (`set.lua`, `remap.lua`, `autocmds.lua`, `misc.lua`, etc.).
+- Plugin definitions are one-file-per-plugin in `lua/becks/plugins/` and are auto-imported by Lazy.nvim.
+- Filetype overrides live in `ftplugin/` (for example `ftplugin/lua.lua`, `ftplugin/go.lua`).
+- Theme/highlight overrides live in `after/plugin/colors.lua`.
+- Supplemental assets/config live in `queries/`, `data/telescope-sources/`, `nlsp-settings/`, and `mason-packages.txt`.
+
+## Repository Map
+- Start with `codemap.md` for the repo-level layout and runtime flow.
+- Follow `lua/codemap.md` and `lua/becks/codemap.md` for core startup and module boundaries.
+- Use `lua/becks/plugins/codemap.md` for the plugin inventory and cross-plugin integration points.
+- Use `after/codemap.md` and `after/plugin/codemap.md` for late theme/highlight behavior.
+- Use `ftplugin/codemap.md` and `lua/becks/nim/codemap.md` for filetype-specific overrides.
+- Use `data/codemap.md`, `data/telescope-sources/codemap.md`, and `nlsp-settings/codemap.md` for static assets and external server config.
 
 ## Build, Test, and Development Commands
-- First run/bootstrap: `nvim` then `:Lazy sync` (installs plugins).
-- Mason UI/tools: `:Mason` (install LSP/formatters/linters listed in `mason-packages.txt`).
-- Headless checks: `nvim --headless "+Lazy! sync" +qa` and `nvim --headless "+checkhealth" +qa`.
-- Update plugins: `:Lazy update`; review lockfile changes in `lazy-lock.json`.
+- `nvim` - starts Neovim and bootstraps/syncs plugins through Lazy.nvim if needed.
+- `nvim --headless "+Lazy! sync" +qa` - syncs plugins and updates lock state.
+- `nvim --headless "+MasonRestore" +qa` - restores Mason tools listed in `mason-packages.txt`.
+- `nvim --headless "+checkhealth" +qa` - runs Neovim health checks for providers/tools.
+- `./install-in-mason <tool-name>` - links externally installed tools into Mason paths (mainly containerized setups).
 
 ## Coding Style & Naming Conventions
-- Language: Lua 5.1 (Neovim runtime). Prefer clear, local-scoped functions.
-- Indentation: Lua files use 2 spaces (format with stylua via Conform).
-- File-per-plugin: `lua/becks/plugins/<name>.lua` exporting a Lazy spec `return { ... }`.
-- Names: kebab or plugin-name in filename; use `opts`, `config(_, opts)` patterns.
-- Formatting: `:ConformInfo` to inspect; `<F3>` to format current buffer.
+- Use Lua with file-local, readable configuration; avoid large monolithic plugin files.
+- Preserve existing indentation and spacing in touched files (most Lua config uses 2-space indentation).
+- Keep plugin files descriptive and focused (for example `lua/becks/plugins/telescope.lua`).
+- Follow existing Lazy.nvim spec patterns: `return { ... }` tables with explicit `dependencies`, `event/cmd/keys`, and `opts/config`.
 
 ## Testing Guidelines
-- Smoke tests: open various filetypes; verify LSP attach with `:LspInfo`.
-- Lint on write: `nvim-lint` is wired; run `:lua require('lint').try_lint()` or `<leader>bl`.
-- CI not provided; keep changes minimal and test with `--headless` commands above.
+- There is no formal unit test suite in this repo; validation is runtime-focused.
+- For config changes, verify startup and module load: `nvim --headless "+lua require('becks')" +qa`.
+- For plugin/keymap changes, open Neovim and test the affected workflow manually (for example Telescope, LSP attach, format/lint actions).
 
 ## Commit & Pull Request Guidelines
-- Commit style: Conventional Commits with optional scope/emojis
-  - Examples: `feat(lsp): add tsserver`, `fix: guard nil client`, `chore: update packages`.
-- PRs should include: purpose, notable UX changes (keymaps/commands), screenshots if UI, and any new external tool requirements.
-- Link related issues (if any) and call out breaking changes.
-
-## Security & Configuration Tips
-- Do not commit secrets. External tools are resolved via Mason or system PATH.
-- Keep `lazy-lock.json` in sync; update deliberately to avoid breakage.
-- To share tool sets, export/import Mason packages: `:MasonExport` / `:MasonRestore`.
+- Follow the observed Conventional Commit style from history: `feat: ...`, `fix: ...`, `chore: ...`, `docs: ...`, with optional scopes (for example `feat(neotree): ...`).
+- Keep commits narrowly scoped (one plugin or one behavior change per commit).
+- PRs should include: intent, notable config/runtime impact, verification steps run, and screenshots/GIFs for UI/theme changes.
+- If behavior or commands change, update `README.md` in the same PR.

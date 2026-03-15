@@ -3,7 +3,14 @@ return {
   event = 'VeryLazy',
   lazy = true,
   opts = {
-    formtters = {
+    formatters = {
+      oxfmt = {
+        command = function(self, ctx)
+          return require("conform.util").from_node_modules("oxfmt")(self, ctx)
+        end,
+        args = { "--stdin-filepath", "$FILENAME" },
+        stdin = true,
+      },
       ["markdown-toc"] = {
         condition = function(_, ctx)
           for _, line in ipairs(vim.api.nvim_buf_get_lines(ctx.buf, 0, -1, false)) do
@@ -25,18 +32,26 @@ return {
     formatters_by_ft = {
       lua = { "stylua" },
       -- Conform will run multiple formatters sequentially
+      nu = { "nufmt" },
       python = { "isort", "black" },
       -- You can customize some of the format options for the filetype (:help conform.format)
       rust = { "rustfmt", lsp_format = "fallback" },
       -- Conform will run the first available formatter
-      javascript = { "biome", "prettierd", "prettier", stop_after_first = true },
-      typescript = { "biome", "prettierd", "prettier", stop_after_first = true },
-      json = { "biome", "prettierd", "prettier", stop_after_first = true },
-      svelte = { "prettierd", lsp_format = "fallback" },
-      css = { "prettierd", lsp_format = "fallback" },
+      javascript = { "oxfmt" },
+      typescript = { "oxfmt" },
+      json = { "oxfmt" },
+      jsonc = { "oxfmt" },
+      json5 = { "oxfmt" },
+      css = { "oxfmt" },
+      scss = { "oxfmt" },
+      less = { "oxfmt" },
+      html = { "oxfmt" },
+      vue = { "oxfmt" },
+      yaml = { "oxfmt" },
+      toml = { "oxfmt" },
 
-      ["markdown"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
-      ["markdown.mdx"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
+      ["markdown"] = { "oxfmt", "markdownlint-cli2", "markdown-toc" },
+      ["markdown.mdx"] = { "oxfmt", "markdownlint-cli2", "markdown-toc" },
     },
   },
 

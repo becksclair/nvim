@@ -5,7 +5,7 @@ return {
   priority = 1000,
   opts = {
     options = {
-      -- transparent = true
+      transparent = true
     }
   }
 }

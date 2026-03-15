@@ -131,13 +131,13 @@ return {
             --   height = 7,
             --   width = 100,
             -- },
-            {
-              icon = " ",
-              title = "Git Status",
-              cmd = "hub --no-pager diff --stat -B -M -C",
-              height = 10,
-              width = 100,
-            },
+            -- {
+            --   icon = " ",
+            --   title = "Git Status",
+            --   cmd = "hub --no-pager diff --stat -B -M -C",
+            --   height = 10,
+            --   width = 100,
+            -- },
           }
           return vim.tbl_map(function(cmd)
             return vim.tbl_extend("force", {

@@ -116,7 +116,8 @@ end
 
 function B.match_filename_pattern(filename)
 	local patterns = {
-		"biome.json?",
+		"%.oxlintrc.json",
+		"%.oxfmtrc.json",
 		".eslint?"
 	}
 	for _, pattern in ipairs(patterns) do

@@ -5,16 +5,31 @@ return {
   dependencies = {
     {
       "saghen/blink.compat",
-      -- optional = true,
-      opts = {
-        -- impersonate_nvim_cmp = false
+      dependencies = {
+        'Kaiser-Yang/blink-cmp-avante',
+        -- ... Other dependencies
       },
+      opts = {
+        sources = {
+          -- Add 'avante' to the list
+          default = { 'avante', 'lsp', 'path', 'luasnip', 'buffer' },
+          providers = {
+            avante = {
+              module = 'blink-cmp-avante',
+              name = 'Avante',
+              opts = {
+                -- options for blink-cmp-avante
+              }
+            }
+          },
+        }
+      }
     },
 
-    {'MeanderingProgrammer/render-markdown.nvim'},
+    { 'MeanderingProgrammer/render-markdown.nvim' },
 
     { 'rafamadriz/friendly-snippets' },
-    { 'L3MON4D3/LuaSnip',            version = 'v2.*' },
+    { 'L3MON4D3/LuaSnip',                         version = 'v2.*' },
 
     {
       "folke/lazydev.nvim",
@@ -194,4 +209,3 @@ return {
     require("blink.cmp").setup(opts)
   end
 }
-

@@ -1,21 +1,19 @@
 return {
   "yetone/avante.nvim",
+  enabled = false,
   event = "VeryLazy",
   lazy = true,
   cond = not require('becks.misc').RunningOnVConsole(),
-  build = vim.fn.has("win32") ~= 0
-      and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-      or "BUILD_FROM_SOURCE=true make",
   version = false, -- set this if you want to always pull the latest change
 
-  -- If you want to build from source then do `make BUILD_FROM_SOURCE=true`
-  -- build = function()
-  --   if vim.fn.has("win32") == 1 then
-  --     return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-  --   else
-  --     return "make BUILD_FROM_SOURCE=true"
-  --   end
-  -- end,
+  -- If you want to build from source then do `BUILD_FROM_SOURCE=true make`
+  build = function()
+    if vim.fn.has("win32") == 1 then
+      return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+    else
+      return "BUILD_FROM_SOURCE=true make"
+    end
+  end,
 
   dependencies = {
     "stevearc/dressing.nvim",
@@ -24,7 +22,11 @@ return {
     --- The below dependencies are optional,
     -- "hrsh7th/nvim-cmp",            -- autocompletion for avante commands and mentions
     'saghen/blink.cmp',
-    -- "echasnovski/mini.icons", -- or echasnovski/mini.icons
+    "echasnovski/mini.icons", -- or echasnovski/mini.icons
+    "echasnovski/mini.pick",  -- for file_selector provider mini.pick
+    -- "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+    -- "ibhagwan/fzf-lua", -- for file_selector provider fzf
+    "folke/snacks.nvim",      -- for input provider snacks
     -- "zbirenbaum/copilot.lua", -- for providers='copilot'
     {
       -- support for image pasting
@@ -83,40 +85,118 @@ return {
     },
   },
 
+  ---@module 'avante'
+  ---@type avante.Config
   opts = {
     ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
-    provider = "claude", -- The provider used in Aider mode or in the planning phase of Cursor Planning Mode
+    ---@type Provider
+    provider = "openai", -- The provider used in Aider mode or in the planning phase of Cursor Planning Mode
     ---@alias Mode "agentic" | "legacy"
+    ---@type Mode
     mode = "agentic", -- The default mode for interaction. "agentic" uses tools to automatically generate code, "legacy" uses the old planning method to generate code.
 
-    auto_suggestions_provider = "claude", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
+    instructions_file = "~/personal/AGENTS.md",
+
+    -- auto_suggestions_provider = "copilot", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
 
     providers = {
       claude = {
         endpoint = "https://api.anthropic.com",
-      model = "claude-3-5-sonnet-20241022",
-        timeout = 30000, -- Timeout in milliseconds
-          extra_request_body = {
-      temperature = 0,
-      max_tokens = 4096,
-      -- max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
-      -- reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
-          },
+        -- model = "claude-opus-4-1-20250805",
+        -- model = "claude-opus-4-20250514",
+        model = "claude-sonnet-4-20250514",
+        timeout = 60000, -- Timeout in milliseconds
+        extra_request_body = {
+          temperature = 0.75,
+          max_tokens = 20480,
+          -- max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
+          -- reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+        },
       },
 
       openai = {
         endpoint = "https://api.openai.com/v1",
-      model = "gpt-4o-2024-11-20",
-        timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
+        model = "gpt-5-mini",
+        timeout = 60000, -- Timeout in milliseconds, increase this for reasoning models
         extra_request_body = {
-      -- temperature = 0,
-      max_tokens = 4096,
-      -- max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
+          temperature = 1,
+          -- max_tokens = 20480,
+          max_completion_tokens = 4096, -- Increase this to include reasoning tokens (for reasoning models)
+        },
+      },
+
+      moonshot = {
+        endpoint = "https://api.moonshot.ai/v1",
+        model = "kimi-k2-0711-preview",
+        timeout = 30000, -- Timeout in milliseconds
+        extra_request_body = {
+          temperature = 0.75,
+          max_tokens = 32768,
         },
       },
     },
 
+    acp_providers = {
+      ["gemini-cli"] = {
+        command = "gemini",
+        args = { "--experimental-acp" },
+        env = {
+          NODE_NO_WARNINGS = "1",
+          GEMINI_API_KEY = os.getenv("GEMINI_API_KEY"),
+        },
+      },
+      ["claude-code"] = {
+        command = "npx",
+        args = { "@zed-industries/claude-code-acp" },
+        env = {
+          NODE_NO_WARNINGS = "1",
+          -- ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY"),
+        },
+      },
+    },
 
+    web_search_engine = {
+      provider = "tavily", -- tavily, serpapi, google, kagi, brave, or searxng
+      proxy = nil,         -- proxy support, e.g., http://127.0.0.1:7890
+    },
+
+    override_prompt_dir = vim.fn.expand("~/.claude/commands"),
+
+    custom_tools = {
+      {
+        name = "run_go_tests",                                -- Unique name for the tool
+        description = "Run Go unit tests and return results", -- Description shown to AI
+        command = "go test -v ./...",                         -- Shell command to execute
+        param = {                                             -- Input parameters (optional)
+          type = "table",
+          fields = {
+            {
+              name = "target",
+              description = "Package or directory to test (e.g. './pkg/...' or './internal/pkg')",
+              type = "string",
+              optional = true,
+            },
+          },
+        },
+        returns = { -- Expected return values
+          {
+            name = "result",
+            description = "Result of the fetch",
+            type = "string",
+          },
+          {
+            name = "error",
+            description = "Error message if the fetch was not successful",
+            type = "string",
+            optional = true,
+          },
+        },
+        func = function(params, on_log, on_complete) -- Custom function to execute
+          local target = params.target or "./..."
+          return vim.fn.system(string.format("go test -v %s", target))
+        end,
+      },
+    },
 
     ---Specify the special dual_boost mode
     ---1. enabled: Whether to enable dual_boost mode. Default to false.
@@ -131,8 +211,8 @@ return {
     ---Note: This is an experimental feature and may not work as expected.
     dual_boost = {
       enabled = false,
-      first_provider = "openai",
-      second_provider = "claude",
+      first_provider = "claude",
+      second_provider = "openai",
       prompt =
       "Based on the two reference outputs below, generate a response that incorporates elements from both but reflects your own judgment and unique perspective. Do not provide any explanation, just give the response directly. Reference Output 1: [{{provider1_output}}], Reference Output 2: [{{provider2_output}}]",
       timeout = 60000, -- Timeout in milliseconds
@@ -143,8 +223,27 @@ return {
       auto_set_highlight_group = true,
       auto_set_keymaps = true,
       auto_apply_diff_after_generation = false,
-      support_paste_from_clipboard = true,
-      minimize_diff = true, -- Whether to remove unchanged lines when applying a code block
+      support_paste_from_clipboard = false,
+      minimize_diff = true,                 -- Whether to remove unchanged lines when applying a code block
+      enable_token_counting = true,         -- Whether to enable token counting. Default to true.
+      auto_approve_tool_permissions = true, -- Default: show permission prompts for all tools
+      -- Examples:
+      -- auto_approve_tool_permissions = true,                -- Auto-approve all tools (no prompts)
+      -- auto_approve_tool_permissions = {"bash", "replace_in_file"}, -- Auto-approve specific tools only
+    },
+
+    prompt_logger = {                                         -- logs prompts to disk (timestamped, for replay/debugging)
+      enabled = true,                                         -- toggle logging entirely
+      log_dir = vim.fn.stdpath("cache") .. "/avante_prompts", -- directory where logs are saved
+      fortune_cookie_on_success = false,                      -- shows a random fortune after each logged prompt (requires `fortune` installed)
+      next_prompt = {
+        normal = "<C-n>",                                     -- load the next (newer) prompt log in normal mode
+        insert = "<C-n>",
+      },
+      prev_prompt = {
+        normal = "<C-p>", -- load the previous (older) prompt log in normal mode
+        insert = "<C-p>",
+      },
     },
 
     mappings = {
@@ -172,15 +271,28 @@ return {
         normal = "<CR>",
         insert = "<C-s>",
       },
+      cancel = {
+        normal = { "<C-c>", "<Esc>", "q" },
+        insert = { "<C-c>" },
+      },
       sidebar = {
         apply_all = "A",
         apply_cursor = "a",
+        retry_user_request = "r",
+        edit_user_request = "e",
         switch_windows = "<Tab>",
         reverse_switch_windows = "<S-Tab>",
+        remove_file = "d",
+        add_file = "@",
+        close = { "<Esc>", "q" },
+        close_from_input = nil, -- e.g., { normal = "<Esc>", insert = "<C-d>" }
       },
     },
 
-    hints = { enabled = true },
+    selection = {
+      enabled = true,
+      hint_display = "delayed",
+    },
 
     windows = {
       ---@type "right" | "left" | "top" | "bottom"
@@ -210,12 +322,12 @@ return {
     },
 
     highlights = {
+      ---@type AvanteConflictHighlights
       diff = {
         current = "DiffText",
         incoming = "DiffAdd",
       },
     },
-
     --- @class AvanteConflictUserConfig
     diff = {
       autojump = true,
@@ -225,6 +337,10 @@ return {
       --- Helps to avoid entering operator-pending mode with diff mappings starting with `c`.
       --- Disable by setting to -1.
       override_timeoutlen = 500,
+    },
+    suggestion = {
+      debounce = 600,
+      throttle = 600,
     },
   },
 }

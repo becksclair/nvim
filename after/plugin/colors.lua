@@ -1,6 +1,6 @@
 function ColorMyPencils(color)
   vim.o.background = "dark"
-  color = color or "melange"
+  color = color or "catppuccin"
   vim.cmd.colorscheme(color)
 
   SetMyColorHls()
@@ -174,6 +174,22 @@ function SetTokyoNight()
 end
 vim.api.nvim_create_user_command('SetTokyoNight', SetTokyoNight, {nargs = 0})
 
+
+function SetTokyoNightStorm()
+  vim.o.background = "dark"
+  require("tokyonight").setup({ style = "storm" })
+  vim.cmd.colorscheme("tokyonight-night")
+  -- SetMyColorHls()
+end
+vim.api.nvim_create_user_command('SetTokyoNightStorm', SetTokyoNightStorm, {nargs = 0})
+
+function SetCatppuccinMocha()
+  vim.o.background = "dark"
+  vim.cmd.colorscheme("catppuccin")
+  SetMyColorHls()
+end
+vim.api.nvim_create_user_command('SetCatppuccinMocha', SetCatppuccinMocha, {nargs = 0})
+
 function SetNightFox()
   vim.o.background = "dark"
   vim.cmd.colorscheme("nightfox")
@@ -320,19 +336,87 @@ vim.api.nvim_create_user_command('SetFleetTheme', SetFleetTheme, {nargs = 0})
 --   end
 -- end
 
+
+function SetCarbonTheme()
+  vim.cmd.colorscheme("carbonfox")
+
+  vim.api.nvim_set_hl(0, 'TermCursor', { fg = "#062329", bg = "#8cde94" })
+  vim.api.nvim_set_hl(0, 'Cursor', { fg = "#062329", bg = "#8cde94" })
+  vim.api.nvim_set_hl(0, 'lCursor', { fg = "#062329", bg = "#8cde94" })
+
+  -- vim.api.nvim_set_hl(0, 'Visual', { fg = "#ffffff", bg = "#0000ff" })
+  vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#613315", bg = "#E66159" })
+
+  vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+end
+vim.api.nvim_create_user_command('SetCarbonTheme', SetCarbonTheme, {nargs = 0})
+
+
+function SetOxoCarbonTheme()
+  vim.cmd.colorscheme("oxocarbon")
+
+  vim.api.nvim_set_hl(0, 'TermCursor', { fg = "#062329", bg = "#8cde94" })
+  vim.api.nvim_set_hl(0, 'Cursor', { fg = "#062329", bg = "#8cde94" })
+  vim.api.nvim_set_hl(0, 'lCursor', { fg = "#062329", bg = "#8cde94" })
+
+  -- vim.api.nvim_set_hl(0, 'Visual', { fg = "#ffffff", bg = "#0000ff" })
+  vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#613315", bg = "#E66159" })
+
+  vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+end
+vim.api.nvim_create_user_command('SetOxoCarbonTheme', SetOxoCarbonTheme, {nargs = 0})
+
+function SetNightflyTheme()
+  vim.cmd.colorscheme("iceberg")
+
+
+
+  -- vim.api.nvim_set_hl(0, 'TermCursor', { fg = "#062329", bg = "#8cde94" })
+  -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#062329", bg = "#8cde94" })
+  -- vim.api.nvim_set_hl(0, 'lCursor', { fg = "#062329", bg = "#8cde94" })
+  --
+  -- -- vim.api.nvim_set_hl(0, 'Visual', { fg = "#ffffff", bg = "#0000ff" })
+  -- vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#613315", bg = "#E66159" })
+  --
+  -- vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+end
+vim.api.nvim_create_user_command('SetNightflyTheme', SetNightflyTheme, {nargs = 0})
+
+function SetLavenderTheme()
+  vim.cmd.colorscheme("lavender")
+
+  -- vim.api.nvim_set_hl(0, 'TermCursor', { fg = "#062329", bg = "#8cde94" })
+  -- vim.api.nvim_set_hl(0, 'Cursor', { fg = "#062329", bg = "#8cde94" })
+  -- vim.api.nvim_set_hl(0, 'lCursor', { fg = "#062329", bg = "#8cde94" })
+  --
+  -- -- vim.api.nvim_set_hl(0, 'Visual', { fg = "#ffffff", bg = "#0000ff" })
+  -- vim.api.nvim_set_hl(0, 'IncSearch', { fg = "#613315", bg = "#E66159" })
+  --
+  -- vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+end
+vim.api.nvim_create_user_command('SetLavenderTheme', SetLavenderTheme, {nargs = 0})
+
 ColorMyPencils()
 -- SetTokyoNight()
 -- SetNightFox()
 -- SetDayFox()
 
 function SetTheme()
-  local env_var = vim.env.TERM_DARK_MODE
-  if env_var == "1" or env_var == "True" then
-    SetMelangeDark()
-    -- SetTokyoNight()
-  else
-    SetMelange()
-  end
+  -- local env_var = vim.env.TERM_DARK_MODE
+  -- if env_var == "1" or env_var == "True" then
+  --   SetTokyoNightStorm()
+  --   -- SetMelangeDark()
+  --   -- SetLavenderTheme()
+  --   -- SetMelangeDark()
+  --   -- SetNightFox()
+  -- else
+  --   -- SetTempleTheme()
+  --   SetMelange()
+  -- end
+
+  -- SetMelangeDark()
+  -- SetMelange()
+  SetCatppuccinMocha()
 end
 vim.api.nvim_create_user_command('SetTheme', SetTheme, {nargs = 0})
 
@@ -360,4 +444,3 @@ end
 -- SetIntelliJTheme()
 -- SetVsAssistTheme()
 -- SetFleetTheme()
-

@@ -74,6 +74,61 @@ return {
         require('blink.cmp').get_lsp_capabilities()
       )
 
+      local lspconfig = require("lspconfig")
+      local util = require("lspconfig.util")
+      local configs = require("lspconfig.configs")
+
+      if not configs.oxfmt then
+        configs.oxfmt = {
+          default_config = {
+            cmd = { "oxfmt", "--lsp" },
+            filetypes = {
+              "javascript",
+              "javascriptreact",
+              "typescript",
+              "typescriptreact",
+              "json",
+              "jsonc",
+              "json5",
+              "yaml",
+              "toml",
+              "html",
+              "css",
+              "scss",
+              "less",
+              "markdown",
+              "markdown.mdx",
+              "vue",
+            },
+            root_dir = util.root_pattern(".oxfmtrc.json"),
+            single_file_support = false,
+          },
+        }
+      end
+
+      if not configs.nushell then
+        configs.nushell = {
+          default_config = {
+            cmd = { "nu", "--lsp" },
+            filetypes = { "nu" },
+            root_dir = function(fname)
+              return vim.fs.dirname(vim.fs.find('.git', { path = fname, upward = true })[1] or fname)
+            end,
+            single_file_support = true,
+          },
+        }
+      end
+
+      lspconfig.oxfmt.setup({
+        capabilities = lsp_defaults.capabilities,
+        on_new_config = function(new_config, root_dir)
+          local local_cmd = util.path.join(root_dir, "node_modules", ".bin", "oxfmt")
+          if vim.fn.executable(local_cmd) == 1 then
+            new_config.cmd = { local_cmd, "--lsp" }
+          end
+        end,
+      })
+
       -- LspAttach is where you enable features that only work
       -- if there is a language server active in the file
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -89,7 +144,9 @@ return {
           vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', buf_opts)
           vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', buf_opts)
           vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', buf_opts)
-          vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', buf_opts)
+          vim.keymap.set({ 'n', 'x' }, '<F3>', function()
+            require("conform").format({ async = true })
+          end, buf_opts)
           vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', buf_opts)
         end,
       })
@@ -142,14 +199,28 @@ return {
           end,
 
           ["jsonls"] = function()
-            local lspconfig = require("lspconfig")
             lspconfig.jsonls.setup {
+              filetypes = { "json", "jsonc", "json5" },
               json = {
                 schemas = require('schemastore').json.schemas(),
                 validate = {
                   enable = true
                 }
               }
+            }
+          end,
+
+          ["oxlint"] = function()
+            lspconfig.oxlint.setup {
+              capabilities = lsp_defaults.capabilities,
+              root_dir = util.root_pattern(".oxlintrc.json"),
+              single_file_support = false,
+              on_new_config = function(new_config, root_dir)
+                local local_cmd = util.path.join(root_dir, "node_modules", ".bin", "oxc_language_server")
+                if vim.fn.executable(local_cmd) == 1 then
+                  new_config.cmd = { local_cmd }
+                end
+              end,
             }
           end,
 
@@ -215,6 +286,14 @@ return {
           end,
         }
       })
+
+      if vim.fn.executable("nu") == 1 then
+        lspconfig.nushell.setup {
+          capabilities = lsp_defaults.capabilities,
+          cmd = { "nu", "--lsp" },
+          filetypes = { "nu" },
+        }
+      end
 
       -- require'lspconfig'.v_analyzer.setup{}
     end,

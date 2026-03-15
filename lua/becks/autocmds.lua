@@ -110,3 +110,14 @@ au({ "BufNewFile", "BufRead" }, {
 --         vim.fn["kitty#cursor#update"]()
 --     end,
 -- })
+
+
+-- call this once on startup
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "nim",
+  callback = function()
+    -- require("becks.nim.indent").setup()
+    require("becks.nim.syntax").setup()
+  end,
+})
+

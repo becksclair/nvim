@@ -1,5 +1,5 @@
 return {
   'cocopon/iceberg.vim',
   lazy = true,
-  enabled = false,
+  enabled = true,
 }

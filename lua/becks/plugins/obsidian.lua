@@ -1,5 +1,6 @@
 return {
   "epwalsh/obsidian.nvim",
+  enabled = false,
   event = {
     -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
     -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
@@ -22,7 +23,7 @@ return {
 
     -- conceallevel = 2,
 
-    dir = "~/OneDrive/HeliasMind/", -- no need to call 'vim.fn.expand' here
+    dir = "~/Nextcloud/HeliasMind/", -- no need to call 'vim.fn.expand' here
 
     -- Optional, if you keep notes in a specific subdirectory of your vault.
     -- notes_subdir = "Inbox",
