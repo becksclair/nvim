@@ -13,6 +13,23 @@ return {
           '-'
         }
       },
+      vale = {
+        args = {
+          '--config',
+          vim.fn.expand('~/.config/vale/.vale.ini'),
+          '--output',
+          'JSON',
+          '--ext',
+          '.md',
+        },
+      },
+      markdownlint = {
+        args = {
+          '--config',
+          vim.fn.expand('~/.markdownlint.json'),
+          '--stdin',
+        },
+      },
       nu_check = {
         cmd = 'nu',
         stdin = false,
@@ -93,7 +110,7 @@ return {
     },
 
     linters_by_ft = {
-      markdown = { "markdownlint-cli", "vale" },
+      markdown = { "markdownlint", "vale" },
 
       -- python = { 'flake8', 'pylint', },
       python = { 'ruff' },
