@@ -1,3 +1,10 @@
+# Modern JS/TS Tooling (externally installed via bun/npm):
+# - tsgo: npm i -g @typescript/native-preview (TypeScript-Go LSP, fast native impl)
+# - oxfmt: bun add -g oxfmt (Prettier-compatible formatter, 30x faster)
+#
+# Both use global configs in ~/.agents/ when no local config exists.
+# Oxlint uses wrapper at ~/.agents/oxlint-lsp for config fallback.
+
 ansible-language-server
 ansible-lint
 arduino-language-server
