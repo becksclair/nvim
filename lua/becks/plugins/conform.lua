@@ -6,7 +6,14 @@ return {
     formatters = {
       oxfmt = {
         command = function(self, ctx)
-          return require("conform.util").from_node_modules("oxfmt")(self, ctx)
+          -- Try local project first, then fall back to global
+          local from_node_modules = require("conform.util").from_node_modules("oxfmt")
+          local local_oxfmt = from_node_modules(self, ctx)
+          if local_oxfmt and vim.fn.executable(local_oxfmt) == 1 then
+            return local_oxfmt
+          end
+          -- Fall back to global oxfmt (installed via bun add -g oxfmt)
+          return "oxfmt"
         end,
         args = { "--stdin-filepath", "$FILENAME" },
         stdin = true,
