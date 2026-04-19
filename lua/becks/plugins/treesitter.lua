@@ -37,8 +37,9 @@ return {
   -- },
   {
     'nvim-treesitter/nvim-treesitter',
-    -- dependencies = {
-    -- },
+    dependencies = {
+      'JoosepAlviste/nvim-ts-context-commentstring',
+    },
     cmd = {
       "TSInstall",
       "TSUninstall",
@@ -82,10 +83,10 @@ return {
 
       ignore_install = {},
 
-      modules = {
-        -- enable/disable treesitter modules here
+      context_commentstring = {
+        enable = true,
+        enable_autocmd = false,  -- We use Comment.nvim pre_hook instead
       },
-
 
       highlight = {
         -- `false` will disable the whole extension
