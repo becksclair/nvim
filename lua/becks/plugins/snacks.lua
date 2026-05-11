@@ -4,6 +4,7 @@ return {
   enabled = true,
   cond = not require('becks.misc').RunningOnVConsole(),
   lazy = false,
+  ---@type snacks.Config
 
   ---@class snacks.Config
   opts = {
@@ -96,7 +97,11 @@ return {
           end,
         },
         function()
-          local in_git = Snacks.git.get_root() ~= nil
+          -- Defer git checks to prevent startup blocking
+          local in_git = false
+          vim.defer_fn(function()
+            in_git = Snacks.git.get_root() ~= nil
+          end, 100)
           local cmds = {
             -- {
             --   title = "Notifications",

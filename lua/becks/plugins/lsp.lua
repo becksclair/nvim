@@ -5,7 +5,8 @@ table.insert(runtime_path, 'lua/?/init.lua')
 return {
   {
     'williamboman/mason.nvim',
-    lazy = false,
+    cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonLog" },
+    event = "VeryLazy",
     config = function()
       require("mason").setup({
         PATH = "prepend", -- Ensures Mason uses the system PATH
@@ -38,7 +39,7 @@ return {
     -- This can vary by config, but in general for nvim-lspconfig:
 
     'neovim/nvim-lspconfig',
-    lazy = false,
+    event = { "BufReadPre", "BufNewFile" },
 
     dependencies = {
       'saghen/blink.cmp',
@@ -169,7 +170,7 @@ return {
 
       -- LSP Server configurations
       require('mason-lspconfig').setup({
-        automatic_installation = true,
+        automatic_installation = false,
 
         ensure_installed = {
           "lua_ls",

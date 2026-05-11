@@ -13,7 +13,12 @@ return {
       event = "VeryLazy"
     },
   },
-  event = "VimEnter",
+  cmd = "Telescope",
+  keys = {
+    { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
+    { "<C-p>", "<cmd>Telescope git_files<cr>", desc = "Find Git Files" },
+    { "<leader>ss", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
+  },
 
   opts = {
     extensions = {
